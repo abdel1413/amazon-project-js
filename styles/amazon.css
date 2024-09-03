@@ -1,0 +1,67 @@
+.products-grid {
+  display: grid;
+  grid-template-columns: 300px 300px 300px;
+  gap: 10px;
+}
+
+.products-container {
+  box-sizing: border-box;
+  border: 1px solid white;
+  box-shadow: 10px 10px 2px 1px whitesmoke;
+}
+
+.product-img {
+  width: 270px;
+  height: 200px;
+}
+
+.products-container > .add-btn {
+  display: flex;
+  justify-content: center;
+  justify-self: center;
+  align-items: center;
+  background-color: yellow;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 20px;
+  margin: 5px;
+  margin: auto;
+}
+
+.rating-div {
+  display: flex;
+  margin-bottom: 0;
+  padding: 0px;
+  border: 1px solid red;
+}
+.rating {
+  margin-bottom: 0;
+}
+
+.review-el {
+  padding-top: 10px;
+  margin-left: 10px;
+  font-size: 25px;
+  color: rgb(61, 149, 190);
+}
+.selector {
+  font-size: 20px;
+  border: none;
+  border-radius: 10px;
+  margin-left: 5px;
+  padding: 5px 10px;
+
+  background: lightgray;
+}
+
+.description-el,
+.price-el {
+  font-size: 22px;
+  border: 1px solid rebeccapurple;
+  margin-bottom: 0.5em;
+}
+.price-el {
+  font-weight: bold;
+}
