@@ -8,14 +8,26 @@
   box-sizing: border-box;
   border: 1px solid white;
   box-shadow: 10px 10px 2px 1px whitesmoke;
+  position: relative;
+  bottom: 0;
+  height: 600px;
+  padding: 10px;
+  background-color: whites;
 }
 
 .product-img {
   width: 270px;
-  height: 200px;
+
+  /* height: 200px; */
 }
 
-.products-container > .add-btn {
+.product-description {
+  /* border: 3px solid green; */
+  position: absolute;
+  bottom: 0px;
+  width: 90%;
+}
+.add-btn {
   display: flex;
   justify-content: center;
   justify-self: center;
@@ -26,23 +38,25 @@
   font-weight: bold;
   border: none;
   border-radius: 20px;
-  margin: 5px;
+
   margin: auto;
+  margin-bottom: 10px;
 }
 
 .rating-div {
   display: flex;
   margin-bottom: 0;
   padding: 0px;
-  border: 1px solid red;
+  /* border: 1px solid red; */
+  height: 30px;
 }
 .rating {
   margin-bottom: 0;
 }
 
 .review-el {
-  padding-top: 10px;
   margin-left: 10px;
+
   font-size: 25px;
   color: rgb(61, 149, 190);
 }
@@ -51,17 +65,22 @@
   border: none;
   border-radius: 10px;
   margin-left: 5px;
+  margin-bottom: 40px;
   padding: 5px 10px;
+  margin-top: 5px;
 
-  background: lightgray;
+  background: whitesmoke;
 }
 
 .description-el,
 .price-el {
   font-size: 22px;
-  border: 1px solid rebeccapurple;
+
   margin-bottom: 0.5em;
+  margin: 0;
 }
 .price-el {
+  margin-top: 5px;
+  margin-bottom: 5px;
   font-weight: bold;
 }
