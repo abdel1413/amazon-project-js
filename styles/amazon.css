@@ -1,31 +1,78 @@
 .products-grid {
   display: grid;
-  grid-template-columns: 300px 300px 300px;
+  grid-template-columns: repeat(5, 1fr);
   gap: 10px;
 }
 
+@media (max-width: 1300px) {
+  .products-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media (max-width: 1000px) {
+  .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 800px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 575px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+
+  p {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+}
+
 .products-container {
+  display: flex;
+  flex-direction: column;
+  padding-top: 40px;
+  padding-right: 25px;
+  padding-left: 25px;
+  padding-bottom: 25px;
+  height: 550px;
+  /* position: relative;
+  bottom: 0; */
+
   box-sizing: border-box;
   border: 1px solid white;
   box-shadow: 10px 10px 2px 1px whitesmoke;
-  position: relative;
-  bottom: 0;
-  height: 600px;
-  padding: 10px;
+
+  /* border-right: 1px solid rgb(231, 231, 231);
+  border-bottom: 1px solid rgb(231, 231, 231); */
+
   background-color: whites;
 }
 
-.product-img {
-  width: 270px;
-
-  /* height: 200px; */
+.products-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid red; */
+  margin-bottom: 20px;
 }
 
+.product-img {
+  height: 190px;
+  width: 180px;
+}
 .product-description {
   /* border: 3px solid green; */
-  position: absolute;
-  bottom: 0px;
-  width: 90%;
+  /* position: absolute;
+  bottom: 0px; */
+  /* width: 90%; */
+  /* height: 40px;
+  margin-bottom: 25px; */
+  height: 60%;
 }
 .add-btn {
   display: flex;
@@ -38,7 +85,6 @@
   font-weight: bold;
   border: none;
   border-radius: 20px;
-
   margin: auto;
   margin-bottom: 10px;
 }
@@ -75,12 +121,18 @@
 .description-el,
 .price-el {
   font-size: 22px;
-
-  margin-bottom: 0.5em;
+  margin-bottom: 2em;
   margin: 0;
 }
+
+p {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
 .price-el {
-  margin-top: 5px;
+  margin-top: 15px;
   margin-bottom: 5px;
   font-weight: bold;
 }

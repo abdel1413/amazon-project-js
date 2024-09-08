@@ -6,7 +6,7 @@ let data = [
       stars: 4.5,
       count: 87,
     },
-    priceCents: 1090,
+    priceInCents: 1090,
   },
   {
     image: "/images/products/intermediate-composite-basketball.jpg",
@@ -15,7 +15,7 @@ let data = [
       stars: 4.5,
       count: 127,
     },
-    priceCents: 2099,
+    priceInCents: 2099,
   },
   {
     image: "/images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg",
@@ -24,7 +24,7 @@ let data = [
       stars: 4.5,
       count: 56,
     },
-    priceCents: 799,
+    priceInCents: 799,
   },
 ];
 
@@ -506,7 +506,9 @@ const htmlGenerator = (product) => {
   product.forEach((element, index) => {
     console.log(element.rating.stars);
     html += ` <div class="products-container">
+           <div class="products-img">
             <img src= ${element.image} alt="" class="product-img">
+            </div>
             <div class="product-description">
                 <p class="description-el">${element.name} </p>
                 <div class="rating-div">
