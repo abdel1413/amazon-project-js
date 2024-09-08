@@ -82,9 +82,9 @@
   background-color: yellow;
   padding: 10px;
   font-size: 20px;
-  font-weight: bold;
+  width: 150px;
   border: none;
-  border-radius: 20px;
+  border-radius: 25px;
   margin: auto;
   margin-bottom: 10px;
 }
