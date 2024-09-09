@@ -1,4 +1,4 @@
-let data = [
+/*let data = [
   {
     image: "./images/products/black-2-slot-toaster.jpg",
     name: "black and White",
@@ -28,16 +28,17 @@ let data = [
   },
 ];
 
+*/
+
 let html = ``;
 const htmlGenerator = (product) => {
   product.forEach((element, index) => {
-    console.log(element.rating.stars);
     html += ` <div class="products-container">
            <div class="products-img">
             <img src= ${element.image} alt="" class="product-img">
             </div>
             <div class="product-description">
-                <p class="description-el">${element.name} </p>
+                <p class="description-el" >${element.name} </p>
                 <div class="rating-div">
                     <img src="/images/ratings/rating-${
                       element.rating.stars * 10
@@ -62,7 +63,9 @@ const htmlGenerator = (product) => {
                         <option value="ten">10</option>
                     </select>
                 </form>
-                <button class="add-btn">Add to Cart</button>
+                <button class="add-btn js-add-to-cart" data-product-description ="${
+                  element.name
+                }" >Add to Cart</button>
           </div>
         </div>
     
@@ -73,3 +76,30 @@ const htmlGenerator = (product) => {
 htmlGenerator(products);
 
 document.querySelector(".products-grid").innerHTML = html;
+
+let productDescription;
+document.querySelectorAll(".js-add-to-cart").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    productDescription = btn.dataset.productDescription;
+    //cart.push({ productDescription, quantity: 1 });
+    let matchingItem;
+    cart.forEach((item) => {
+      if (item.productDescription == productDescription) {
+        matchingItem = item;
+      }
+    });
+
+    if (matchingItem) {
+      matchingItem.quantity++;
+    } else {
+      cart.push({ productDescription, quantity: 1 });
+    }
+
+    //add totItem selected in the cart
+    let totalItem = 0;
+    cart.forEach((item) => {
+      totalItem += item.quantity;
+    });
+    console.log(totalItem);
+  });
+});
