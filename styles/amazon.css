@@ -14,12 +14,15 @@ body {
 }
 
 .amazon-header-left {
-  margin-top: 1em;
+  margin-top: 0.5em;
+  /* border: 2px solid green; */
+  padding: 10px;
 }
 
 .amazon-logo-size {
-  height: 2.5rem;
-  margin-left: 100px;
+  height: 2rem;
+
+  /* border: 1px solid red; */
 }
 .amazon-header-middle {
   display: flex;
@@ -61,26 +64,27 @@ body {
 
 .amazon-header-right {
   display: flex;
+
   /* border: 1px solid red; */
   margin-left: 20px;
-  float: left;
+  float: right;
   padding: 0px;
 }
 
 .returns-orders-div {
   display: flex;
   flex-direction: column;
-  margin-right: 5px;
-  padding: 0;
+  padding-right: 5px;
   font-size: 15px;
   /* border: 1px solid yellow; */
-  margin-right: 20px;
+  padding-top: 12px;
+
+  /* margin-top: 10px; */
 }
 .returns-orders-el {
-  margin-top: 6px;
+  /* margin-top: 6px; */
   font-size: 1.5em;
-
-  margin-left: 50px;
+  margin-left: 10px;
   color: white;
   text-decoration: none;
 }
@@ -88,6 +92,7 @@ body {
 .returns-el {
   font-size: 1em;
   margin-bottom: 0;
+  text-decoration: none;
 }
 
 .order-el {
@@ -96,27 +101,57 @@ body {
   /* border: 2px solid red; */
   padding: 0;
   margin-bottom: 0;
+  text-decoration: none;
 }
 .cart-div {
   display: flex;
+  justify-content: right;
   flex-direction: row;
+
   /* border: 2px solid red; */
-  width: 200px;
+  /* width: 200px; */
+  /* float: right; */
+  /* position: relative;
+  right: -3; */
 }
+
 .cart-img {
   /* background-color: blue; */
   padding-bottom: 5px;
+  margin-left: 5px;
 }
 .cart-el {
   font-size: 20px;
   /* background-color: red; */
   color: white;
-  margin-top: 30px;
+  margin-top: 35px;
   margin-left: 5px;
   margin-bottom: 0;
   padding: 0;
+  text-decoration: none;
 }
 
+.cart-quantity {
+  /* border: 3px solid red; */
+  font-size: 1.5em;
+  color: rgb(255, 216, 20);
+  /* margin-left: 10px; */
+  /* float: right; */
+  margin-right: 65px;
+  position: absolute;
+  left: 2;
+
+  /* bottom: 5; */
+
+  /* margin-bottom: 10px; */
+}
+
+.cart-div:hover,
+.returns-orders-div:hover,
+.amazon-header-left:hover {
+  cursor: pointer;
+  border: 1px solid white;
+}
 /* ENd Header */
 /* grid part */
 .products-grid {
@@ -201,7 +236,7 @@ body {
   justify-content: center;
   justify-self: center;
   align-items: center;
-  background-color: yellow;
+  background-color: rgb(255, 216, 20);
   padding: 10px;
   font-size: 20px;
   width: 150px;
@@ -224,7 +259,6 @@ body {
 
 .review-el {
   margin-left: 10px;
-
   font-size: 25px;
   color: rgb(61, 149, 190);
 }
@@ -236,7 +270,6 @@ body {
   margin-bottom: 40px;
   padding: 5px 10px;
   margin-top: 5px;
-
   background: whitesmoke;
 }
 
