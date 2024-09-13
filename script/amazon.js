@@ -1,3 +1,5 @@
+import { cart, addToCart } from "../data/cart.js";
+import { products } from "../data/products.js";
 /*let data = [
   {
     image: "./images/products/black-2-slot-toaster.jpg",
@@ -63,8 +65,8 @@ const htmlGenerator = (product) => {
                         <option value="ten">10</option>
                     </select>
                 </form>
-                <button class="add-btn js-add-to-cart" data-product-description ="${
-                  element.name
+                <button class="add-btn js-add-to-cart" data-product-id ="${
+                  element.id
                 }" >Add to Cart</button>
           </div>
         </div>
@@ -77,29 +79,30 @@ htmlGenerator(products);
 
 document.querySelector(".products-grid").innerHTML = html;
 
-let productDescription;
+//method to update the chopping cart
+// let totalItem = 0;
+// console.log(totalItem);
+const updateCartQuantity = () => {
+  let totalItem = 0;
+  // console.log(totalItem);
+  cart.forEach((item) => {
+    totalItem += item.quantity;
+  });
+  let cartQuantity = document.querySelector(".cart-quantity");
+
+  cartQuantity.innerHTML = totalItem;
+};
+
+// access the data attribute  using dataset.attribute value
+
+let productId;
 document.querySelectorAll(".js-add-to-cart").forEach((btn) => {
   btn.addEventListener("click", () => {
-    productDescription = btn.dataset.productDescription;
+    productId = btn.dataset.productId;
     //cart.push({ productDescription, quantity: 1 });
-    let matchingItem;
-    cart.forEach((item) => {
-      if (item.productDescription == productDescription) {
-        matchingItem = item;
-      }
-    });
-
-    if (matchingItem) {
-      matchingItem.quantity++;
-    } else {
-      cart.push({ productDescription, quantity: 1 });
-    }
+    addToCart(productId);
 
     //add totItem selected in the cart
-    let totalItem = 0;
-    cart.forEach((item) => {
-      totalItem += item.quantity;
-    });
-    console.log(totalItem);
+    updateCartQuantity();
   });
 });
