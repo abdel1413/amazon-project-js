@@ -34,6 +34,7 @@ body {
   color: rgb(32, 165, 218);
 }
 .checkout-grid {
+  border: 1px solid red;
   display: grid;
   grid-template-columns: 67% 28%;
   gap: 20px;
