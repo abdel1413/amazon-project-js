@@ -1,5 +1,6 @@
 import { cart, addToCart } from "../data/cart.js";
 import { products } from "../data/products.js";
+import { currencyFormatter } from "./sharedScripts/currencyFormatter.js";
 /*let data = [
   {
     image: "./images/products/black-2-slot-toaster.jpg",
@@ -48,8 +49,8 @@ const htmlGenerator = (product) => {
       element.rating.count
     }</span>
                 </div>
-                <p class="price-el">$${(element.priceCents / 100).toFixed(
-                  2
+                <p class="price-el">$${currencyFormatter(
+                  element.priceCents
                 )}</p>
                 <form action="">
                     <select name="" id="" class="selector">

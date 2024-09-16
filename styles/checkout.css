@@ -32,7 +32,9 @@ body {
 .link-primary {
   margin-left: 5px;
   color: rgb(32, 165, 218);
+  cursor: pointer;
 }
+
 .checkout-grid {
   border: 1px solid red;
   display: grid;
@@ -44,7 +46,7 @@ body {
 
 .cart-item-section {
   border: 3px solid blue;
-  padding: 5px;
+  padding: 10px;
 }
 .cart-item-container {
   /* border: 3px solid tomato; */
@@ -129,6 +131,9 @@ input[type="radio"] {
 .product-quantity {
   font-size: 20px;
   margin-bottom: 5px;
+}
+.product-price {
+  color: red;
 }
 
 /* DELIVERY */
