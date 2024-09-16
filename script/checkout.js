@@ -26,15 +26,14 @@ cart.forEach((cartItem) => {
       matching = element;
     }
   });
-  //   console.log("img", matching.image);
-  //   console.log("name", matching.name);
-  //   console.log("price", matching.priceCents);
+
   const image = matching.image;
   const name = matching.name;
 
   const price = matching.priceCents;
 
-  cartItems += ` <div class="cart-item-container">
+  cartItems += ` <div class="cart-item-container 
+  js-cart-item-container-${matching.id}">
     <div class="delivery-date">
         Delivery date: Tuesday, June 21
     </div>
@@ -121,6 +120,30 @@ document.querySelectorAll(".js-delete-link").forEach((link) => {
   link.addEventListener("click", () => {
     let productId = link.dataset.productId;
     cartItemRemover(productId);
-    console.log(cart);
+
+    //after item's been removed from cart, update the html
+    // 1 get element to remvoe from dom
+    // 2 use .remove() method to remove the element form html page
+
+    //NOTE: to know which specific element to delete from
+    //page, we added a class with specific id atteched to it
+    //so the delete btn know which on to deal with;
+
+    let cartItemContainer = document.querySelector(
+      `.js-cart-item-container-${productId}`
+    );
+
+    console.log("ne", cartItemContainer);
+    cartItemContainer.remove();
+  });
+});
+
+//underline the delete element when mouse is over
+document.querySelectorAll(".js-delete-link").forEach((link) => {
+  link.addEventListener("mouseover", () => {
+    link.style.textDecoration = "underline";
+  });
+  link.addEventListener("mouseout", () => {
+    link.style.textDecoration = "none";
   });
 });
