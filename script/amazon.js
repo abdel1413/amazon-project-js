@@ -1,4 +1,4 @@
-import { cart, addToCart } from "../data/cart.js";
+import { cart, addToCart, calculateItemQuantity } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { currencyFormatter } from "./sharedScripts/currencyFormatter.js";
 
@@ -93,11 +93,13 @@ const updateCartQuantity = () => {
   });
   let cartQuantity = document.querySelector(".cart-quantity");
 
-  cartQuantity.innerHTML = totalItem;
+  //cartQuantity.innerHTML = totalItem;
+  cartQuantity.innerHTML = calculateItemQuantity();
 };
 
-// access the data attribute  using dataset.attribute value
+calculateItemQuantity();
 
+// access the data attribute  using dataset.attribute value
 let productId;
 document.querySelectorAll(".js-add-to-cart").forEach((btn) => {
   btn.addEventListener("click", () => {
@@ -106,6 +108,7 @@ document.querySelectorAll(".js-add-to-cart").forEach((btn) => {
     addToCart(productId);
 
     //add totItem selected in the cart
-    updateCartQuantity();
+    //updateCartQuantity();
+    calculateItemQuantity();
   });
 });

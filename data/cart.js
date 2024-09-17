@@ -55,3 +55,18 @@ export function cartItemRemover(id) {
   cart = newCart;
   saveToLocalStorage();
 }
+
+//calculate cart item quantities and display it on the shopping cart
+export const calculateItemQuantity = () => {
+  let shoppingCart = document.querySelector(".cart-quantity");
+  //let checkoutTotalItem = document.querySelector(".checkout-total-items");
+
+  let total = 0;
+  let cart = JSON.parse(localStorage.getItem("cart"));
+  cart.forEach((item) => {
+    total += item.quantity;
+
+    shoppingCart.innerHTML = total;
+    //return total;
+  });
+};

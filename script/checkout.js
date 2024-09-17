@@ -1,4 +1,4 @@
-import { cart, cartItemRemover } from "../data/cart.js";
+import { cart, cartItemRemover, calculateItemQuantity } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { currencyFormatter } from "./sharedScripts/currencyFormatter.js";
 
@@ -13,7 +13,6 @@ let cartItems = ``;
 // collect some data
 // generate an HTML with the collected data
 // make the HTML page interactive
-console.log(cart);
 
 let matching;
 cart.forEach((cartItem) => {
@@ -30,8 +29,10 @@ cart.forEach((cartItem) => {
 
   const image = matching.image;
   const name = matching.name;
-
   const price = matching.priceCents;
+
+  //   document.querySelector(".checkout-total-items").innerHTML =
+  //     calculateItemQuantity();
 
   cartItems += ` <div class="cart-item-container 
   js-cart-item-container-${matching.id}">
@@ -134,7 +135,6 @@ document.querySelectorAll(".js-delete-link").forEach((link) => {
       `.js-cart-item-container-${productId}`
     );
 
-    console.log("ne", cartItemContainer);
     cartItemContainer.remove();
   });
 });

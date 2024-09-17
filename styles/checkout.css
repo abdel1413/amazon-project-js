@@ -8,6 +8,10 @@ body {
   margin: 20px 0;
 }
 
+.checkout-total-items,
+.checkout-total-items-label {
+  color: rgb(32, 165, 218);
+}
 .payment-summary-title {
   text-align: center;
   font-size: 25px;
