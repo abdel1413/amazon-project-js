@@ -4,7 +4,8 @@ body {
 .review-order {
   text-align: center;
   font-size: 30px;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
+  margin: 20px 0;
 }
 
 .payment-summary-title {

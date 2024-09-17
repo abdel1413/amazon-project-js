@@ -3,7 +3,7 @@ import { products } from "../data/products.js";
 import { currencyFormatter } from "./sharedScripts/currencyFormatter.js";
 
 let cartItemSection = document.querySelector(".cart-item-section");
-let deleteLink = document.querySelectorAll(".js-delete-link");
+// let deleteLink = document.querySelectorAll(".js-delete-link");
 
 let cartItems = ``;
 
@@ -13,6 +13,7 @@ let cartItems = ``;
 // collect some data
 // generate an HTML with the collected data
 // make the HTML page interactive
+console.log(cart);
 
 let matching;
 cart.forEach((cartItem) => {
@@ -142,8 +143,10 @@ document.querySelectorAll(".js-delete-link").forEach((link) => {
 document.querySelectorAll(".js-delete-link").forEach((link) => {
   link.addEventListener("mouseover", () => {
     link.style.textDecoration = "underline";
+    link.style.color = "red";
   });
   link.addEventListener("mouseout", () => {
     link.style.textDecoration = "none";
+    link.style.color = "rgb(32, 165, 218)";
   });
 });
