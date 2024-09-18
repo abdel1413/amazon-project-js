@@ -121,6 +121,7 @@ cart.forEach((cartItem) => {
 document.querySelectorAll(".js-delete-link").forEach((link) => {
   link.addEventListener("click", () => {
     let productId = link.dataset.productId;
+
     cartItemRemover(productId);
 
     //after item's been removed from cart, update the html
@@ -136,17 +137,39 @@ document.querySelectorAll(".js-delete-link").forEach((link) => {
     );
 
     cartItemContainer.remove();
+    updateShoppingCart();
   });
 });
 
 //underline the delete element when mouse is over
-document.querySelectorAll(".js-delete-link").forEach((link) => {
-  link.addEventListener("mouseover", () => {
-    link.style.textDecoration = "underline";
-    link.style.color = "red";
+
+const updateDeleteStyler = (string) => {
+  document.querySelectorAll(string).forEach((link) => {
+    link.addEventListener("mouseover", () => {
+      link.style.textDecoration = "underline";
+      link.style.color = "red";
+    });
+    link.addEventListener("mouseout", () => {
+      link.style.textDecoration = "none";
+      link.style.color = "rgb(32, 165, 218)";
+    });
   });
-  link.addEventListener("mouseout", () => {
-    link.style.textDecoration = "none";
-    link.style.color = "rgb(32, 165, 218)";
+};
+
+updateDeleteStyler(".link-primary");
+
+// display number of items
+const updateShoppingCart = () => {
+  let total = 0;
+  cart.forEach((element) => {
+    total += element.quantity;
   });
-});
+
+  document.querySelector(".checkout-total-items").innerHTML = total;
+  let checkoutLabel = document.querySelector(".checkout-total-items-label");
+  total < 2
+    ? (checkoutLabel.innerHTML = "Item")
+    : (checkoutLabel.innerHTML = "Items");
+};
+
+updateShoppingCart();

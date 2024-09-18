@@ -83,32 +83,35 @@ htmlGenerator(products);
 document.querySelector(".products-grid").innerHTML = html;
 
 //method to update the chopping cart
-// let totalItem = 0;
-// console.log(totalItem);
-const updateCartQuantity = () => {
+
+const updateShoppingCart = () => {
   let totalItem = 0;
-  // console.log(totalItem);
+
   cart.forEach((item) => {
     totalItem += item.quantity;
   });
   let cartQuantity = document.querySelector(".cart-quantity");
 
-  //cartQuantity.innerHTML = totalItem;
-  cartQuantity.innerHTML = calculateItemQuantity();
+  cartQuantity.innerHTML = totalItem;
+  //cartQuantity.innerHTML = calculateItemQuantity();
 };
 
-calculateItemQuantity();
+//call update function so it display items number in the cart
+
+updateShoppingCart();
 
 // access the data attribute  using dataset.attribute value
+//and add it to the cart
 let productId;
 document.querySelectorAll(".js-add-to-cart").forEach((btn) => {
   btn.addEventListener("click", () => {
     productId = btn.dataset.productId;
     //cart.push({ productDescription, quantity: 1 });
+
     addToCart(productId);
 
-    //add totItem selected in the cart
-    //updateCartQuantity();
-    calculateItemQuantity();
+    //update the shopping cart with newly selected item numb
+    updateShoppingCart();
+    //calculateItemQuantity();
   });
 });
