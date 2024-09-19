@@ -129,7 +129,7 @@ input[type="radio"] {
   margin-bottom: 5px;
 }
 .product-image {
-  height: 250px;
+  height: 200px;
   /* border: 1px solid green; */
 }
 
@@ -138,10 +138,36 @@ input[type="radio"] {
   font-size: 20px;
   margin-bottom: 5px;
 }
+
+.product-quantity {
+  display: grid;
+  grid-template-columns: repeat(50, 2fr);
+  row-gap: 5px;
+}
+
+.quantity-input {
+  width: 30px;
+}
+.update-container {
+  display: flex;
+
+  width: 70px;
+}
 .product-price {
   color: red;
 }
 
+.edit-div {
+  display: none;
+}
+
+.update-input-style {
+  display: flex;
+}
+
+.update-quantity-link {
+  margin-right: 3px;
+}
 /* DELIVERY */
 .delivery-options {
   /* border: 2px solid blue; */
