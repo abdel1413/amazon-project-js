@@ -37,7 +37,7 @@ import { currencyFormatter } from "./sharedScripts/currencyFormatter.js";
 
 let html = ``;
 const htmlGenerator = (product) => {
-  product.forEach((element, index) => {
+  product.forEach((element) => {
     html += ` <div class="products-container">
            <div class="products-img">
             <img src= ${element.image} alt="" class="product-img">

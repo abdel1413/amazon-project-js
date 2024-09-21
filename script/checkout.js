@@ -49,19 +49,23 @@ cart.forEach((cartItem) => {
             <div class="product-price">
                 $${currencyFormatter(price)}
             </div>
-            <div class="product-quantity">
+            <div class="product-quantity ">
                 <span>
-                    Quantity:<span class="quantity-label">${quantity}</span>
+                    Quantity:<span class="quantity-label js-quantity-label">${quantity}</span>
                 </span>
-                <span class="update-quantity-link link-primary">
+                <span class="update-quantity-link link-primary
+                    js-update-quantity-link
+                    js-update-quantity-link-${matching.id} "
+                    data-product-id="${matching.id}">
                     Update
                 </span>
-                   <div class="edit-div">
-                   <div class="update-input-style">
-                  <input type=text value="" class="quantity-input"/>
-                  <span class="save-quantity-link link-primary">Save</span>
-                  </div>
-                  </div>
+        
+                       <input type=text value="" class="quantity-input"/>
+                       <span class="save-quantity-link
+                       link-primary
+                       js-save-quantity-link"
+                       data-product-id="${matching.id}">Save</span>
+                   
                 <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${
                   matching.id
                 }">
@@ -124,9 +128,10 @@ cart.forEach((cartItem) => {
 //when clicked on ,
 //1 delete remove item from cart
 //2 and updata the html
+let productId;
 document.querySelectorAll(".js-delete-link").forEach((link) => {
   link.addEventListener("click", () => {
-    let productId = link.dataset.productId;
+    productId = link.dataset.productId;
 
     cartItemRemover(productId);
 
@@ -136,7 +141,7 @@ document.querySelectorAll(".js-delete-link").forEach((link) => {
 
     //NOTE: to know which specific element to delete from
     //page, we added a class with specific id atteched to it
-    //so the delete btn know which on to deal with;
+    //so the delete btn knows which  to deal with;
 
     let cartItemContainer = document.querySelector(
       `.js-cart-item-container-${productId}`
@@ -172,6 +177,7 @@ const updateShoppingCart = () => {
   });
 
   document.querySelector(".checkout-total-items").innerHTML = total;
+
   let checkoutLabel = document.querySelector(".checkout-total-items-label");
   total < 2
     ? (checkoutLabel.innerHTML = "Item")
@@ -180,10 +186,31 @@ const updateShoppingCart = () => {
 
 updateShoppingCart();
 
-let updateLink = document.querySelectorAll(".update-quantity-link");
+let updateQuantity = document.querySelectorAll(`.js-update-quantity-link`);
 
-updateLink.forEach((element) => {
+document.querySelectorAll(".js-update-quantity-link").forEach((element) => {
   element.addEventListener("click", () => {
-    document.querySelector(".edit-div").style.display = "block";
+    let productId = element.dataset.productId;
+
+    //get the specific cart container
+    let cartItemContainer = document.querySelector(
+      `.js-cart-item-container-${productId}`
+    );
+
+    cartItemContainer.classList.add("is-editing-quantity");
+  });
+});
+
+document.querySelectorAll(".js-save-quantity-link").forEach((link) => {
+  link.addEventListener("click", () => {
+    let productId = link.dataset.productId;
+
+    //get the specific cart container
+    let cartItemContainer = document.querySelector(
+      `.js-cart-item-container-${productId}`
+    );
+
+    cartItemContainer.classList.remove("is-editing-quantity");
+    console.log("cont", cartItemContainer);
   });
 });

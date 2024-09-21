@@ -59,7 +59,6 @@ export function cartItemRemover(id) {
 //calculate cart item quantities and display it on the shopping cart
 let totalItems = 0;
 export function calculateItemQuantity() {
-  let shoppingCart = document.querySelector(".cart-quantity");
   //let checkoutTotalItem = document.querySelector(".checkout-total-items");
 
   // let cart = JSON.parse(localStorage.getItem("cart"));
@@ -70,5 +69,3 @@ export function calculateItemQuantity() {
     // shoppingCart.innerHTML = total;
   });
 }
-
-console.log("c", calculateItemQuantity());
