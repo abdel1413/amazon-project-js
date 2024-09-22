@@ -22,7 +22,6 @@ const saveToLocalStorage = () => {
 // increment quantity by one if the item already exist
 //in the cart
 export const addToCart = (productId) => {
-  // creata a var to save a matching item;
   let matchingId;
   cart.forEach((item) => {
     if (item.productId == productId) {
@@ -38,7 +37,6 @@ export const addToCart = (productId) => {
       quantity: 1,
     });
   }
-
   saveToLocalStorage();
 };
 
@@ -56,16 +54,29 @@ export function cartItemRemover(id) {
   saveToLocalStorage();
 }
 
-//calculate cart item quantities and display it on the shopping cart
+//calculate cart item quantities
+//and display it on the shopping cart
 let totalItems = 0;
 export function calculateItemQuantity() {
-  //let checkoutTotalItem = document.querySelector(".checkout-total-items");
-
-  // let cart = JSON.parse(localStorage.getItem("cart"));
-
   cart.forEach((item) => {
     return (totalItems += item.quantity);
 
     // shoppingCart.innerHTML = total;
   });
 }
+
+//create a functon to update the quantity
+export const updateQuantity = (id, newQuantity) => {
+  let matching;
+  cart.forEach((item) => {
+    if (item.productId === id) {
+      matching = item;
+    }
+
+    if (matching) {
+      item.quantity = newQuantity;
+    }
+  });
+
+  saveToLocalStorage();
+};

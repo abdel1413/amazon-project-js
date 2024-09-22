@@ -169,11 +169,11 @@ input[type="radio"] {
   display: none;
 }
 
-.update-container {
+/* .update-container {
   display: flex;
-
   width: 70px;
-}
+} */
+
 .product-price {
   color: red;
 }
