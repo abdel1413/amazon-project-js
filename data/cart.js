@@ -72,11 +72,10 @@ export const updateQuantity = (id, newQuantity) => {
     if (item.productId === id) {
       matching = item;
     }
-
-    if (matching) {
-      item.quantity = newQuantity;
-    }
   });
+  if (matching) {
+    matching.quantity = newQuantity;
+  }
 
   saveToLocalStorage();
 };

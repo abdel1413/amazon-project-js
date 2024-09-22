@@ -225,8 +225,8 @@ document.querySelectorAll(".js-save-quantity-link").forEach((link) => {
     //update the cart
     //update the html page
     // update the header containing number of items
-    addQuantity(productId, inputValue);
 
+    addQuantity(productId, inputValue);
     document.querySelector(`.js-quantity-label-${productId}`).innerHTML =
       inputValue;
     inputValue = "";
