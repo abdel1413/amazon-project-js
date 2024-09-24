@@ -6,16 +6,41 @@ import {
 } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { currencyFormatter } from "./sharedScripts/currencyFormatter.js";
+import { deliveryOptions } from "../data/deliveryOptions.js";
+import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 
+const deliveryOptionsHTML = () => {
+  deliveryOptions.forEach((option) => {
+    //get the today date
+    const today = dayjs();
+
+    const deliveryDate = today.add(option.deliveryDays, "days");
+    const dateString = deliveryDate.format("dddd, MMMM D");
+    console.log("date", dateString);
+    const priceString =
+      option.priceCents === 0
+        ? "FREE"
+        : `$${currencyFormatter(option.priceCents)}`;
+    ` <div class="delivery-option">
+                <input type="radio" class="delivery-option-input" name="delivery-option-${option.id}">
+                <div>
+                    <div class="delivery-option-date">
+                       ${dateString}
+                    </div>
+                    <div class="delivery-option-price">
+                        $${priceString}- Shipping
+                    </div>
+                </div>
+            </div>`;
+  });
+};
+
+deliveryOptionsHTML();
 let cartItemSection = document.querySelector(".cart-item-section");
-// let deleteLink = document.querySelectorAll(".js-delete-link");
 
 let cartItems = ``;
 
-// console.log("pr", products);
-// console.log("pr", cart);
-
-// collect some data
+// collect some data/
 // generate an HTML with the collected data
 // make the HTML page interactive
 
