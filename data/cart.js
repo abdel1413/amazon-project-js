@@ -81,3 +81,17 @@ export const updateQuantity = (id, newQuantity) => {
   }
   saveToLocalStorage();
 };
+
+//function to find the macthing item in cart
+// and update its delivery option id
+// pass product id and delivery option id we got from html and
+//use them to find the maching item then update its delivery option id
+export const updateDeliveryOption = (productId, deliveryOptionId) => {
+  let matching;
+  cart.forEach((item) => {
+    if (item.productId === productId) matching = item;
+  });
+  console.log("match", matching.deliveryOptionId);
+  matching.deliveryOptionId = deliveryOptionId;
+  saveToLocalStorage();
+};
