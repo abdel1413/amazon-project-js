@@ -91,7 +91,7 @@ export const updateDeliveryOption = (productId, deliveryOptionId) => {
   cart.forEach((item) => {
     if (item.productId === productId) matching = item;
   });
-  console.log("match", matching.deliveryOptionId);
+
   matching.deliveryOptionId = deliveryOptionId;
   saveToLocalStorage();
 };
