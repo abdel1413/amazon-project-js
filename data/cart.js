@@ -95,3 +95,12 @@ export const updateDeliveryOption = (productId, deliveryOptionId) => {
   matching.deliveryOptionId = deliveryOptionId;
   saveToLocalStorage();
 };
+
+export const updateShoppingCart = () => {
+  let totalItems = 0;
+  cart.forEach((element) => {
+    totalItems += element.quantity;
+  });
+
+  return totalItems;
+};
