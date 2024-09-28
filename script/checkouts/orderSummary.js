@@ -3,6 +3,7 @@ import {
   cartItemRemover,
   updateQuantity as addQuantity,
   updateDeliveryOption,
+  updateShoppingCart,
 } from "../../data/cart.js";
 import { getProduct, products } from "../../data/products.js";
 import { currencyFormatter } from "../sharedScripts/currencyFormatter.js";
@@ -11,6 +12,7 @@ import {
   getDeliveryOption,
 } from "../../data/deliveryOptions.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
+import { renderPaymentSummary } from "./paymentSummary.js";
 
 export const renderOrderSummary = () => {
   //function to easy reading date format:
@@ -175,7 +177,9 @@ export const renderOrderSummary = () => {
       );
 
       cartItemContainer.remove();
-      updateShoppingCart();
+      // updateShoppingCart();
+      renderOrderSummary();
+      renderPaymentSummary();
     });
   });
 
@@ -196,21 +200,28 @@ export const renderOrderSummary = () => {
   updateDeleteStyler(".link-primary");
 
   // display number of items
-  const updateShoppingCart = () => {
-    let total = 0;
-    cart.forEach((element) => {
-      total += element.quantity;
-    });
+  //  const updateShoppingCart = () => {
+  //   let totalItems = 0;
+  //   cart.forEach((element) => {
+  //     totalItems += element.quantity;
+  //   });
 
-    document.querySelector(".checkout-total-items").innerHTML = total;
+  let totalItems = updateShoppingCart();
 
-    let checkoutLabel = document.querySelector(".checkout-total-items-label");
-    total < 2
-      ? (checkoutLabel.innerHTML = "Item")
-      : (checkoutLabel.innerHTML = "Items");
-  };
+  document.querySelector(".checkout-total-items").innerHTML =
+    updateShoppingCart();
 
-  updateShoppingCart();
+  let checkoutLabel = document.querySelector(".checkout-total-items-label");
+  totalItems < 2
+    ? (checkoutLabel.innerHTML = "Item")
+    : (checkoutLabel.innerHTML = "Items");
+
+  //  return totalItems;
+  // };
+
+  // updateShoppingCart();
+  // let total = updateShoppingCart();
+  // console.log("update ship", total);
 
   document.querySelectorAll(`.js-update-quantity-link`).forEach((element) => {
     element.addEventListener("click", () => {
@@ -241,29 +252,29 @@ export const renderOrderSummary = () => {
       );
       inputValue = Number(inputValue.value);
 
-      //update the cart
-      //update the html page
-      // update the header containing number of items
-
+      //1update the cart
+      //2update the html page
+      //3 update the header containing number of items
       addQuantity(productId, inputValue);
       document.querySelector(`.js-quantity-label-${productId}`).innerHTML =
         inputValue;
       inputValue = "";
-      updateShoppingCart();
+      //updateShoppingCart();
+      //totalItems;
+      renderOrderSummary();
+      renderPaymentSummary();
     });
   });
 
   //When clicked on :
   // 1 update the data  by collecting product id and deliver id
-
   // 2 then regenerate the page / all htmls
-
   document.querySelectorAll(".js-delivery-option").forEach((element) => {
     element.addEventListener("click", () => {
       const { deliveryOptionId, productId } = element.dataset;
-
       updateDeliveryOption(productId, deliveryOptionId);
       renderOrderSummary();
+      renderPaymentSummary();
     });
   });
 };
