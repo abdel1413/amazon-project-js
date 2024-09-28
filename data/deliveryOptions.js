@@ -15,3 +15,15 @@ export const deliveryOptions = [
     priceCents: 999,
   },
 ];
+
+//use delivery option id to get the machting option
+// check if any id matches the param
+export function getDeliveryOption(deliveryOptionId) {
+  let delivery;
+  deliveryOptions.forEach((option) => {
+    if (option.id == deliveryOptionId) {
+      delivery = option;
+    }
+  });
+  return delivery;
+}
