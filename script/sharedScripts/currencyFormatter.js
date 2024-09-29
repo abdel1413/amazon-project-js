@@ -1,3 +1,3 @@
 export const currencyFormatter = (currency) => {
-  return (currency / 100).toFixed(2);
+  return (Math.round(currency) / 100).toFixed(2);
 };
