@@ -1,6 +1,6 @@
 import { currencyFormatter } from "../script/sharedScripts/currencyFormatter.js";
 
-console.log("currencyFormater test suite");
+console.log("test suite: currencyFormater");
 
 console.log("converts cents into dollars");
 currencyFormatter(2095) === "20.95"
