@@ -83,7 +83,6 @@ htmlGenerator(products);
 document.querySelector(".products-grid").innerHTML = html;
 
 //method to update the chopping cart
-
 const updateShoppingCart = () => {
   let totalItem = 0;
 
@@ -97,7 +96,6 @@ const updateShoppingCart = () => {
 };
 
 //call update function so it display items number in the cart
-
 updateShoppingCart();
 
 // access the data attribute  using dataset.attribute value

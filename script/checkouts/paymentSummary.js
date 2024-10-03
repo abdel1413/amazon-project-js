@@ -1,8 +1,8 @@
 import { cart, updateShoppingCart } from "../../data/cart.js";
+// import "../../data/cart.js";
 import { getDeliveryOption } from "../../data/deliveryOptions.js";
 import { getProduct } from "../../data/products.js";
 import { currencyFormatter } from "../sharedScripts/currencyFormatter.js";
-import { renderOrderSummary } from "./orderSummary.js";
 
 export function renderPaymentSummary() {
   let totalProductCost = 0;
