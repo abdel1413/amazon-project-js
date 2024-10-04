@@ -30,11 +30,8 @@ export const renderOrderSummary = () => {
   const deliveryOptionsHTML = (matching, cartItem) => {
     let html = ``;
 
-    //will come back
-
     deliveryOptions.forEach((option) => {
       let isChecked = option.id === cartItem.deliveryOptionId ? "checked" : "";
-      //get the today date
 
       const priceString =
         option.priceCents === 0
@@ -111,7 +108,7 @@ export const renderOrderSummary = () => {
                   ${name}
               </div>
               <div class="product-price">
-                  $${currencyFormatter(price)}
+                  ${matchingProduct.getPrice()}
               </div>
               <div class="product-quantity">
                   <span>

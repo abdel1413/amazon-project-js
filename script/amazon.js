@@ -45,15 +45,11 @@ const htmlGenerator = (product) => {
             <div class="product-description">
                 <p class="description-el" >${element.name} </p>
                 <div class="rating-div">
-                    <img src="/images/ratings/rating-${
-                      element.rating.stars * 10
-                    }.png" alt="" class="rating"><span class="review-el">${
+                    <img src="${element.getStarUrl()}" alt="" class="rating"><span class="review-el">${
       element.rating.count
     }</span>
                 </div>
-                <p class="price-el">$${currencyFormatter(
-                  element.priceCents
-                )}</p>
+                <p class="price-el">${element.getPrice()}</p>
                 <form action="">
                     <select name="" id="" class="selector">
                         <option value="one">1</option>
