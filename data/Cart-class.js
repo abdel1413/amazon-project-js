@@ -1,14 +1,14 @@
 class Cart {
   cartItems;
-  localStorageKey;
+  #localStorageKey;
 
   constructor(localStorageKey) {
-    this.localStorageKey = localStorageKey;
-    this.loadFromStorage();
+    this.#localStorageKey = localStorageKey;
+    this.#loadFromStorage();
   }
 
-  loadFromStorage() {
-    this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey));
+  #loadFromStorage() {
+    this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey));
 
     if (!this.cartItems) {
       this.cartItems = [
@@ -27,7 +27,7 @@ class Cart {
   }
 
   saveToLocalStorage() {
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this));
+    localStorage.setItem(this.#localStorageKey, JSON.stringify(this));
   }
 
   addToCart(productId) {
@@ -105,6 +105,8 @@ const bcart = new Cart("besiness-cart");
 // cart.loadFromStorage();
 // //cart.addToCart("83d4ca15-0f35-48f5-b7a3-1ea210004f2e");
 // bcart.loadFromStorage();
+
+// cart.#localStorageKey = "aaa";
 
 console.log("c", cart);
 console.log("bc", bcart);
