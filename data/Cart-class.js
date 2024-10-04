@@ -1,6 +1,11 @@
 class Cart {
-  cartItems = undefined;
-  localStorageKey = undefined;
+  cartItems;
+  localStorageKey;
+
+  constructor(localStorageKey) {
+    this.localStorageKey = localStorageKey;
+    this.loadFromStorage();
+  }
 
   loadFromStorage() {
     this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey));
@@ -20,8 +25,9 @@ class Cart {
       ];
     }
   }
+
   saveToLocalStorage() {
-    localStorage.setItem(this.localStorageKey, JSON.stringify(cart));
+    localStorage.setItem(this.localStorageKey, JSON.stringify(this));
   }
 
   addToCart(productId) {
@@ -36,7 +42,7 @@ class Cart {
       matchingId.quantity++;
     } else {
       this.cartItems.push({
-        productId: productId,
+        productId,
         quantity: 1,
         deliveryOptionId: "1",
       });
@@ -96,9 +102,9 @@ class Cart {
 const cart = new Cart("cart-oop");
 const bcart = new Cart("besiness-cart");
 
-cart.loadFromStorage();
-cart.addToCart("83d4ca15-0f35-48f5-b7a3-1ea210004f2e");
-bcart.loadFromStorage();
+// cart.loadFromStorage();
+// //cart.addToCart("83d4ca15-0f35-48f5-b7a3-1ea210004f2e");
+// bcart.loadFromStorage();
 
 console.log("c", cart);
 console.log("bc", bcart);
