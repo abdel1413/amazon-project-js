@@ -231,6 +231,7 @@ body {
   margin-bottom: 25px; */
   height: 60%;
 }
+
 .add-btn {
   display: flex;
   justify-content: center;
@@ -243,7 +244,7 @@ body {
   border: none;
   border-radius: 25px;
   margin: auto;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
 }
 
 .rating-div {
@@ -271,6 +272,17 @@ body {
   padding: 5px 10px;
   margin-top: 5px;
   background: whitesmoke;
+}
+
+.size-chart {
+  margin: 10px;
+  /* border: 1px solid red; */
+}
+
+.option-chart {
+  /* border: red 2px solid; */
+  display: flex;
+  justify-content: space-between;
 }
 
 .description-el,

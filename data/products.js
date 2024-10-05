@@ -1,5 +1,3 @@
-//create a class to generate each object in array into an enhanced object
-
 import { currencyFormatter } from "../script/sharedScripts/currencyFormatter.js";
 
 class Product {
@@ -22,6 +20,10 @@ class Product {
   getPrice() {
     return `$${currencyFormatter(this.priceCents)}`;
   }
+
+  getExtraInfoHTML() {
+    return "";
+  }
 }
 
 //create an instance of Product class
@@ -36,8 +38,34 @@ const prodClass = new Product({
   priceCents: 1090,
   keywords: ["socks", "sports", "apparel"],
 });
-console.log("p", prodClass);
 
+class Clothing extends Product {
+  sizeChartLink;
+  constructor(productDetails) {
+    super(productDetails);
+    this.sizeChartLink = productDetails.sizeChartLink;
+  }
+
+  //overide the getExtraInfor
+  getExtraInfoHTML() {
+    return `<a href="${this.sizeChartLink}"  class="size-chart"target="_blank">chart List </a>`;
+  }
+}
+
+const cl = new Clothing({
+  id: "83d4ca15-0f35-48f5-b7a3-1ea210004f2e",
+  image: "images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg",
+  name: "Adults Plain Cotton T-Shirt - 2 Pack",
+  rating: {
+    stars: 4.5,
+    count: 56,
+  },
+  priceCents: 799,
+  keywords: ["tshirts", "apparel", "mens"],
+  type: "clothing",
+  sizeChartLink: "images/clothing-size-chart.png",
+});
+console.log("cl", cl);
 //use productId to get the full product and return
 export function getProduct(productId) {
   let matchingProduct;
@@ -520,7 +548,8 @@ export const products = [
     keywords: ["sweaters", "hoodies", "apparel", "mens"],
   },
 ].map((productDetails) => {
+  if (productDetails.type === "clothing") {
+    return new Clothing(productDetails);
+  }
   return new Product(productDetails);
 });
-
-console.log(products);

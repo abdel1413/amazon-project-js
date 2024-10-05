@@ -1,4 +1,4 @@
-import { cart, addToCart, calculateItemQuantity } from "../data/cart.js";
+import { cart, addToCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { currencyFormatter } from "./sharedScripts/currencyFormatter.js";
 
@@ -38,19 +38,20 @@ import { currencyFormatter } from "./sharedScripts/currencyFormatter.js";
 let html = ``;
 const htmlGenerator = (product) => {
   product.forEach((element) => {
-    html += ` <div class="products-container">
-           <div class="products-img">
-            <img src= ${element.image} alt="" class="product-img">
-            </div>
-            <div class="product-description">
-                <p class="description-el" >${element.name} </p>
-                <div class="rating-div">
-                    <img src="${element.getStarUrl()}" alt="" class="rating"><span class="review-el">${
-      element.rating.count
-    }</span>
-                </div>
-                <p class="price-el">${element.getPrice()}</p>
-                <form action="">
+    html += `<div class="products-container">
+              <div class="products-img">
+                      <img src= ${element.image} alt="" class="product-img">
+               </div>
+                <div class="product-description">
+                       <p class="description-el" >${element.name} </p>
+                    <div class="rating-div">
+                      <img src="${element.getStarUrl()}" alt="" class="rating">
+                      <span class="review-el">${element.rating.count}
+                      </span>
+                   </div>
+                   <p class="price-el">${element.getPrice()}</p>
+                   <div class="option-chart">
+                    <form action="">
                     <select name="" id="" class="selector">
                         <option value="one">1</option>
                         <option value="two">2</option>
@@ -63,12 +64,16 @@ const htmlGenerator = (product) => {
                         <option value="nine">9</option>
                         <option value="ten">10</option>
                     </select>
-                </form>
-                <button class="add-btn js-add-to-cart" data-product-id ="${
-                  element.id
-                }" >Add to Cart</button>
-          </div>
-        </div>
+                  </form>
+                  ${element.getExtraInfoHTML()}
+
+                  </div>
+                  <button class="add-btn js-add-to-cart" data-product-id ="${
+                    element.id
+                  }" >Add to Cart
+                </button>
+           </div>
+       </div>
     
 `;
   });

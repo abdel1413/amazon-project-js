@@ -107,6 +107,3 @@ const bcart = new Cart("besiness-cart");
 // bcart.loadFromStorage();
 
 // cart.#localStorageKey = "aaa";
-
-console.log("c", cart);
-console.log("bc", bcart);
