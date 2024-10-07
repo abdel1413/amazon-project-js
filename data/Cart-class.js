@@ -1,4 +1,4 @@
-class Cart {
+export default class Cart {
   cartItems;
   #localStorageKey;
 
@@ -79,6 +79,7 @@ class Cart {
     }
     this.saveToLocalStorage();
   }
+
   updateDeliveryOption(productId, deliveryOptionId) {
     let matching;
     this.cartItems.forEach((item) => {
@@ -94,12 +95,12 @@ class Cart {
     this.cartItems.forEach((element) => {
       totalItems += element.quantity;
     });
-
     return totalItems;
   }
 }
 
-const cart = new Cart("cart-oop");
+export const cart = new Cart("cart-oop");
+
 const bcart = new Cart("besiness-cart");
 
 // cart.loadFromStorage();

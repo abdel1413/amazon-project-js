@@ -1,6 +1,6 @@
 import { currencyFormatter } from "../script/sharedScripts/currencyFormatter.js";
 
-class Product {
+export class Product {
   id;
   image;
   name;
@@ -39,7 +39,7 @@ const prodClass = new Product({
   keywords: ["socks", "sports", "apparel"],
 });
 
-class Clothing extends Product {
+export class Clothing extends Product {
   sizeChartLink;
   constructor(productDetails) {
     super(productDetails);
@@ -48,7 +48,24 @@ class Clothing extends Product {
 
   //overide the getExtraInfor
   getExtraInfoHTML() {
-    return `<a href="${this.sizeChartLink}"  class="size-chart"target="_blank">chart List </a>`;
+    return `<a href="${this.sizeChartLink}"  class="size-chart" target="_blank">chart List </a>`;
+  }
+}
+
+export class Appliance extends Product {
+  instructionsLink;
+  warrantyLink;
+  constructor(productDetails) {
+    super(productDetails);
+    this.instructionsLink = productDetails.instructionsLink;
+    this.warrantyLink = productDetails.warrantyLink;
+  }
+
+  getExtraInfoHTML() {
+    let instructions = `<a href="${this.instructionsLink}" target="_blank">Instructions</a>`;
+    let waranty = `<a href="${this.warrantyLink}" target="_blank">Waranty</a>`;
+
+    return `${instructions}${waranty}`;
   }
 }
 
@@ -133,6 +150,9 @@ export const products = [
     },
     priceCents: 2067,
     keywords: ["plates", "kitchen", "dining"],
+    type: "appliance",
+    instructionsLink: "images/appliance-instructions.png",
+    warrantyLink: "images/appliance-warranty.png",
   },
   {
     id: "8c9c52b5-5a19-4bcb-a5d1-158a74287c53",
@@ -256,6 +276,9 @@ export const products = [
     },
     priceCents: 3074,
     keywords: ["water boiler", "appliances", "kitchen"],
+    type: "appliance",
+    instructionsLink: "images/appliance-instructions.png",
+    warrantyLink: "images/appliance-warranty.png",
   },
   {
     id: "6b07d4e7-f540-454e-8a1e-363f25dbae7d",
@@ -414,6 +437,9 @@ export const products = [
     },
     priceCents: 6797,
     keywords: ["cooking set", "kitchen"],
+    type: "appliance",
+    instructionsLink: "images/appliance-instructions.png",
+    warrantyLink: "images/appliance-warranty.png",
   },
   {
     id: "a434b69f-1bc1-482d-9ce7-cd7f4a66ce8d",
@@ -469,6 +495,9 @@ export const products = [
     },
     priceCents: 2250,
     keywords: ["coffeemakers", "kitchen", "appliances"],
+    type: "appliance",
+    instructionsLink: "images/appliance-instructions.png",
+    warrantyLink: "images/appliance-warranty.png",
   },
   {
     id: "02e3a47e-dd68-467e-9f71-8bf6f723fdae",
@@ -513,6 +542,10 @@ export const products = [
     },
     priceCents: 10747,
     keywords: ["food blenders", "kitchen", "appliances"],
+
+    type: "appliance",
+    instructionsLink: "images/appliance-instructions.png",
+    warrantyLink: "images/appliance-warranty.png",
   },
   {
     id: "36c64692-677f-4f58-b5ec-0dc2cf109e27",
@@ -524,6 +557,10 @@ export const products = [
     },
     priceCents: 3899,
     keywords: ["mixing bowls", "baking", "cookware", "kitchen"],
+
+    type: "appliance",
+    instructionsLink: "images/appliance-intructions.png",
+    warrantyLink: "images/appliance-warranty.png",
   },
   {
     id: "aaa65ef3-8d6f-4eb3-bc9b-a6ea49047d8f",
@@ -550,6 +587,8 @@ export const products = [
 ].map((productDetails) => {
   if (productDetails.type === "clothing") {
     return new Clothing(productDetails);
+  } else if (productDetails.type === "appliance") {
+    return new Appliance(productDetails);
   }
   return new Product(productDetails);
 });

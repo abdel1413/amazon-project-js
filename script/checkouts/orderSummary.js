@@ -5,7 +5,7 @@ import {
   updateDeliveryOption,
   updateShoppingCart,
 } from "../../data/cart.js";
-// import"../../data/cart.js";
+import "../../data/Cart-class.js";
 import { getProduct, products } from "../../data/products.js";
 import { currencyFormatter } from "../sharedScripts/currencyFormatter.js";
 import {

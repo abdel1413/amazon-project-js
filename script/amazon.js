@@ -1,4 +1,5 @@
 import { cart, addToCart } from "../data/cart.js";
+//import { Cart } from "../data/cart-class.js";
 import { products } from "../data/products.js";
 import { currencyFormatter } from "./sharedScripts/currencyFormatter.js";
 
@@ -65,8 +66,9 @@ const htmlGenerator = (product) => {
                         <option value="ten">10</option>
                     </select>
                   </form>
+                  <div class='info-div'>
                   ${element.getExtraInfoHTML()}
-
+                  </div>
                   </div>
                   <button class="add-btn js-add-to-cart" data-product-id ="${
                     element.id

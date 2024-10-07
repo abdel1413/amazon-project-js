@@ -285,6 +285,11 @@ body {
   justify-content: space-between;
 }
 
+.info-div {
+  display: flex;
+  flex-direction: column;
+}
+
 .description-el,
 .price-el {
   font-size: 22px;
