@@ -65,7 +65,7 @@ const cl = new Clothing({
   type: "clothing",
   sizeChartLink: "images/clothing-size-chart.png",
 });
-console.log("cl", cl);
+
 //use productId to get the full product and return
 export function getProduct(productId) {
   let matchingProduct;
