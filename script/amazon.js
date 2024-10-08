@@ -1,8 +1,9 @@
-import { cart, addToCart } from "../data/cart.js";
-//import { Cart } from "../data/cart-class.js";
+//import { cart, addToCart } from "../data/cart.js";
+import { cart } from "../data/cart-class.js";
 import { products } from "../data/products.js";
 import { currencyFormatter } from "./sharedScripts/currencyFormatter.js";
 
+console.log("car", cart.cartItems);
 //Hard code
 /*let data = [
   {
@@ -89,7 +90,7 @@ document.querySelector(".products-grid").innerHTML = html;
 const updateShoppingCart = () => {
   let totalItem = 0;
 
-  cart.forEach((item) => {
+  cart.cartItems.forEach((item) => {
     totalItem += item.quantity;
   });
   let cartQuantity = document.querySelector(".cart-quantity");
@@ -109,7 +110,7 @@ document.querySelectorAll(".js-add-to-cart").forEach((btn) => {
     productId = btn.dataset.productId;
     //cart.push({ productDescription, quantity: 1 });
 
-    addToCart(productId);
+    cart.addToCart(productId);
 
     //update the shopping cart with newly selected item numb
     updateShoppingCart();

@@ -1,5 +1,5 @@
-import { cart, updateShoppingCart } from "../../data/cart.js";
-import "../../data/Cart-class.js";
+//import { cart, updateShoppingCart } from "../../data/cart.js";
+import { cart } from "../../data/Cart-class.js";
 // import "../../data/cart.js";
 import { getDeliveryOption } from "../../data/deliveryOptions.js";
 import { getProduct } from "../../data/products.js";
@@ -8,7 +8,7 @@ import { currencyFormatter } from "../sharedScripts/currencyFormatter.js";
 export function renderPaymentSummary() {
   let totalProductCost = 0;
   let totalShippingCost = 0;
-  cart.forEach((item) => {
+  cart.cartItems.forEach((item) => {
     //we use productid to pull the full item from product
     let product = getProduct(item.productId);
 
@@ -29,7 +29,7 @@ export function renderPaymentSummary() {
               Order Summary
       </div>
       <div class="payment-summary-row">
-          <div>Items ( ${updateShoppingCart()}):</div>
+          <div>Items ( ${cart.updateShoppingCart()}):</div>
           <div class="payment-summary-money">$${currencyFormatter(
             totalProductCost
           )}</div>

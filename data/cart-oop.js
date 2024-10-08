@@ -103,5 +103,5 @@ cart.loadFromStorage();
 businessCart.loadFromStorage();
 cart.addToCart("83d4ca15-0f35-48f5-b7a3-1ea210004f2e");
 
-// console.log("c", cart);
+console.log("c", cart);
 // console.log("bc", businessCart);

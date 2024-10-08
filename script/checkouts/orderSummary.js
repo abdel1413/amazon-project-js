@@ -1,12 +1,12 @@
-import {
-  cart,
-  cartItemRemover,
-  updateQuantity as addQuantity,
-  updateDeliveryOption,
-  updateShoppingCart,
-} from "../../data/cart.js";
-import "../../data/Cart-class.js";
-import { getProduct, products } from "../../data/products.js";
+// import {
+//   cart,
+//   cartItemRemover,
+//   updateQuantity as addQuantity,
+//   updateDeliveryOption,
+//   updateShoppingCart,
+// } from "../../data/cart.js";
+import { cart } from "../../data/Cart-class.js";
+import { getProduct } from "../../data/products.js";
 import { currencyFormatter } from "../sharedScripts/currencyFormatter.js";
 import {
   deliveryOptions,
@@ -66,7 +66,7 @@ export const renderOrderSummary = () => {
   // collect some data/
   // generate an HTML with the collected data
   // make the HTML page interactive
-  cart.forEach((cartItem) => {
+  cart.cartItems.forEach((cartItem) => {
     let matchingProduct;
     let cartProductId;
     let quantity;
@@ -160,7 +160,7 @@ export const renderOrderSummary = () => {
     link.addEventListener("click", () => {
       productId = link.dataset.productId;
 
-      cartItemRemover(productId);
+      cart.cartItemRemover(productId);
 
       //after item's been removed from cart, update the html
       // 1 get element to remvoe from dom
@@ -204,10 +204,10 @@ export const renderOrderSummary = () => {
   //     totalItems += element.quantity;
   //   });
 
-  let totalItems = updateShoppingCart();
+  let totalItems = cart.updateShoppingCart();
 
   document.querySelector(".checkout-total-items").innerHTML =
-    updateShoppingCart();
+    cart.updateShoppingCart();
 
   let checkoutLabel = document.querySelector(".checkout-total-items-label");
   totalItems < 2
@@ -224,12 +224,10 @@ export const renderOrderSummary = () => {
   document.querySelectorAll(`.js-update-quantity-link`).forEach((element) => {
     element.addEventListener("click", () => {
       let productId = element.dataset.productId;
-
       //get the specific cart container
       let cartItem = document.querySelector(
         `.js-cart-item-container-${productId}`
       );
-
       cartItem.classList.add("is-editing-quantity");
     });
   });
@@ -237,7 +235,6 @@ export const renderOrderSummary = () => {
   document.querySelectorAll(".js-save-quantity-link").forEach((link) => {
     link.addEventListener("click", () => {
       let productId = link.dataset.productId;
-
       //get the specific cart container
       let cartItem = document.querySelector(
         `.js-cart-item-container-${productId}`
@@ -253,7 +250,7 @@ export const renderOrderSummary = () => {
       //1update the cart
       //2update the html page
       //3 update the header containing number of items
-      addQuantity(productId, inputValue);
+      cart.updateQuantity(productId, inputValue);
       document.querySelector(`.js-quantity-label-${productId}`).innerHTML =
         inputValue;
       inputValue = "";
@@ -270,7 +267,7 @@ export const renderOrderSummary = () => {
   document.querySelectorAll(".js-delivery-option").forEach((element) => {
     element.addEventListener("click", () => {
       const { deliveryOptionId, productId } = element.dataset;
-      updateDeliveryOption(productId, deliveryOptionId);
+      cart.updateDeliveryOption(productId, deliveryOptionId);
       renderOrderSummary();
       renderPaymentSummary();
     });
