@@ -14,6 +14,7 @@ import {
 } from "../../data/deliveryOptions.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
+import "../../data/backend-practice.js";
 
 export const renderOrderSummary = () => {
   //function to easy reading date format:
