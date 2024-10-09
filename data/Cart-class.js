@@ -100,7 +100,7 @@ export default class Cart {
 }
 
 export const cart = new Cart("cart-class");
-console.log("ccc", cart);
+// console.log("ccc", cart);
 
 export const bcart = new Cart("besiness-cart");
 
