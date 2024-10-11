@@ -3,9 +3,9 @@ import { cart } from "../data/cart-class.js";
 import { products } from "../data/products.js";
 //import { currencyFormatter } from "./sharedScripts/currencyFormatter.js";
 
-// loadProductsFromBackend(renderProducts);
+//loadProductsFromBackend(renderProducts);
 
-//Hard code
+//Hard code for test;
 /*let data = [
   {
     image: "./images/products/black-2-slot-toaster.jpg",

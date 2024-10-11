@@ -2,27 +2,6 @@ import { currencyFormatter } from "../script/sharedScripts/currencyFormatter.js"
 
 //export let products = [];
 
-/*export function loadProductsFromBackend(func) {
-  const xhr = new XMLHttpRequest();
-
-  xhr.addEventListener("load", () => {
-    bProducts = JSON.parse(xhr.response).map((productDetails) => {
-      if (productDetails.type === "clothing") {
-        return new Clothing(productDetails);
-      } else if (productDetails.type === "appliance") {
-        return new Appliance(productDetails);
-      }
-      return new Product(productDetails);
-    });
-    func();
-    console.log("products load");
-  });
-
-  xhr.open("GET", "https://supersimplebackend.dev/products");
-  xhr.send();
-}
-*/
-
 export class Product {
   id;
   image;
@@ -94,6 +73,7 @@ export class Appliance extends Product {
 
 //use productId to get the full product and return
 export function getProduct(productId) {
+  console.log("//", products);
   let matchingProduct;
 
   products.forEach((item) => {
@@ -104,6 +84,26 @@ export function getProduct(productId) {
 
   return matchingProduct;
 }
+
+// export function loadProductsFromBackend(func) {
+//   const xhr = new XMLHttpRequest();
+
+//   xhr.addEventListener("load", () => {
+//     products = JSON.parse(xhr.response).map((productDetails) => {
+//       if (productDetails.type === "clothing") {
+//         return new Clothing(productDetails);
+//       } else if (productDetails.type === "appliance") {
+//         return new Appliance(productDetails);
+//       }
+//       return new Product(productDetails);
+//     });
+//     func();
+//     console.log("products load");
+//   });
+
+//   xhr.open("GET", "https://supersimplebackend.dev/products");
+//   xhr.send();
+// }
 
 export const products = [
   {

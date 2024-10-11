@@ -16,7 +16,13 @@ import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
 //import "../../data/backend-practice.js";
 
+console.log(products);
+new Promise(() => {
+  console.log(products);
+});
+
 export const renderOrderSummary = () => {
+  console.log("pp", products);
   //function to easy reading date format:
   //1 create a delivery date using dayjs()
   //2 add a date we want to dayjs()
