@@ -1,11 +1,12 @@
 import { currencyFormatter } from "../script/sharedScripts/currencyFormatter.js";
 
-export let products = [];
+//export let products = [];
 
-export function loadProductsFromBackend(func) {
+/*export function loadProductsFromBackend(func) {
   const xhr = new XMLHttpRequest();
+
   xhr.addEventListener("load", () => {
-    products = JSON.parse(xhr.response).map((productDetails) => {
+    bProducts = JSON.parse(xhr.response).map((productDetails) => {
       if (productDetails.type === "clothing") {
         return new Clothing(productDetails);
       } else if (productDetails.type === "appliance") {
@@ -14,12 +15,13 @@ export function loadProductsFromBackend(func) {
       return new Product(productDetails);
     });
     func();
+    console.log("products load");
   });
+
   xhr.open("GET", "https://supersimplebackend.dev/products");
   xhr.send();
 }
-
-//loadProductsFromBackend();
+*/
 
 export class Product {
   id;
@@ -93,14 +95,16 @@ export class Appliance extends Product {
 //use productId to get the full product and return
 export function getProduct(productId) {
   let matchingProduct;
+
   products.forEach((item) => {
-    if (item.id === productId) matchingProduct = item;
+    if (item.id === productId) {
+      matchingProduct = item;
+    }
   });
 
   return matchingProduct;
 }
 
-/*
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -600,4 +604,3 @@ export const products = [
   }
   return new Product(productDetails);
 });
-*/

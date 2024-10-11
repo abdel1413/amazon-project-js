@@ -6,7 +6,7 @@
 //   updateShoppingCart,
 // } from "../../data/cart.js";
 import { cart } from "../../data/Cart-class.js";
-import { getProduct } from "../../data/products.js";
+import { getProduct, products } from "../../data/products.js";
 import { currencyFormatter } from "../sharedScripts/currencyFormatter.js";
 import {
   deliveryOptions,
@@ -14,7 +14,7 @@ import {
 } from "../../data/deliveryOptions.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
-import "../../data/backend-practice.js";
+//import "../../data/backend-practice.js";
 
 export const renderOrderSummary = () => {
   //function to easy reading date format:
@@ -66,7 +66,8 @@ export const renderOrderSummary = () => {
 
   // collect some data/
   // generate an HTML with the collected data
-  // make the HTML page interactive
+  // make the HTML page interactivel
+
   cart.cartItems.forEach((cartItem) => {
     let matchingProduct;
     let cartProductId;
@@ -74,11 +75,12 @@ export const renderOrderSummary = () => {
     cartProductId = cartItem.productId;
     quantity = cartItem.quantity;
 
-    // products.forEach((element) => {
-    //   if (cartProductId == element.id) {
-    //     matchingProduct = element;
-    //   }
-    // });
+    //   let match;
+    //  products.forEach((element) => {
+    //     if (cartProductId == element.id) {
+    //       match = element;
+    //     }
+    //   });
 
     matchingProduct = getProduct(cartProductId);
 
@@ -147,8 +149,8 @@ export const renderOrderSummary = () => {
               ${deliveryOptionsHTML(matchingProduct, cartItem)}
           </div>
       </div>
-  </div>
-  `;
+   </div>
+   `;
 
     cartItemSection.innerHTML = cartItems;
   });

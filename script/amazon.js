@@ -1,9 +1,9 @@
 //import { cart, addToCart } from "../data/cart.js";
 import { cart } from "../data/cart-class.js";
-import { products, loadProductsFromBackend } from "../data/products.js";
+import { products } from "../data/products.js";
 //import { currencyFormatter } from "./sharedScripts/currencyFormatter.js";
 
-loadProductsFromBackend(renderProducts);
+// loadProductsFromBackend(renderProducts);
 
 //Hard code
 /*let data = [
@@ -120,3 +120,5 @@ function renderProducts() {
     });
   });
 }
+
+renderProducts();
