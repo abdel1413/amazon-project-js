@@ -6,10 +6,18 @@ import "../data/cart-class.js";
 //import "../data/car.js";
 // import { Cart } from "../data/cart-class.js";
 
+new Promise((resolve) => {
+  orderSummary();
+  paymentSummary();
+  resolve("values availabe");
+}).then((val) => {
+  console.log(val);
+});
+
 // loadProductsFromBackend(() => {
 //   orderSummary();
 //   paymentSummary();
 // }
 
-orderSummary();
-paymentSummary();
+// orderSummary();
+// paymentSummary();
