@@ -73,7 +73,6 @@ export class Appliance extends Product {
 
 //use productId to get the full product and return
 export function getProduct(productId) {
-  console.log("//", products);
   let matchingProduct;
 
   products.forEach((item) => {
@@ -84,6 +83,30 @@ export function getProduct(productId) {
 
   return matchingProduct;
 }
+
+let p = [];
+function loadProductFecth() {
+  const fectchProduct = fetch("https://supersimplebackend.dev/products")
+    .then((resp) => {
+      return resp.json();
+    })
+    .then((data) => {
+      p = data.map((productDetails) => {
+        if (productDetails.type === "Clothing") {
+          return new Clothing(productDetails);
+        } else if (productDetails.type === "Appliance") {
+          return new Appliance(productDetails);
+        }
+
+        return new Product(productDetails);
+      });
+      console.log(p);
+    });
+
+  return fectchProduct;
+}
+
+loadProductFecth();
 
 // export function loadProductsFromBackend(func) {
 //   const xhr = new XMLHttpRequest();
