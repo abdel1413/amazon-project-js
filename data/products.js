@@ -87,14 +87,14 @@ export function getProduct(productId) {
 // since asyn func does'nt have .then()
 // to hold/print the value, we can save the promise in a variable
 
-let p = [];
+export let products2 = [];
 export function loadProductFecth() {
   const fectchProduct = fetch("https://supersimplebackend.dev/products")
     .then((resp) => {
       return resp.json();
     })
     .then((data) => {
-      p = data.map((productDetails) => {
+      products2 = data.map((productDetails) => {
         if (productDetails.type === "Clothing") {
           return new Clothing(productDetails);
         } else if (productDetails.type === "Appliance") {
@@ -103,10 +103,7 @@ export function loadProductFecth() {
 
         return new Product(productDetails);
       });
-      console.log(p);
-    })
-    .catch((err) => {
-      console.log("opps, there is an error ", err);
+      console.log(products2);
     });
 
   return fectchProduct;
