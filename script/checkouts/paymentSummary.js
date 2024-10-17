@@ -63,10 +63,10 @@ export function renderPaymentSummary() {
   `;
   document.querySelector(".js-payment-summary").innerHTML = paymentSummaryHtml;
   document.querySelector(".js-place-order").addEventListener("click", () => {
-    console.log("car", cart);
+    console.log("car", cart.cartItems);
     addOrder(cart);
 
-    generateOrders();
-    window.location.href = "orders.html";
+    generateOrders(cart);
+    // window.location.href = "orders.html";
   });
 }
