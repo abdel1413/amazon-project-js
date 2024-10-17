@@ -2,7 +2,7 @@
 import { cart } from "../../data/Cart-class.js";
 // import "../../data/cart.js";
 import { getDeliveryOption } from "../../data/deliveryOptions.js";
-import { addOrder } from "../../data/orders.js";
+import { addOrder, generateOrders } from "../../data/orders.js";
 import { getProduct } from "../../data/products.js";
 import { currencyFormatter } from "../sharedScripts/currencyFormatter.js";
 
@@ -65,5 +65,8 @@ export function renderPaymentSummary() {
   document.querySelector(".js-place-order").addEventListener("click", () => {
     console.log("car", cart);
     addOrder(cart);
+
+    generateOrders();
+    window.location.href = "orders.html";
   });
 }

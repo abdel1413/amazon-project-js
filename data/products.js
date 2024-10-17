@@ -103,7 +103,6 @@ export function loadProductFecth() {
 
         return new Product(productDetails);
       });
-      console.log(products2);
     });
 
   return fectchProduct;
