@@ -1,29 +1,35 @@
 import { getProduct } from "./products.js";
 
+let ordersHtml = document.querySelector(".js-orders-grid");
 export const orders = [] || JSON.parse(localStorage.getItem(orders));
+
+console.log("hh", ordersHtml);
 
 export function addOrder(order) {
   orders.unshift(order);
   saveToLocalStorage();
+  // console.log("OD", localStorage.getItem("orders"));
+  // let ordersArray = JSON.parse(localStorage.getItem("orders"));
+  generateOrders();
 }
 
 function saveToLocalStorage() {
   localStorage.setItem("orders", JSON.stringify(orders));
 }
 
-export function generateOrders(cart) {
-  // window.location.href = "orders.html";
-  let html = "";
-  let product;
-  cart.cartItems.forEach((order) => {
-    product = getProduct(order.productId);
-    const { id, name, image } = product;
-    console.log("qt", order.quantity);
-    console.log(id);
-    console.log(name);
-    console.log(image);
+export function generateOrders() {
+  //window.location.href = "orders.html";
 
-    html += ` <div class="order-container">
+  const ordersArray = JSON.parse(localStorage.getItem("orders"))[0].cartItems;
+
+  let html = ``;
+  let product;
+
+  ordersArray.forEach((order) => {
+    product = getProduct(order.productId);
+    const { id, name, image, priceCents } = product;
+
+    html += `<div class="order-container">
 
                 <div class="order-header">
                     <div class="order-header-left-section">
@@ -33,7 +39,7 @@ export function generateOrders(cart) {
                         </div>
                         <div class="order-total">
                             <div class="order-header-label">Total:</div>
-                            <div>$41.90</div>
+                            <div>${priceCents}</div>
                         </div>
                     </div>
 
@@ -63,7 +69,6 @@ export function generateOrders(cart) {
                             <span class="buy-again-message">Buy it again</span>
                         </button>
                     </div>
-
                     <div class="product-actions">
                         <a href="tracking.html">
                             <button class="track-package-button button-secondary">
@@ -75,12 +80,14 @@ export function generateOrders(cart) {
             </div>`;
   });
 
-  //window.location.href = "orders.html";
+  //console.log("htm", html);
 
-  const orderGrid = document.querySelector(".order-container");
-  console.log("grid", orderGrid);
-  // console.log(document.querySelector(".js-order-placed"));
-  // document.querySelector(".js-orders-placed");
+  return ordersHtml;
 }
+//window.location.href = "orders.html";
+
+generateOrders();
+
+// console.log(document.querySelector(".js-order-placed"));
 
 //generateOrders(orders);

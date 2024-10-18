@@ -61,12 +61,14 @@ export function renderPaymentSummary() {
           Place your order
       </button>
   `;
+
   document.querySelector(".js-payment-summary").innerHTML = paymentSummaryHtml;
+
   document.querySelector(".js-place-order").addEventListener("click", () => {
-    console.log("car", cart.cartItems);
     addOrder(cart);
 
-    generateOrders(cart);
-    // window.location.href = "orders.html";
+    //generateOrders(cart);
+
+    window.location.href = "orders.html";
   });
 }
