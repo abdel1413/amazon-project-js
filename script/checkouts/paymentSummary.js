@@ -69,6 +69,8 @@ export function renderPaymentSummary() {
 
     //generateOrders(cart);
 
+    console.log("docccc", document.querySelector(".js-orders-grid"));
+
     window.location.href = "orders.html";
   });
 }
