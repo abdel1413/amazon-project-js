@@ -1,4 +1,6 @@
+import { cart } from "./Cart-class.js";
 import { getProduct } from "./products.js";
+import { generateTrack } from "./tracking.js";
 
 let ordersHtml = document.querySelector(".js-order-details-grid");
 export const orders = JSON.parse(localStorage.getItem("orders")) || [];
@@ -6,8 +8,9 @@ export const orders = JSON.parse(localStorage.getItem("orders")) || [];
 export function addOrder(order) {
   orders.unshift(order);
   saveToLocalStorage();
-  // console.log("OD", localStorage.getItem("orders"));
-  // let ordersArray = JSON.parse(localStorage.getItem("orders"));
+  //    console.log("OD", localStorage.getItem("orders"));
+  //   let ordersArray = JSON.parse(localStorage.getItem("orders"));
+  //   console.log("ooo", ordersArray);
   generateOrders();
 }
 
@@ -23,11 +26,20 @@ export function generateOrders() {
   let html = ``;
   let product;
 
+  //come back later
+  //   let all = [];
+  //   for (let i = ordersArray.length - 1; i >= 0; i--) {
+  //     all.push(ordersArray[i]);
+  //   }
+  // console.log("all", all);
+
   ordersArray.forEach((order) => {
     product = getProduct(order.productId);
+
     const { id, name, image, priceCents } = product;
 
-    html += ` <div class="order-details-grid js-order-details-grid">
+    html += ` <div class="order-details-grid js-order-details-grid"
+    >
                     <div class="product-image-container">
                         <img src="${image}">
                     </div>
@@ -49,29 +61,41 @@ export function generateOrders() {
                     </div>
 
                     <div class="product-actions">
-                        <a href="tracking.html">
-                            <button class="track-package-button button-secondary">
+                      
+                            <button class="track-package-button button-secondary
+                            js-track-package-button"
+                            data-product-id="${id}"
+                            >
                                 Track package
                             </button>
-                        </a>
+                    
                     </div>
                 </div>`;
   });
 
-  //console.log("htm", html);
-
   if (!ordersHtml) {
   } else {
-    console.log("hh", ordersHtml.innerHTML);
     ordersHtml.innerHTML = html;
   }
 
   return ordersHtml;
 }
-//window.location.href = "orders.html";
 
 generateOrders();
 
-// console.log(document.querySelector(".js-order-placed"));
+let trackingBtn = document.querySelectorAll(".js-track-package-button");
 
-//generateOrders(orders);
+trackingBtn.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    let id = btn.dataset.productId;
+    let matchingItem;
+
+    cart.cartItems.forEach((element) => {
+      if (element.productId === id) {
+        matchingItem = element;
+      }
+    });
+    generateTrack(id, matchingItem);
+    //window.location.href = "tracking.html";
+  });
+});
