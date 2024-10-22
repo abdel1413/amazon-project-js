@@ -1,21 +1,16 @@
 import { getProduct } from "./products.js";
-
 export function generateTrack(id, item) {
-  const main = document.querySelector(".main");
-
-  console.log("track", main);
-  console.log("item", item.quantity);
-
   let product = getProduct(id);
 
   const { productId, name, image } = product;
+  const main = document.querySelector(".main");
+
   const html = `
-       
         <div class="order-tracking">
             <a class="back-to-orders-link link-primary" href="orders.html">
                 View all orders
             </a>
-               
+                  
                    <div class="delivery-date">
                     Arriving on Monday, June 13
                    </div>
@@ -43,10 +38,9 @@ export function generateTrack(id, item) {
                 <div class="progress-bar"></div>
             </div>
         </div>
-    
     `;
 
   main.innerHTML = html;
 
-  //   return main;
+  window.location.href = "tracking.html";
 }
