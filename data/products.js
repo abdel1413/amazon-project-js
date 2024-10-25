@@ -88,6 +88,7 @@ export function getProduct(productId) {
 // to hold/print the value, we can save the promise in a variable
 
 export let products2 = [];
+
 export function loadProductFecth() {
   const fectchProduct = fetch("https://supersimplebackend.dev/products")
     .then((resp) => {

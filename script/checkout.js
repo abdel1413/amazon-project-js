@@ -3,8 +3,10 @@ import { renderPaymentSummary as paymentSummary } from "./checkouts/paymentSumma
 import "../data/cart-oop.js";
 import "../data/cart-class.js";
 import { loadProductFecth, products } from "../data/products.js";
+import { loadCartFetch } from "../data/cart.js";
 // import { loadProductsFromBackend } from "../data/products.js";
-//import "../data/car.js";
+// import '../data/cart-class.js';
+
 // import { Cart } from "../data/cart-class.js";
 
 //NOTE: use async function over Promise and Callbacks
@@ -13,15 +15,10 @@ import { loadProductFecth, products } from "../data/products.js";
 //using async/await functioins
 async function loadProductAsync() {
   try {
-    console.log("1load page");
     await loadProductFecth();
     const val = await new Promise((resolve) => {
-      console.log("inside promise");
-
-      resolve("vvaluess");
+      resolve("value");
     });
-
-    console.log("val", val);
   } catch (e) {
     console.log("error has occured, ", e);
   }
@@ -30,7 +27,14 @@ async function loadProductAsync() {
   paymentSummary();
 }
 
-loadProductAsync();
+try {
+  await loadCartFetch();
+  await loadProductAsync();
+
+  await Promise.all([loadCartFetch(), loadProductAsync()]);
+} catch (e) {
+  console.log("unexpected error occured. Please try again later");
+}
 
 //using Promises
 // new Promise((resolve) => {
