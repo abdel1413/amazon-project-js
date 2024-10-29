@@ -24,9 +24,9 @@ new Promise(() => {
 
 export const renderOrderSummary = () => {
   //function to easy reading date format:
-  //1 create a delivery date using dayjs()
-  //2 add a date we want to dayjs()
-  //3 format the date
+  //1 create a delivery date using dayjs() function
+  //2 add() a date we want to dayjs()
+  //3 format() to formate the date
   const getDeliveryDate = (option) => {
     const today = dayjs();
     const deliveryDate = today.add(option.deliveryDays, "days");
@@ -52,6 +52,7 @@ export const renderOrderSummary = () => {
                   ${isChecked}
                   class="delivery-option-input"
                   name="delivery-option-${matching.id}">
+
                   <div>
                       <div class="delivery-option-date">
                         ${getDeliveryDate(option)}
@@ -104,7 +105,7 @@ export const renderOrderSummary = () => {
 
     const delivery = getDeliveryOption(deliveryOptionId);
 
-    cartItems += ` <div class="cart-item-container 
+    cartItems += `<div class="cart-item-container 
     js-cart-item-container-${matchingProduct.id}">
       <div class="delivery-date">
           Delivery date: ${getDeliveryDate(delivery)}
@@ -162,8 +163,8 @@ export const renderOrderSummary = () => {
   });
 
   //when clicked on ,
-  //1 remove item from cart
-  //2 and updata the html
+  //1) remove item from cart
+  //2) and updata the html
   let productId;
   document.querySelectorAll(".js-delete-link").forEach((link) => {
     link.addEventListener("click", () => {
@@ -248,7 +249,6 @@ export const renderOrderSummary = () => {
       let cartItem = document.querySelector(
         `.js-cart-item-container-${productId}`
       );
-
       cartItem.classList.remove("is-editing-quantity");
 
       let inputValue = document.querySelector(

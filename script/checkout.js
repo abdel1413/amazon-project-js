@@ -36,14 +36,44 @@ try {
   console.log("unexpected error occured. Please try again later");
 }
 
+//using Promise.all() methd to
+// wait for all the promise to finish at
+//the same time bf going to next step
+Promise.all([
+  new Promise((resolve) => {
+    loadProduct(() => {
+      resolve("val1");
+    });
+  }),
+
+  new Promise((resolve) => {
+    loadCart(() => {
+      resolve("val2");
+    });
+  }),
+]).then((values) => {
+  console.log(values); // [val1, val2]
+  orderSummary();
+  paymentSummary();
+});
+
 //using Promises
-// new Promise((resolve) => {
-//   orderSummary();
-//   paymentSummary();
-//   resolve("values availabe");
-// }).then((val) => {
-//   console.log(val);
-// });
+/* new Promise((resolve) => {
+    loadProduct(()=>{
+       resolve('val')
+  }).then((value)=>{
+  console.log(value) //=> val
+return new Promise(resolve => {
+   loadCart(=>{
+    resolve(val2)
+  })   
+   })
+  }).then((values)=>{
+  console.log(values) //=> val2,
+   orderSummary();
+  paymentSummary();
+ })
+*/
 
 // using call backs
 // loadProductsFromBackend(() => {

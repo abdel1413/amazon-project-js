@@ -5,11 +5,6 @@ export async function generateTrack(id, item) {
   const { productId, name, image } = product;
   //console.log((window.location.href = "tracking.html"));
 
-  let url = new URL(window.location.href);
-  console.log("url", url);
-
-  let track = document.querySelectorAll(".tracking");
-
   const main = document.querySelector(".main");
 
   const html = `
@@ -47,7 +42,9 @@ export async function generateTrack(id, item) {
         </div
     `;
 
-  //   console.log(main);
+  main.innerHTML = html;
+
+  console.log(main);
   //   console.log("trachking", window.location.href);
   //   const body = document.getElementsByTagName("body")[0];
   //   body.innerHTML = html;
@@ -120,4 +117,4 @@ async function loadPage() {
   await loadProductFecth();
 }
 
-loadPage();
+//loadPage();

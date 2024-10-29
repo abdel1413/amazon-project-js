@@ -3,7 +3,7 @@ export let cart;
 export async function loadCartFetch() {
   const resp = await fetch("https://supersimplebackend.dev/cart");
   const text = await resp.text();
-  console.log("cart text", text);
+  // console.log("cart text", text);
   return text;
 }
 export function loadFromStorage() {

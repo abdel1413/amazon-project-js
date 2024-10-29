@@ -50,6 +50,7 @@ export class Clothing extends Product {
 
   //overide the getExtraInfor
   getExtraInfoHTML() {
+    //super.getExtraInfoHTML() // calls the parent class method wtht overriding
     return `<a href="${this.sizeChartLink}"  class="size-chart" target="_blank">chart List </a>`;
   }
 }
