@@ -3,10 +3,20 @@ export let cart;
 export async function loadCartFetch() {
   const resp = await fetch("https://supersimplebackend.dev/cart");
   const text = await resp.text();
-  // console.log("cart text", text);
+  console.log("cart text", text);
   return text;
 }
-export function loadFromStorage() {
+
+export function loadCart() {
+  const xhr = new XMLHttpRequest();
+  xhr.addEventListener("load", () => {
+    console.log(xhr.response);
+  });
+  xhr.open("GET", "https://supersimplebackend.dev/cart");
+  xhr.send();
+}
+
+export async function loadFromStorage() {
   cart = JSON.parse(localStorage.getItem("cart"));
 
   if (!cart) {
@@ -24,8 +34,6 @@ export function loadFromStorage() {
     ];
   }
 }
-
-loadFromStorage();
 
 //function to save data to localstorage
 const saveToLocalStorage = () => {

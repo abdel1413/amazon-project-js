@@ -230,7 +230,6 @@ export const renderOrderSummary = () => {
   // updateShoppingCart();
   // let total = updateShoppingCart();
   // console.log("update ship", total);
-
   document.querySelectorAll(`.js-update-quantity-link`).forEach((element) => {
     element.addEventListener("click", () => {
       let productId = element.dataset.productId;
@@ -242,6 +241,8 @@ export const renderOrderSummary = () => {
     });
   });
 
+  //remove class is-editing-quantity when we done editing
+  //so update btn is displayed
   document.querySelectorAll(".js-save-quantity-link").forEach((link) => {
     link.addEventListener("click", () => {
       let productId = link.dataset.productId;
