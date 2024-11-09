@@ -88,18 +88,21 @@ export function getProduct(productId) {
 // since asyn func does'nt have .then()
 // to hold/print the value, we can save the promise in a variable
 
-export let products2 = [];
+//NOTE: FETCH() USES PROMISE WHILE XMLHTTPREQUEST() USES CALL BACK
+
+export let products = [];
 
 export function loadProductFecth() {
+  console.log("load product fetch");
   const fectchProduct = fetch("https://supersimplebackend.dev/products")
     .then((resp) => {
       return resp.json();
     })
     .then((data) => {
-      products2 = data.map((productDetails) => {
-        if (productDetails.type === "Clothing") {
+      products = data.map((productDetails) => {
+        if (productDetails.type === "clothing") {
           return new Clothing(productDetails);
-        } else if (productDetails.type === "Appliance") {
+        } else if (productDetails.type === "appliance") {
           return new Appliance(productDetails);
         }
 
@@ -112,27 +115,52 @@ export function loadProductFecth() {
 
 //loadProductFecth();
 
-// export function loadProductsFromBackend(func) {
-//   const xhr = new XMLHttpRequest();
-
+// export let p = [];
+// export function loadP(func) {
+//   let xhr = new XMLHttpRequest();
 //   xhr.addEventListener("load", () => {
-//     products = JSON.parse(xhr.response).map((productDetails) => {
-//       if (productDetails.type === "clothing") {
-//         return new Clothing(productDetails);
-//       } else if (productDetails.type === "appliance") {
-//         return new Appliance(productDetails);
-//       }
-//       return new Product(productDetails);
-//     });
-//     func();
-//     console.log("products load");
-//   });
+//     p = JSON.parse(xhr.response);
 
+//     p.map((item) => {
+//       console.log("load products");
+//       if (item.type === "clothing") {
+//         return new Clothing(item);
+//       } else if (item.type === "appliance") {
+//         return new Appliance(item);
+//       }
+//       return new Product(item);
+//     });
+
+//     func();
+//   });
 //   xhr.open("GET", "https://supersimplebackend.dev/products");
 //   xhr.send();
 // }
 
-export const products = [
+export function loadProductsFromBackend(htlmpage) {
+  const xhr = new XMLHttpRequest();
+
+  xhr.addEventListener("load", () => {
+    products = JSON.parse(xhr.response).map((productDetails) => {
+      if (productDetails.type === "clothing") {
+        return new Clothing(productDetails);
+      } else if (productDetails.type === "appliance") {
+        return new Appliance(productDetails);
+      }
+      return new Product(productDetails);
+    });
+    //after getting the data,call the htmlpage function
+    //to generate an html
+    console.log("load products xml");
+    htlmpage();
+  });
+
+  xhr.open("GET", "https://supersimplebackend.dev/products");
+  xhr.send();
+}
+
+//wll come back on
+/*export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
     image: "images/products/athletic-cotton-socks-6-pairs.jpg",
@@ -631,3 +659,5 @@ export const products = [
   }
   return new Product(productDetails);
 });
+
+*/
