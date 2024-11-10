@@ -5,40 +5,60 @@ import "../data/cart-class.js";
 import {
   loadProductFecth,
   products,
-  loadProductsFromBackend,
+  // loadProductsFromBackend,
 } from "../data/products.js";
-import { loadCart, loadCartFetch, loadFromStorage } from "../data/cart.js";
+import { laodCartFromStorage, loadCart } from "../data/cart.js";
 // import { loadProductsFromBackend } from "../data/products.js";
 // import '../data/cart-class.js';
 
 // import { Cart } from "../data/cart-class.js";
 
 //NOTE: use async function over Promise and Callbacks
-//as it is short and make code clear and easy to read.
+//as it  returns promise and is shorter and makes
+//code clear and easy to read.
 
 // 7) using async/await functioins
-async function loadProductAsync() {
-  try {
-    await loadProductFecth();
-    await new Promise((resolve) => {
-      resolve("value");
-    });
-  } catch (e) {
-    console.log("error has occured, ", e);
-  }
 
-  orderSummary();
-  paymentSummary();
-}
+// async function loadProductAsync() {
+//   try {
+//     await loadProductFecth();
+//     await new Promise((resolve) => {
+//       loadCartFetch(() => {
+//         resolve();
+//       });
+//     });
+//   } catch (e) {
+//     console.log("error has occured, ", e);
+//   }
 
-try {
-  await loadProductAsync();
-  await loadCartFetch();
+//   orderSummary();
+//   paymentSummary();
+// }
 
-  await Promise.all([loadCartFetch(), loadProductAsync()]);
-} catch (e) {
-  console.log("unexpected error occured. Please try again later");
-}
+//loadProductAsync();
+// try {
+//   await loadProductAsync();
+//   await loadCartFetch();
+
+//   await Promise.all([loadCartFetch(), loadProductAsync()]);
+// } catch (e) {
+//   console.log("unexpected error occured. Please try again later");
+// }
+
+// async function loadPage() {
+//   await loadProductFecth();
+//   await new Promise((resolve) => {
+//     loadCartFetch(() => {
+//       resolve();
+//     });
+//   });
+
+//   // orderSummary();
+//   //paymentSummary();
+//   return "Next step after finish loading";
+// }
+
+// loadPage();
 
 // 6) async func returns promise as it is a short cut of func
 //returning promise
@@ -67,19 +87,10 @@ try {
 //   console.log("v", v);
 // });
 
-//4) using Promise.all() methd to
-// wait for all the promise to finish at
-//the same time bf going to next step
-/*
 Promise.all([
+  loadProductFecth(),
   new Promise((resolve) => {
-    loadProductFecth(() => {
-      resolve("val1");
-    });
-  }),
-
-  new Promise((resolve) => {
-    loadCartFetch(() => {
+    loadCart(() => {
       resolve("val2");
     });
   }),
@@ -88,11 +99,34 @@ Promise.all([
   orderSummary();
   paymentSummary();
 });
-*/
+
+//4) using Promise.all() methd to
+// wait for all the promise to finish at
+//the same time bf going to next step
+
+// Promise.all([
+//   new Promise((resolve) => {
+//     loadProduct(() => {
+//       resolve("val1");
+//     });
+//   }),
+
+//   new Promise((resolve) => {
+//     loadCart(() => {
+//       resolve("val2");
+//     });
+//   }),
+// ]).then((values) => {
+//   console.log(values); // [val1, val2]
+//   orderSummary();
+//   paymentSummary();
+// });
 
 // 3) using Promises
 // NOTE: promises make code look flatter as oppose to call backs
-// which are nested
+// which are
+
+/*
 new Promise((resolve) => {
   loadProductsFromBackend(() => {
     resolve("val");
@@ -111,6 +145,7 @@ new Promise((resolve) => {
     orderSummary();
     paymentSummary();
   });
+*/
 
 /* 2) 
 new Promise(resolve => {

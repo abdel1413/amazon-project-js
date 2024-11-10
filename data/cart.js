@@ -1,11 +1,11 @@
 export let cart;
 
-export async function loadCartFetch() {
-  const resp = await fetch("https://supersimplebackend.dev/cart");
-  const text = await resp.text();
-  console.log("cart text", text);
-  return text;
-}
+// export async function loadCartFetch() {
+//   const resp = await fetch("https://supersimplebackend.dev/cart");
+//   const text = await resp.text();
+//   console.log(text);
+//   return text;
+// }
 
 export function loadCart() {
   const xhr = new XMLHttpRequest();
@@ -16,7 +16,7 @@ export function loadCart() {
   xhr.send();
 }
 
-export async function loadFromStorage() {
+export async function laodCartFromStorage() {
   cart = JSON.parse(localStorage.getItem("cart"));
 
   if (!cart) {

@@ -88,11 +88,11 @@ export function getProduct(productId) {
 // since asyn func does'nt have .then()
 // to hold/print the value, we can save the promise in a variable
 
-//NOTE: FETCH() USES PROMISE WHILE XMLHTTPREQUEST() USES CALL BACK
+//NOTE: FETCH() USES PROMISE WHILE XMLHttpRequest() USES CALL BACK
 
 export let products = [];
 
-export function loadProductFecth() {
+export function loadProductFecth(func) {
   console.log("load product fetch");
   const fectchProduct = fetch("https://supersimplebackend.dev/products")
     .then((resp) => {
@@ -113,51 +113,31 @@ export function loadProductFecth() {
   return fectchProduct;
 }
 
-//loadProductFecth();
+loadProductFecth().then(() => {
+  console.log("next step upon returning fetch fcn");
+});
 
-// export let p = [];
-// export function loadP(func) {
-//   let xhr = new XMLHttpRequest();
+// export function loadProductsFromBackend(htlmpage) {
+//   const xhr = new XMLHttpRequest();
+
 //   xhr.addEventListener("load", () => {
-//     p = JSON.parse(xhr.response);
-
-//     p.map((item) => {
-//       console.log("load products");
-//       if (item.type === "clothing") {
-//         return new Clothing(item);
-//       } else if (item.type === "appliance") {
-//         return new Appliance(item);
+//     products = JSON.parse(xhr.response).map((productDetails) => {
+//       if (productDetails.type === "clothing") {
+//         return new Clothing(productDetails);
+//       } else if (productDetails.type === "appliance") {
+//         return new Appliance(productDetails);
 //       }
-//       return new Product(item);
+//       return new Product(productDetails);
 //     });
-
-//     func();
+//     //after getting the data,call the htmlpage function
+//     //to generate an html
+//     console.log("load products xml");
+//     htlmpage();
 //   });
+
 //   xhr.open("GET", "https://supersimplebackend.dev/products");
 //   xhr.send();
 // }
-
-export function loadProductsFromBackend(htlmpage) {
-  const xhr = new XMLHttpRequest();
-
-  xhr.addEventListener("load", () => {
-    products = JSON.parse(xhr.response).map((productDetails) => {
-      if (productDetails.type === "clothing") {
-        return new Clothing(productDetails);
-      } else if (productDetails.type === "appliance") {
-        return new Appliance(productDetails);
-      }
-      return new Product(productDetails);
-    });
-    //after getting the data,call the htmlpage function
-    //to generate an html
-    console.log("load products xml");
-    htlmpage();
-  });
-
-  xhr.open("GET", "https://supersimplebackend.dev/products");
-  xhr.send();
-}
 
 //wll come back on
 /*export const products = [

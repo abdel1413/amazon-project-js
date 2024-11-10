@@ -62,6 +62,7 @@ export function renderPaymentSummary() {
       </button>
   `;
 
+  console.log(document.querySelector(".js-payment-summary"));
   document.querySelector(".js-payment-summary").innerHTML = paymentSummaryHtml;
 
   document
@@ -79,7 +80,7 @@ export function renderPaymentSummary() {
         });
 
         const order = await response.json();
-        console.log("ddd", order);
+
         addOrder(order);
         loadOrderPage();
 
