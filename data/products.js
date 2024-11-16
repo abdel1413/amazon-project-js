@@ -50,8 +50,11 @@ export class Clothing extends Product {
 
   //overide the getExtraInfor
   getExtraInfoHTML() {
-    //super.getExtraInfoHTML() // calls the parent class method wtht overriding
-    return `<a href="${this.sizeChartLink}"  class="size-chart" target="_blank">chart List </a>`;
+    //super.getExtraInfoHTML() // calls the parent class method
+    return `<a 
+    href="${this.sizeChartLink}"
+     class="size-chart" target="_blank">chart List
+     </a>`;
   }
 }
 
@@ -72,16 +75,18 @@ export class Appliance extends Product {
   }
 }
 
-//use productId to get the full product and return
+//use productId to get the full product details and return it
 export function getProduct(productId) {
   let matchingProduct;
 
   products.forEach((item) => {
+    console.log("p", productId);
+    console.log("it", item.id);
     if (item.id === productId) {
       matchingProduct = item;
     }
   });
-
+  console.log("getp", matchingProduct);
   return matchingProduct;
 }
 
@@ -90,36 +95,35 @@ export function getProduct(productId) {
 
 //NOTE: FETCH() USES PROMISE WHILE XMLHttpRequest() USES CALL BACK
 
-export let products = [];
+// export let products = [];
 
-export function loadProductFecth(func) {
-  console.log("load product fetch");
-  const fectchProduct = fetch("https://supersimplebackend.dev/products")
-    .then((resp) => {
-      return resp.json();
-    })
-    .then((data) => {
-      products = data.map((productDetails) => {
-        if (productDetails.type === "clothing") {
-          return new Clothing(productDetails);
-        } else if (productDetails.type === "appliance") {
-          return new Appliance(productDetails);
-        }
+// export function loadProductFecth() {
+//   console.log("load product fetch");
+//   const fectchProduct = fetch("https://supersimplebackend.dev/products")
+//     .then((resp) => {
+//       return resp.json();
+//     })
+//     .then((data) => {
+//       products = data.map((productDetails) => {
+//         if (productDetails.type === "clothing") {
+//           return new Clothing(productDetails);
+//         } else if (productDetails.type === "appliance") {
+//           return new Appliance(productDetails);
+//         }
 
-        return new Product(productDetails);
-      });
-    });
+//         return new Product(productDetails);
+//       });
+//     });
 
-  return fectchProduct;
-}
+//   return fectchProduct;
+// }
 
-loadProductFecth().then(() => {
-  console.log("next step upon returning fetch fcn");
-});
+// loadProductFecth().then(() => {
+//   console.log("next step upon returning fetch fcn");
+// });
 
 // export function loadProductsFromBackend(htlmpage) {
 //   const xhr = new XMLHttpRequest();
-
 //   xhr.addEventListener("load", () => {
 //     products = JSON.parse(xhr.response).map((productDetails) => {
 //       if (productDetails.type === "clothing") {
@@ -129,9 +133,11 @@ loadProductFecth().then(() => {
 //       }
 //       return new Product(productDetails);
 //     });
+
+//     console.log("load products xml");
+
 //     //after getting the data,call the htmlpage function
 //     //to generate an html
-//     console.log("load products xml");
 //     htlmpage();
 //   });
 
@@ -140,7 +146,7 @@ loadProductFecth().then(() => {
 // }
 
 //wll come back on
-/*export const products = [
+export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
     image: "images/products/athletic-cotton-socks-6-pairs.jpg",
@@ -639,5 +645,3 @@ loadProductFecth().then(() => {
   }
   return new Product(productDetails);
 });
-
-*/

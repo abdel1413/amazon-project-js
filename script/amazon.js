@@ -1,11 +1,11 @@
 //import { cart, addToCart } from "../data/cart.js";
 import { cart } from "../data/cart-class.js";
-//import { products, loadProductsFromBackend } from "../data/products.js";
-import { loadProductFecth, products } from "../data/products.js";
+import { products, loadProductsFromBackend } from "../data/products.js";
+//import { loadProductFecth, products } from "../data/products.js";
 //import { currencyFormatter } from "./sharedScripts/currencyFormatter.js";
 
-loadProductFecth();
-//loadProductsFromBackend(renderProducts);
+//loadProductFecth();
+loadProductsFromBackend(renderProducts);
 
 //loadP(renderProducts);
 
@@ -44,9 +44,10 @@ loadProductFecth();
 
 function renderProducts() {
   let html = ``;
-  const htmlGenerator = (product) => {
-    product.forEach((element) => {
-      html += `<div class="products-container">
+  // const htmlGenerator = (product) => {
+
+  products.forEach((element) => {
+    html += `<div class="products-container">
                 <div class="products-img">
                         <img src= ${element.image} alt="" class="product-img">
                 </div>
@@ -85,10 +86,10 @@ function renderProducts() {
         </div>
       
     `;
-    });
-  };
+  });
+  // };
 
-  htmlGenerator(products);
+  // htmlGenerator(products);
 
   document.querySelector(".products-grid").innerHTML = html;
 

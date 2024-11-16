@@ -1,5 +1,15 @@
-export let cart;
-
+export let cart = [
+  {
+    productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
+    quantity: 2,
+    deliveryOptionId: "1",
+  },
+  {
+    productId: "15b6fc6f-327a-4ec4-896f-486349e85a3d",
+    quantity: 1,
+    deliveryOptionId: "2",
+  },
+];
 // export async function loadCartFetch() {
 //   const resp = await fetch("https://supersimplebackend.dev/cart");
 //   const text = await resp.text();
@@ -7,38 +17,38 @@ export let cart;
 //   return text;
 // }
 
-export function loadCart() {
-  const xhr = new XMLHttpRequest();
-  xhr.addEventListener("load", () => {
-    console.log(xhr.response);
-  });
-  xhr.open("GET", "https://supersimplebackend.dev/cart");
-  xhr.send();
-}
+// export function loadCart() {
+//   const xhr = new XMLHttpRequest();
+//   xhr.addEventListener("load", () => {
+//     console.log(xhr.response);
+//   });
+//   xhr.open("GET", "https://supersimplebackend.dev/cart");
+//   xhr.send();
+// }
 
-export async function laodCartFromStorage() {
-  cart = JSON.parse(localStorage.getItem("cart"));
+// export async function laodCartFromStorage() {
+//   cart = JSON.parse(localStorage.getItem("cart"));
 
-  if (!cart) {
-    cart = [
-      {
-        productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
-        quantity: 2,
-        deliveryOptionId: "1",
-      },
-      {
-        productId: "15b6fc6f-327a-4ec4-896f-486349e85a3d",
-        quantity: 1,
-        deliveryOptionId: "2",
-      },
-    ];
-  }
-}
+//   if (!cart) {
+//     cart = [
+//       {
+//         productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
+//         quantity: 2,
+//         deliveryOptionId: "1",
+//       },
+//       {
+//         productId: "15b6fc6f-327a-4ec4-896f-486349e85a3d",
+//         quantity: 1,
+//         deliveryOptionId: "2",
+//       },
+//     ];
+//   }
+// }
 
 //function to save data to localstorage
-const saveToLocalStorage = () => {
-  localStorage.setItem("cart", JSON.stringify(cart));
-};
+// const saveToLocalStorage = () => {
+//   localStorage.setItem("cart", JSON.stringify(cart));
+// };
 
 //method to add new item if it doesn't exist or to
 // increment quantity by one if the item already exist
@@ -124,3 +134,5 @@ export const updateShoppingCart = () => {
 
   return totalItems;
 };
+
+console.log("ca", cart);

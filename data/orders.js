@@ -1,6 +1,7 @@
 import { cart } from "./cart.js";
 
-import { getProduct, loadProductFecth, products } from "./products.js";
+import { getProduct, products } from "./products.js";
+//import { getProduct, loadProductFecth, products } from "./products.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 import { currencyFormatter } from "../script/sharedScripts/currencyFormatter.js";
 export let orders = [];
@@ -10,7 +11,7 @@ export function addOrder(order) {
   saveToLocalStorage();
 }
 
-let load = await loadProductFecth();
+// let load = await loadProductFecth();
 
 function saveToLocalStorage() {
   localStorage.setItem("orders", JSON.stringify(orders));

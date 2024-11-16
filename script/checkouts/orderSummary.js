@@ -76,20 +76,22 @@ export const renderOrderSummary = () => {
   // make the HTML page interactivel
 
   cart.cartItems.forEach((cartItem) => {
-    let matchingProduct;
+    // let matchingProduct;
     let cartProductId;
     let quantity;
     cartProductId = cartItem.productId;
+    console.log("ci", cartProductId);
     quantity = cartItem.quantity;
 
-    //   let match;
-    //  products.forEach((element) => {
-    //     if (cartProductId == element.id) {
-    //       match = element;
-    //     }
-    //   });
+    // let match;
+    // products.forEach((element) => {
+    //   if (cartProductId == element.id) {
+    //     match = element;
+    //   }
+    // });
 
-    matchingProduct = getProduct(cartProductId);
+    let matchingProduct = getProduct(cartItem.productId);
+    console.log(matchingProduct);
 
     const image = matchingProduct.image;
     const name = matchingProduct.name;
