@@ -10,6 +10,7 @@ import { products } from "../data/products.js";
 // } from "../data/products.js";
 //import { laodCartFromStorage, loadCart } from "../data/cart.js";
 import { cart } from "../data/cart.js";
+import { currencyFormatter } from "./sharedScripts/currencyFormatter.js";
 
 // import { loadProductsFromBackend } from "../data/products.js";
 // import '../data/cart-class.js';
@@ -205,10 +206,11 @@ cart.forEach((cartItem) => {
                                 ${name}
                             </div>
                             <div class="product-price">
-                                $${(priceCents / 100).toFixed(2)}
+                          
+                                $${currencyFormatter(priceCents)}
                             </div>
                             <div class="product-quantity">
-                                <span>
+                                <span class="quantity">
                                     Quantity: <span class="quantity-label">${
                                       cartItem.quantity
                                     }</span>
@@ -227,7 +229,7 @@ cart.forEach((cartItem) => {
                                 Choose a delivery option:
                             </div>
                             <div class="delivery-option">
-                                <input type="radio" checked class="delivery-option-input" name="delivery-option-1">
+                                <input type="radio" checked class="delivery-option-input" name="delivery-option-${id}">
                                 <div>
                                     <div class="delivery-option-date">
                                         Tuesday, June 21
@@ -238,7 +240,7 @@ cart.forEach((cartItem) => {
                                 </div>
                             </div>
                             <div class="delivery-option">
-                                <input type="radio" class="delivery-option-input" name="delivery-option-1">
+                                <input type="radio" class="delivery-option-input" name="delivery-option-${id}">
                                 <div>
                                     <div class="delivery-option-date">
                                         Wednesday, June 15
@@ -249,7 +251,7 @@ cart.forEach((cartItem) => {
                                 </div>
                             </div>
                             <div class="delivery-option">
-                                <input type="radio" class="delivery-option-input" name="delivery-option-1">
+                                <input type="radio" class="delivery-option-input" name="delivery-option-${id}">
                                 <div>
                                     <div class="delivery-option-date">
                                         Monday, June 13
