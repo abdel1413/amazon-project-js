@@ -80,13 +80,11 @@ export function getProduct(productId) {
   let matchingProduct;
 
   products.forEach((item) => {
-    console.log("p", productId);
-    console.log("it", item.id);
     if (item.id === productId) {
       matchingProduct = item;
     }
   });
-  console.log("getp", matchingProduct);
+
   return matchingProduct;
 }
 

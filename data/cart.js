@@ -46,9 +46,9 @@ export let cart = [
 // }
 
 //function to save data to localstorage
-// const saveToLocalStorage = () => {
-//   localStorage.setItem("cart", JSON.stringify(cart));
-// };
+const saveToLocalStorage = () => {
+  localStorage.setItem("cart", JSON.stringify(cart));
+};
 
 //method to add new item if it doesn't exist or to
 // increment quantity by one if the item already exist
@@ -70,7 +70,7 @@ export const addToCart = (productId) => {
       deliveryOptionId: "1",
     });
   }
-  saveToLocalStorage();
+  // saveToLocalStorage();
 };
 
 //1 create a newcart array
@@ -84,7 +84,7 @@ export function cartItemRemover(id) {
     }
   });
   cart = newCart;
-  saveToLocalStorage();
+  // saveToLocalStorage();
 }
 
 //calculate cart item quantities
@@ -109,7 +109,7 @@ export const updateQuantity = (id, newQuantity) => {
   if (matching) {
     matching.quantity = newQuantity;
   }
-  saveToLocalStorage();
+  // saveToLocalStorage();
 };
 
 //function to find the macthing item in cart
@@ -123,7 +123,7 @@ export const updateDeliveryOption = (productId, deliveryOptionId) => {
   });
 
   matching.deliveryOptionId = deliveryOptionId;
-  saveToLocalStorage();
+  // saveToLocalStorage();
 };
 
 export const updateShoppingCart = () => {
@@ -134,5 +134,3 @@ export const updateShoppingCart = () => {
 
   return totalItems;
 };
-
-console.log("ca", cart);

@@ -1,11 +1,14 @@
 //import { cart, addToCart } from "../data/cart.js";
 import { cart } from "../data/cart-class.js";
-import { products, loadProductsFromBackend } from "../data/products.js";
+import {
+  products,
+  // loadProductsFromBackend
+} from "../data/products.js";
 //import { loadProductFecth, products } from "../data/products.js";
 //import { currencyFormatter } from "./sharedScripts/currencyFormatter.js";
 
 //loadProductFecth();
-loadProductsFromBackend(renderProducts);
+//loadProductsFromBackend(renderProducts);
 
 //loadP(renderProducts);
 
