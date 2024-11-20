@@ -9,7 +9,7 @@ import { products } from "../data/products.js";
 //   loadProductsFromBackend,
 // } from "../data/products.js";
 //import { laodCartFromStorage, loadCart } from "../data/cart.js";
-import { cart } from "../data/cart.js";
+import { cart, cartItemRemover } from "../data/cart.js";
 import { currencyFormatter } from "./sharedScripts/currencyFormatter.js";
 
 // import { loadProductsFromBackend } from "../data/products.js";
@@ -183,8 +183,8 @@ new Promise(resolve => {
 // paymentSummary()
 
 let checkoutpage = ``;
+let matchingProduct;
 cart.forEach((cartItem) => {
-  let matchingProduct;
   let productId = cartItem.productId;
   products.forEach((product) => {
     if (product.id === productId) matchingProduct = product;
@@ -193,7 +193,9 @@ cart.forEach((cartItem) => {
   const { id, image, name, priceCents } = matchingProduct;
 
   if (matchingProduct) {
-    checkoutpage += `<div class="cart-item-container">
+    checkoutpage += `<div class="cart-item-container js-cart-item-container-${id}
+    "
+    data-product-id=${id}>
                     <div class="delivery-date">
                         Delivery date: Tuesday, June 21
                     </div>
@@ -218,7 +220,9 @@ cart.forEach((cartItem) => {
                                 <span class="update-quantity-link link-primary">
                                     Update
                                 </span>
-                                <span class="delete-quantity-link link-primary">
+                                <span class="delete-quantity-link link-primary
+                                 js-delete-quantity-link"
+                                 data-delete-by-id=${id}>
                                     Delete
                                 </span>
                             </div>
@@ -266,7 +270,17 @@ cart.forEach((cartItem) => {
                 </div>
    `;
   }
-
-  console.log(checkoutpage);
 });
 document.querySelector(".js-order-summary").innerHTML = checkoutpage;
+
+document.querySelectorAll(".js-delete-quantity-link").forEach((link) => {
+  const removeById = link.dataset.deleteById;
+  link.addEventListener("click", () => {
+    cartItemRemover(removeById);
+
+    let removeElement = document.querySelector(
+      `.js-cart-item-container-${removeById}`
+    );
+    removeElement.remove();
+  });
+});
