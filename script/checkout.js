@@ -12,8 +12,6 @@ import { products } from "../data/products.js";
 import { cart, cartItemRemover } from "../data/cart.js";
 import { currencyFormatter } from "./sharedScripts/currencyFormatter.js";
 
-console.log("cart", cart);
-
 // import { loadProductsFromBackend } from "../data/products.js";
 // import '../data/cart-class.js';
 
@@ -219,7 +217,9 @@ cart.forEach((cartItem) => {
                                       cartItem.quantity
                                     }</span>
                                 </span>
-                                <span class="update-quantity-link link-primary js-update-link">
+                                <span class="update-quantity-link link-primary js-update-link
+                                save-quantity-link quantity-input"
+                                 data-update-link=${id}>
                                     Update
                                 </span>
                                 <span class="delete-quantity-link link-primary
@@ -275,6 +275,7 @@ cart.forEach((cartItem) => {
 });
 document.querySelector(".js-order-summary").innerHTML = checkoutpage;
 
+// delet elment from both cart and page
 document.querySelectorAll(".js-delete-quantity-link").forEach((link) => {
   const removeById = link.dataset.deleteById;
   link.addEventListener("click", () => {
@@ -286,3 +287,18 @@ document.querySelectorAll(".js-delete-quantity-link").forEach((link) => {
     removeElement.remove();
   });
 });
+
+//update the cart and page
+// document.querySelectorAll(".js-update-link").forEach((element) => {
+//   element.addEventListener("click", () => {
+//     let updateLink = element.dataset.updateLink;
+//     console.log("you clicked", updateLink);
+//     //element.classList.add(".is-editing-quantity");
+
+//     let isEditing = document.querySelector(
+//       `.js-cart-item-container-${updateLink}`
+//     );
+
+//     // isEditing.classList.add("is-editing-quantity");
+//   });
+// });

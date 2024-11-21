@@ -1,5 +1,5 @@
 export let cart = JSON.parse(localStorage.getItem("cart"));
-console.log("c", cart);
+console.log("carrrr", cart);
 if (!cart) {
   [
     {
@@ -55,6 +55,7 @@ const saveToLocalStorage = () => {
   localStorage.setItem("cart", JSON.stringify(cart));
 };
 
+console.log(saveToLocalStorage());
 //method to add new item if it doesn't exist or to
 // increment quantity by one if the item already exist
 //in the cart
@@ -97,7 +98,7 @@ export function cartItemRemover(id) {
   cart.filter((item) => {
     return item.productId != id;
   });
-  saveToLocalStorage();
+  //saveToLocalStorage();
 }
 
 //calculate cart item quantities

@@ -1,5 +1,7 @@
-//import { cart, addToCart } from "../data/cart.js";
-import { cart } from "../data/cart-class.js";
+import { cart, addToCart } from "../data/cart.js";
+//import { cart } from "../data/cart-class.js";
+
+console.log("cartttt", cart);
 import {
   products,
   // loadProductsFromBackend
@@ -100,9 +102,13 @@ function renderProducts() {
   const updateShoppingCart = () => {
     let totalItem = 0;
 
-    cart.cartItems.forEach((item) => {
+    cart.forEach((item, i) => {
       totalItem += item.quantity;
     });
+
+    // cart.cartItems.forEach((item) => {
+    //   totalItem += item.quantity;
+    // });
     let cartQuantity = document.querySelector(".cart-quantity");
 
     cartQuantity.innerHTML = totalItem;
@@ -120,7 +126,8 @@ function renderProducts() {
       productId = btn.dataset.productId;
       //cart.push({ productDescription, quantity: 1 });
 
-      cart.addToCart(productId);
+      addToCart(productId);
+      //cart.addToCart(productId)
 
       //update the shopping cart with newly selected item numb
       updateShoppingCart();
