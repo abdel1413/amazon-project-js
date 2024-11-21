@@ -12,6 +12,8 @@ import { products } from "../data/products.js";
 import { cart, cartItemRemover } from "../data/cart.js";
 import { currencyFormatter } from "./sharedScripts/currencyFormatter.js";
 
+console.log("cart", cart);
+
 // import { loadProductsFromBackend } from "../data/products.js";
 // import '../data/cart-class.js';
 
@@ -217,7 +219,7 @@ cart.forEach((cartItem) => {
                                       cartItem.quantity
                                     }</span>
                                 </span>
-                                <span class="update-quantity-link link-primary">
+                                <span class="update-quantity-link link-primary js-update-link">
                                     Update
                                 </span>
                                 <span class="delete-quantity-link link-primary

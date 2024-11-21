@@ -1,15 +1,20 @@
-export let cart = [
-  {
-    productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
-    quantity: 2,
-    deliveryOptionId: "1",
-  },
-  {
-    productId: "15b6fc6f-327a-4ec4-896f-486349e85a3d",
-    quantity: 1,
-    deliveryOptionId: "2",
-  },
-];
+export let cart = JSON.parse(localStorage.getItem("cart"));
+console.log("c", cart);
+if (!cart) {
+  [
+    {
+      productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
+      quantity: 2,
+      deliveryOptionId: "1",
+    },
+    {
+      productId: "15b6fc6f-327a-4ec4-896f-486349e85a3d",
+      quantity: 1,
+      deliveryOptionId: "2",
+    },
+  ];
+}
+
 // export async function loadCartFetch() {
 //   const resp = await fetch("https://supersimplebackend.dev/cart");
 //   const text = await resp.text();
@@ -70,21 +75,29 @@ export const addToCart = (productId) => {
       deliveryOptionId: "1",
     });
   }
-  // saveToLocalStorage();
+  saveToLocalStorage();
 };
 
+//solution1
 //1 create a newcart array
 // 2 push all item whose id != paramid
 // 3 set cart to newcart
 export function cartItemRemover(id) {
-  let newCart = [];
-  cart.forEach((item) => {
-    if (item.productId !== id) {
-      newCart.push(item);
-    }
-  });
-  cart = newCart;
+  // let newCart = [];
+  // cart.forEach((item) => {
+  //   if (item.productId !== id) {
+  //     newCart.push(item);
+  //   }
+  // });
+  // cart = newCart;
   // saveToLocalStorage();
+
+  //solution 2
+  // return only the truthy values(elements that pass the test)
+  cart.filter((item) => {
+    return item.productId != id;
+  });
+  saveToLocalStorage();
 }
 
 //calculate cart item quantities
