@@ -257,6 +257,7 @@ export const renderOrderSummary = () => {
       let inputValue = document.querySelector(
         `.js-quantity-input-${productId}`
       );
+
       inputValue = Number(inputValue.value);
 
       //1update the cart
