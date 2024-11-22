@@ -166,6 +166,9 @@ input[type="radio"] {
   display: none;
 }
 
+.is-editing-quantity .update-quantity-link {
+  display: none;
+}
 .is-editing-quantity .quantity-input {
   display: initial;
 }
@@ -174,10 +177,6 @@ input[type="radio"] {
 }
 
 .is-editing-quantity .quantity-label {
-  display: none;
-}
-
-.is-editing-quantity .update-quantity-link {
   display: none;
 }
 

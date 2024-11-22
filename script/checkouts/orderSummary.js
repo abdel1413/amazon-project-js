@@ -115,49 +115,52 @@ export const renderOrderSummary = () => {
 
       <div class="cart-item-details-grid">
           <img class="product-image" src="${image}">
-          <div class="cart-item-details">
-              <div class="product-name">
-                  ${name}
-              </div>
-              <div class="product-price">
-                  ${matchingProduct.getPrice()}
-              </div>
-              <div class="product-quantity">
-                  <span>
-                      Quantity:<span class="quantity-label js-quantity-label
-                      js-quantity-label-${matchingProduct.id}
-                      data-product-id="${matchingProduct.id}"
-                      ">${quantity}</span>
-                  </span>
-                  <span class="update-quantity-link link-primary
-                      js-update-quantity-link
-                      js-update-quantity-link-${matchingProduct.id}"
-                      data-product-id="${matchingProduct.id}">
-                      Update
-                  </span>
-          
-                        <input type=text value="${quantity}" class="quantity-input 
-                        js-quantity-input-${matchingProduct.id}"/>
-                        <span class="save-quantity-link
-                        link-primary
-                        js-save-quantity-link"
-                        data-product-id="${matchingProduct.id}">Save</span>
-                    
-                  <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${
-                    matchingProduct.id
-                  }">
-                      Delete
-                  </span>
-              </div>
-          </div>
+        <div class="cart-item-details">
+            <div class="product-name">
+                ${name}
+            </div>
+            <div class="product-price">
+                ${matchingProduct.getPrice()}
+            </div>
+            <div class="product-quantity">
+                <span>
+                    Quantity:<span class="quantity-label js-quantity-label
+                    js-quantity-label-${matchingProduct.id}
+                    data-product-id="${matchingProduct.id}"
+                    ">${quantity}</span>
+                </span>
+                <span class="update-quantity-link link-primary
+                    js-update-quantity-link
+                    js-update-quantity-link-${matchingProduct.id}"
+                    data-product-id="${matchingProduct.id}">
+                    Update
+                </span>
+  
+                    <input type=text value="${quantity}"
+                      class="quantity-input
+                    js-quantity-input-${matchingProduct.id}"/>
 
-          <div class="delivery-options">
-              <div class="delivery-options-title">
-                  Choose a delivery option:
-              </div>
-              ${deliveryOptionsHTML(matchingProduct, cartItem)}
-          </div>
-      </div>
+                    <span class="save-quantity-link
+                      link-primary
+                      js-save-quantity-link"
+                      data-product-id="${matchingProduct.id}">Save
+                    </span>
+                
+                <span class="delete-quantity-link
+                link-primary js-delete-link"
+                data-product-id="${matchingProduct.id}">
+                    Delete
+                </span>
+            </div>
+        </div>
+
+        <div class="delivery-options">
+            <div class="delivery-options-title">
+                Choose a delivery option:
+            </div>
+            ${deliveryOptionsHTML(matchingProduct, cartItem)}
+        </div>
+    </div>
    </div>
    `;
 
