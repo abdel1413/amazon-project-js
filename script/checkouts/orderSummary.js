@@ -80,7 +80,7 @@ export const renderOrderSummary = () => {
     let cartProductId;
     let quantity;
     cartProductId = cartItem.productId;
-    console.log("ci", cartProductId);
+
     quantity = cartItem.quantity;
 
     // let match;
@@ -265,7 +265,7 @@ export const renderOrderSummary = () => {
 
       //1update the cart
       //2update the html page
-      //3 update the header containing number of items
+      //3 update the header(shopping cart) containing number of items
       cart.updateQuantity(productId, inputValue);
       document.querySelector(`.js-quantity-label-${productId}`).innerHTML =
         inputValue;

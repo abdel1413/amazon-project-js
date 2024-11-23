@@ -9,7 +9,12 @@ import { products } from "../data/products.js";
 //   loadProductsFromBackend,
 // } from "../data/products.js";
 //import { laodCartFromStorage, loadCart } from "../data/cart.js";
-import { cart, cartItemRemover } from "../data/cart.js";
+import {
+  cart,
+  cartItemRemover,
+  updateQuantity,
+  updateShoppingCart,
+} from "../data/cart.js";
 import { currencyFormatter } from "./sharedScripts/currencyFormatter.js";
 
 // import { loadProductsFromBackend } from "../data/products.js";
@@ -182,18 +187,19 @@ new Promise(resolve => {
 // orderSummary();
 // paymentSummary()
 
-let checkoutpage = ``;
-let matchingProduct;
-cart.forEach((cartItem) => {
-  let productId = cartItem.productId;
-  products.forEach((product) => {
-    if (product.id === productId) matchingProduct = product;
-  });
+function renderCheckoutPage() {
+  let checkoutpage = ``;
+  let matchingProduct;
+  cart.forEach((cartItem) => {
+    let productId = cartItem.productId;
+    products.forEach((product) => {
+      if (product.id === productId) matchingProduct = product;
+    });
 
-  const { id, image, name, priceCents } = matchingProduct;
+    const { id, image, name, priceCents } = matchingProduct;
 
-  if (matchingProduct) {
-    checkoutpage += `<div class="cart-item-container 
+    if (matchingProduct) {
+      checkoutpage += `<div class="cart-item-container 
     js-cart-item-container-${id}
     "
     data-product-id=${id}>
@@ -288,58 +294,78 @@ cart.forEach((cartItem) => {
     </div>
 </div>
    `;
-  }
-});
-document.querySelector(".js-order-summary").innerHTML = checkoutpage;
-
-// delet elment from both cart and page
-document.querySelectorAll(".js-delete-quantity-link").forEach((link) => {
-  const removeById = link.dataset.deleteById;
-  link.addEventListener("click", () => {
-    cartItemRemover(removeById);
-
-    let removeElement = document.querySelector(
-      `.js-cart-item-container-${removeById}`
-    );
-    removeElement.remove();
+    }
   });
-});
+  document.querySelector(".js-order-summary").innerHTML = checkoutpage;
 
-//update the cart and page
+  // delet elment from both cart and page
+  document.querySelectorAll(".js-delete-quantity-link").forEach((link) => {
+    const removeById = link.dataset.deleteById;
+    link.addEventListener("click", () => {
+      cartItemRemover(removeById);
 
-function cartElment(id) {
-  return document.querySelector(`.js-cart-item-container-${id}`);
+      let removeElement = document.querySelector(
+        `.js-cart-item-container-${removeById}`
+      );
+      removeElement.remove();
+    });
+  });
+
+  //update the cart and page
+
+  function cartElment(id) {
+    return document.querySelector(`.js-cart-item-container-${id}`);
+  }
+
+  document.querySelectorAll(".js-update-quantity-link").forEach((element) => {
+    element.addEventListener("click", () => {
+      let updateLink = element.dataset.updateQuantityLinkId;
+
+      //access the specific cart container
+
+      // let cartItem = document.querySelector(
+      //   `.js-cart-item-container-${updateLink}`
+      // );
+
+      //add class to that specific container
+      // cartItem.classList.add("is-editing-quantity");
+
+      let editingElement = cartElment(updateLink);
+      editingElement.classList.add("is-editing-quantity");
+
+      let inputValue = document.querySelector(
+        `.js-quantity-input-${updateLink}`
+      ).value;
+      console.log(inputValue);
+    });
+  });
+
+  //grab the save link element using data attribute
+  // using the id remove the class is-editing from cart
+  document.querySelectorAll(".js-save-quantity-link").forEach((link) => {
+    link.addEventListener("click", () => {
+      let saveLinkId = link.dataset.saveQuantityId;
+
+      // let cartItem = document.querySelector(
+      //   `.js-cart-item-container-${saveLinkId}`
+      // );
+      // cartItem.classList.remove("is-editing-quantity");
+
+      let newInputValue = document.querySelector(
+        `.js-quantity-input-${saveLinkId}`
+      ).value;
+      console.log(newInputValue);
+
+      updateQuantity(saveLinkId, newInputValue);
+      renderCheckoutPage();
+
+      let removesaveLink = cartElment(saveLinkId);
+      removesaveLink.classList.remove("is-editing-quantity");
+      // console.log(saveLinkId, newInputValue);
+    });
+  });
+
+  console.log(updateShoppingCart());
 }
 
-document.querySelectorAll(".js-update-quantity-link").forEach((element) => {
-  element.addEventListener("click", () => {
-    let updateLink = element.dataset.updateQuantityLinkId;
-
-    //access the specific cart container
-
-    // let cartItem = document.querySelector(
-    //   `.js-cart-item-container-${updateLink}`
-    // );
-
-    //add class to that specific container
-    // cartItem.classList.add("is-editing-quantity");
-
-    let editingElement = cartElment(updateLink);
-    editingElement.classList.add("is-editing-quantity");
-  });
-});
-
-//grab the save link element using data attribute
-// using the id remove the class is-editing from cart
-document.querySelectorAll(".js-save-quantity-link").forEach((link) => {
-  link.addEventListener("click", () => {
-    let saveLinkId = link.dataset.saveQuantityId;
-
-    // let cartItem = document.querySelector(
-    //   `.js-cart-item-container-${saveLinkId}`
-    // );
-    // cartItem.classList.remove("is-editing-quantity");
-    let removesaveLink = cartElment(saveLinkId);
-    removesaveLink.classList.remove("is-editing-quantity");
-  });
-});
+renderCheckoutPage();

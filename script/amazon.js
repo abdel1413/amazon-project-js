@@ -1,7 +1,8 @@
-import { cart, addToCart } from "../data/cart.js";
+import { cart, addToCart, updateShoppingCart } from "../data/cart.js";
 //import { cart } from "../data/cart-class.js";
+let v = updateShoppingCart();
+console.log(v, "v");
 
-console.log("cartttt", cart);
 import {
   products,
   // loadProductsFromBackend
@@ -50,7 +51,6 @@ import {
 function renderProducts() {
   let html = ``;
   // const htmlGenerator = (product) => {
-
   products.forEach((element) => {
     html += `<div class="products-container">
                 <div class="products-img">
@@ -101,11 +101,10 @@ function renderProducts() {
   //method to update the chopping cart
   const updateShoppingCart = () => {
     let totalItem = 0;
-
-    cart.forEach((item, i) => {
-      totalItem += item.quantity;
+    cart.forEach((item) => {
+      totalItem += Number(item.quantity);
     });
-
+    //console.log(totalItem);
     // cart.cartItems.forEach((item) => {
     //   totalItem += item.quantity;
     // });
@@ -114,6 +113,11 @@ function renderProducts() {
     cartQuantity.innerHTML = totalItem;
     //cartQuantity.innerHTML = calculateItemQuantity();
   };
+
+  //will come back
+  // let cartQuantity = document.querySelector(".cart-quantity");
+  // cartQuantity.innerHTML = v;
+  // console.log("ct", cartQuantity.innerHTML);
 
   //call update function so it display items number in the cart
   updateShoppingCart();
@@ -127,7 +131,7 @@ function renderProducts() {
       //cart.push({ productDescription, quantity: 1 });
 
       addToCart(productId);
-      //cart.addToCart(productId)
+      //cart.addToCart(productId);
 
       //update the shopping cart with newly selected item numb
       updateShoppingCart();

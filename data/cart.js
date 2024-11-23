@@ -1,5 +1,4 @@
 export let cart = JSON.parse(localStorage.getItem("cart"));
-console.log("carrrr", cart);
 if (!cart) {
   [
     {
@@ -55,7 +54,6 @@ const saveToLocalStorage = () => {
   localStorage.setItem("cart", JSON.stringify(cart));
 };
 
-console.log(saveToLocalStorage());
 //method to add new item if it doesn't exist or to
 // increment quantity by one if the item already exist
 //in the cart
@@ -79,26 +77,29 @@ export const addToCart = (productId) => {
   saveToLocalStorage();
 };
 
+////will comeback
+// updateShoppingCart();
+
 //solution1
 //1 create a newcart array
 // 2 push all item whose id != paramid
 // 3 set cart to newcart
 export function cartItemRemover(id) {
-  // let newCart = [];
-  // cart.forEach((item) => {
-  //   if (item.productId !== id) {
-  //     newCart.push(item);
-  //   }
-  // });
-  // cart = newCart;
-  // saveToLocalStorage();
+  let newCart = [];
+  cart.forEach((item) => {
+    if (item.productId !== id) {
+      newCart.push(item);
+    }
+  });
+  cart = newCart;
+  saveToLocalStorage();
 
   //solution 2
   // return only the truthy values(elements that pass the test)
-  cart.filter((item) => {
-    return item.productId != id;
-  });
-  //saveToLocalStorage();
+  // cart.filter((item) => {
+  //   return item.productId === id;
+  // });
+  // saveToLocalStorage();
 }
 
 //calculate cart item quantities
@@ -123,7 +124,7 @@ export const updateQuantity = (id, newQuantity) => {
   if (matching) {
     matching.quantity = newQuantity;
   }
-  // saveToLocalStorage();
+  saveToLocalStorage();
 };
 
 //function to find the macthing item in cart
@@ -143,7 +144,7 @@ export const updateDeliveryOption = (productId, deliveryOptionId) => {
 export const updateShoppingCart = () => {
   let totalItems = 0;
   cart.forEach((element) => {
-    totalItems += element.quantity;
+    totalItems += Number(element.quantity);
   });
 
   return totalItems;
