@@ -225,6 +225,7 @@ export const renderOrderSummary = () => {
     cart.updateShoppingCart();
 
   let checkoutLabel = document.querySelector(".checkout-total-items-label");
+
   totalItems < 2
     ? (checkoutLabel.innerHTML = "Item")
     : (checkoutLabel.innerHTML = "Items");

@@ -204,7 +204,7 @@ function renderCheckoutPage() {
     "
     data-product-id=${id}>
     <div class="delivery-date">
-        Delivery date: Tuesday, June 21
+        Delivery date: <span class="js-delivery-date"> Tuesday, June 21 </span>
     </div>
     <div class="cart-item-details-grid">
     <img class="product-image" src="${image}">
@@ -308,11 +308,12 @@ function renderCheckoutPage() {
         `.js-cart-item-container-${removeById}`
       );
       removeElement.remove();
+
+      renderCheckoutPage();
     });
   });
 
   //update the cart and page
-
   function cartElment(id) {
     return document.querySelector(`.js-cart-item-container-${id}`);
   }
@@ -332,11 +333,6 @@ function renderCheckoutPage() {
 
       let editingElement = cartElment(updateLink);
       editingElement.classList.add("is-editing-quantity");
-
-      let inputValue = document.querySelector(
-        `.js-quantity-input-${updateLink}`
-      ).value;
-      console.log(inputValue);
     });
   });
 
@@ -354,7 +350,6 @@ function renderCheckoutPage() {
       let newInputValue = document.querySelector(
         `.js-quantity-input-${saveLinkId}`
       ).value;
-      console.log(newInputValue);
 
       updateQuantity(saveLinkId, newInputValue);
       renderCheckoutPage();
@@ -365,7 +360,12 @@ function renderCheckoutPage() {
     });
   });
 
-  console.log(updateShoppingCart());
+  const numbItems =
+    updateShoppingCart() > 1
+      ? `${updateShoppingCart()} items`
+      : `${updateShoppingCart()} item`;
+
+  document.querySelector(".js-checkout-total-label").innerHTML = numbItems;
 }
 
 renderCheckoutPage();
