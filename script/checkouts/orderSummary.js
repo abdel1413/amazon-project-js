@@ -25,9 +25,10 @@ new Promise(() => {
 export const renderOrderSummary = () => {
   //function to easy reading date format:
   //1 create a delivery date using dayjs() function
-  //2 add() a date we want to dayjs()
+  //2 add() a date we want to dayjs() taking num and string as params
   //3 format() to formate the date
   const getDeliveryDate = (option) => {
+    console.log(option);
     const today = dayjs();
     const deliveryDate = today.add(option.deliveryDays, "days");
     const dateString = deliveryDate.format("dddd, MMMM D");
@@ -38,7 +39,8 @@ export const renderOrderSummary = () => {
     let html = ``;
 
     deliveryOptions.forEach((option) => {
-      let isChecked = option.id === cartItem.deliveryOptionId ? "checked" : "";
+      const isChecked =
+        option.id === cartItem.deliveryOptionId ? "checked" : "";
 
       const priceString =
         option.priceCents === 0
