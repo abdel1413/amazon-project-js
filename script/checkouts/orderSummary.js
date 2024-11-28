@@ -28,7 +28,6 @@ export const renderOrderSummary = () => {
   //2 add() a date we want to dayjs() taking num and string as params
   //3 format() to formate the date
   const getDeliveryDate = (option) => {
-    console.log(option);
     const today = dayjs();
     const deliveryDate = today.add(option.deliveryDays, "days");
     const dateString = deliveryDate.format("dddd, MMMM D");
@@ -48,22 +47,21 @@ export const renderOrderSummary = () => {
           : `$${currencyFormatter(option.priceCents)}`;
 
       html += ` <div class="delivery-option js-delivery-option" 
-      data-product-id="${cartItem.productId}"
-      data-delivery-option-id="${option.id}">
-                  <input type="radio"
-                  ${isChecked}
-                  class="delivery-option-input"
-                  name="delivery-option-${matching.id}">
-
-                  <div>
-                      <div class="delivery-option-date">
-                        ${getDeliveryDate(option)}
-                      </div>
-                      <div class="delivery-option-price">
-                          ${priceString} - Shipping
-                      </div>
-                  </div>
-              </div>`;
+                data-product-id="${cartItem.productId}"
+                data-delivery-option-id="${option.id}">
+                <input type="radio"
+                ${isChecked}
+                class="delivery-option-input"
+                name="delivery-option-${matching.id}">
+                <div>
+                    <div class="delivery-option-date">
+                      ${getDeliveryDate(option)}
+                    </div>
+                    <div class="delivery-option-price">
+                        ${priceString} - Shipping
+                    </div>
+                </div>
+            </div>`;
     });
 
     return html;
@@ -93,7 +91,6 @@ export const renderOrderSummary = () => {
     // });
 
     let matchingProduct = getProduct(cartItem.productId);
-    console.log(matchingProduct);
 
     const image = matchingProduct.image;
     const name = matchingProduct.name;
