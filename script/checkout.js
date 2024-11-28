@@ -12,6 +12,7 @@ import { products } from "../data/products.js";
 import {
   cart,
   cartItemRemover,
+  updateDeliveryOption,
   updateQuantity,
   updateShoppingCart,
 } from "../data/cart.js";
@@ -194,6 +195,20 @@ function renderCheckoutPage() {
   let matchingProduct;
   cart.forEach((cartItem) => {
     let productId = cartItem.productId;
+
+    //get deliveryoptionid from the cart
+    //and use it to pull the whole objct from
+    // deliveryoptions
+    //// use delivery option to return a
+    //formated date
+    let deliveryDateFunction;
+    deliveryOptions.forEach((option) => {
+      if (option.id === cartItem.deliveryOptionId) {
+        deliveryDateFunction = option;
+      }
+    });
+    let ddate = deliveryFormtedDate(deliveryDateFunction);
+
     products.forEach((product) => {
       if (product.id === productId) matchingProduct = product;
     });
@@ -206,7 +221,7 @@ function renderCheckoutPage() {
     "
     data-product-id=${id}>
     <div class="delivery-date">
-        Delivery date: <span class="js-delivery-date"> Tuesday, June 21 </span>
+        Delivery date: <span class="js-delivery-date"> ${ddate}</span>
     </div>
     <div class="cart-item-details-grid">
     <img class="product-image" src="${image}">
@@ -330,38 +345,47 @@ function renderCheckoutPage() {
       : `${updateShoppingCart()} item`;
   document.querySelector(".js-checkout-total-label").innerHTML = numbItems;
 
-  let deliverDate = document.querySelector(".js-delivery-date");
-  console.log(deliverDate);
+  // let deliverDate = document.querySelector(".js-delivery-date");
+  // console.log(deliverDate);
 
-  document.querySelectorAll(".delivery-option").forEach((element) => {
-    //console.log(element);
-  });
+  // document.querySelectorAll(".delivery-option").forEach((element) => {
+  //   //console.log(element);
+  // });
+  // const dateString = (delivery) => {
+  //   delivery.forEach((option) => {
+  //     const now = dayjs();
+  //     const date = now.add(option.deliveryDays, "days");
+  //     const formatedDate = date.format("dddd, MMMM, D");
+  //     return formatedDate;
+  //   });
+  // };
 
   function deliveryHTMl(matching, cartItem) {
     let html = "";
+
     deliveryOptions.forEach((option) => {
       // Deliver date
       // 1 get today's date dayjs()
       //2 do the calculations by adding 7 days : daysjs.add(7, 'days')
       // convert the data into easy-to-read format days.format('dddd, MM, D')
-      const today = dayjs();
-      const deliveryDate = today.add(option.deliveryDays, "days");
-      const formatedDate = deliveryDate.format("dddd, MMMM D");
 
       const isChecked =
         option.id === cartItem.deliveryOptionId ? "checked" : "";
+
       let priceString =
         option.priceCents === 0
           ? "FREE"
           : `${currencyFormatter(option.priceCents)}`;
 
-      html += `<div class="delivery-option">
+      html += `<div class="delivery-option "
+      data-product-id="${cartItem.productId}"
+      data-delivery-id="${option.id}">
             <input type="radio"  ${isChecked}
             class="delivery-option-input"
             name="delivery-option-${matching.id}">
             <div>
                 <div class="delivery-option-date">
-                    ${formatedDate}
+                    ${deliveryFormtedDate(option)}
                 </div>
                 <div class="delivery-option-price">
                     ${priceString} - Shipping
@@ -370,11 +394,26 @@ function renderCheckoutPage() {
         </div>`;
     });
 
-    document.querySelectorAll(".delivery-option-input").forEach((input) => {
-      input.addEventListener("click", () => {});
-    });
-
     return html;
+  }
+
+  //update the delivery date when clicked on the radio input
+  document.querySelectorAll(".delivery-option").forEach((input) => {
+    input.addEventListener("click", () => {
+      //
+      const { deliveryId, productId } = input.dataset;
+
+      //use dlivery id and product id to update the cart's
+      //delivery option id and the page
+      updateDeliveryOption(productId, deliveryId);
+      renderCheckoutPage();
+    });
+  });
+  function deliveryFormtedDate(option) {
+    let now = dayjs();
+    let date = now.add(option.deliveryDays, "days");
+    let format = date.format("dddd, MMMM, D");
+    return format;
   }
 }
 

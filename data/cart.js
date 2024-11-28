@@ -138,7 +138,7 @@ export const updateDeliveryOption = (productId, deliveryOptionId) => {
   });
 
   matching.deliveryOptionId = deliveryOptionId;
-  // saveToLocalStorage();
+  saveToLocalStorage();
 };
 
 export const updateShoppingCart = () => {
