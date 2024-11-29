@@ -50,7 +50,7 @@ if (!cart) {
 // }
 
 //function to save data to localstorage
-const saveToLocalStorage = () => {
+export const saveToLocalStorage = () => {
   localStorage.setItem("cart", JSON.stringify(cart));
 };
 

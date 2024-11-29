@@ -12,6 +12,7 @@ import { products } from "../data/products.js";
 import {
   cart,
   cartItemRemover,
+  saveToLocalStorage,
   updateDeliveryOption,
   updateQuantity,
   updateShoppingCart,
@@ -199,15 +200,16 @@ function renderCheckoutPage() {
     //get deliveryoptionid from the cart
     //and use it to pull the whole objct from
     // deliveryoptions
-    //// use delivery option to return a
+    ////then use delivery option to return a
     //formated date
-    let deliveryDateFunction;
+    let deliveryId;
     deliveryOptions.forEach((option) => {
       if (option.id === cartItem.deliveryOptionId) {
-        deliveryDateFunction = option;
+        deliveryId = option;
       }
     });
-    let ddate = deliveryFormtedDate(deliveryDateFunction);
+
+    let ddate = deliveryFormtedDate(deliveryId);
 
     products.forEach((product) => {
       if (product.id === productId) matchingProduct = product;
@@ -403,18 +405,32 @@ function renderCheckoutPage() {
       //
       const { deliveryId, productId } = input.dataset;
 
+      let match;
+      cart.forEach((item) => {
+        if (item.productId == productId) {
+          match = item;
+        }
+      });
+
+      match.deliveryOptionId = deliveryId;
+      saveToLocalStorage();
+      renderCheckoutPage();
+
       //use dlivery id and product id to update the cart's
       //delivery option id and the page
-      updateDeliveryOption(productId, deliveryId);
-      renderCheckoutPage();
     });
   });
+
   function deliveryFormtedDate(option) {
     let now = dayjs();
     let date = now.add(option.deliveryDays, "days");
     let format = date.format("dddd, MMMM, D");
     return format;
   }
+
+  document.querySelector(
+    ".js-total-items"
+  ).innerHTML = `Items: (${updateShoppingCart()})`;
 }
 
 renderCheckoutPage();
