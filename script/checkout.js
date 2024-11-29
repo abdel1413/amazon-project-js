@@ -2,7 +2,7 @@
 //import { renderPaymentSummary as paymentSummary } from "./checkouts/paymentSummary.js";
 import "../data/cart-oop.js";
 import "../data/cart-class.js";
-import { products } from "../data/products.js";
+import { Product, products } from "../data/products.js";
 // import {
 //   // loadProductFecth,
 //   products,
@@ -202,18 +202,42 @@ function renderCheckoutPage() {
     // deliveryoptions
     ////then use delivery option to return a
     //formated date
-    let deliveryId;
+    let deliveryObject;
     deliveryOptions.forEach((option) => {
       if (option.id === cartItem.deliveryOptionId) {
-        deliveryId = option;
+        deliveryObject = option;
       }
     });
 
-    let ddate = deliveryFormtedDate(deliveryId);
+    let ddate = deliveryFormtedDate(deliveryObject);
 
     products.forEach((product) => {
       if (product.id === productId) matchingProduct = product;
     });
+
+    let matching;
+    let shipping;
+    let tot = 0;
+    cart.forEach((item) => {
+      products.forEach((prod) => {
+        if (item.productId == prod.id) matching = prod;
+      });
+
+      // let price = matchingProduct.priceCents;
+      // console.log(price);
+      // subTot += item.quantity * price;
+
+      tot += item.quantity * currencyFormatter(matching.priceCents);
+
+      deliveryOptions.forEach((option) => {
+        if (item.deliveryOptionId === option.id) {
+          shipping = option;
+        }
+      });
+    });
+
+    console.log(shipping);
+    console.log(tot);
 
     const { id, image, name, priceCents } = matchingProduct;
 
@@ -431,6 +455,8 @@ function renderCheckoutPage() {
   document.querySelector(
     ".js-total-items"
   ).innerHTML = `Items: (${updateShoppingCart()})`;
+
+  console.log(document.querySelector(".payment-summary-money").innerHTML);
 }
 
 renderCheckoutPage();
