@@ -217,7 +217,8 @@ function renderCheckoutPage() {
 
     let matching;
     let shipping;
-    let tot = 0;
+    let totalBeforeTax = 0;
+    let totShipping = 0;
     cart.forEach((item) => {
       products.forEach((prod) => {
         if (item.productId == prod.id) matching = prod;
@@ -227,17 +228,85 @@ function renderCheckoutPage() {
       // console.log(price);
       // subTot += item.quantity * price;
 
-      tot += item.quantity * currencyFormatter(matching.priceCents);
+      // totalBeforeTax += item.quantity * currencyFormatter(matching.priceCents);
+      totalBeforeTax += item.quantity * matching.priceCents;
 
       deliveryOptions.forEach((option) => {
         if (item.deliveryOptionId === option.id) {
           shipping = option;
         }
       });
+
+      if (shipping) {
+        totShipping += shipping.priceCents;
+      }
     });
 
-    console.log(shipping);
-    console.log(tot);
+    //totShipping = currencyFormatter(totShipping);
+    console.log("tot", totalBeforeTax);
+    console.log("totship", totShipping);
+    const estimatedTax = totalBeforeTax * 0.1;
+    console.log("est", currencyFormatter(estimatedTax));
+    const orderTotal = totalBeforeTax + estimatedTax + totShipping;
+    console.log("order", currencyFormatter(orderTotal));
+
+    // document.querySelector(
+    //   ".js-total-items"
+    // ).innerHTML = `Items: (${updateShoppingCart()})`;
+
+    // document.querySelector(".payment-summary-money").innerHTML = totalBeforeTax;
+    //document.querySelector(".payment-summary-money").innerHTML = totShipping;
+
+    function payment() {
+      let html = `
+        <div class="payment-summary-title">
+            Order Summary
+        </div>
+    
+        <div class="payment-summary-row">
+            <div class="js-total-items">Items( ${updateShoppingCart()}):</div>
+            <div class="payment-summary-money">$${currencyFormatter(
+              totalBeforeTax
+            )}</div>
+        </div>
+    
+        <div class="payment-summary-row">
+            <div>Shipping &amp; handling:</div>
+            <div class="payment-summary-money">$${currencyFormatter(
+              totShipping
+            )}</div>
+        </div>
+    
+        <div class="payment-summary-row subtotal-row">
+            <div>Total before tax:</div>
+            <div class="payment-summary-money">$${currencyFormatter(
+              totalBeforeTax
+            )}</div>
+        </div>
+    
+        <div class="payment-summary-row">
+            <div>Estimated tax (10%):</div>
+            <div class="payment-summary-money">$${currencyFormatter(
+              estimatedTax
+            )}</div>
+        </div>
+    
+        <div class="payment-summary-row total-row">
+            <div>Order total:</div>
+            <div class="payment-summary-money">$${currencyFormatter(
+              orderTotal
+            )}</div>
+        </div>
+    
+        <button class="place-order-button button-primary">
+            Place your order
+        </button>
+    `;
+
+      return html;
+    }
+
+    document.querySelector(".js-payment-summary").innerHTML = payment();
 
     const { id, image, name, priceCents } = matchingProduct;
 
@@ -247,7 +316,9 @@ function renderCheckoutPage() {
     "
     data-product-id=${id}>
     <div class="delivery-date">
-        Delivery date: <span class="js-delivery-date"> ${ddate}</span>
+        Delivery date: <span class="js-delivery-date"> ${deliveryFormtedDate(
+          deliveryObject
+        )}</span>
     </div>
     <div class="cart-item-details-grid">
     <img class="product-image" src="${image}">
@@ -451,12 +522,6 @@ function renderCheckoutPage() {
     let format = date.format("dddd, MMMM, D");
     return format;
   }
-
-  document.querySelector(
-    ".js-total-items"
-  ).innerHTML = `Items: (${updateShoppingCart()})`;
-
-  console.log(document.querySelector(".payment-summary-money").innerHTML);
 }
 
 renderCheckoutPage();
