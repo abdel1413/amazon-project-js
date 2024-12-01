@@ -242,13 +242,8 @@ function renderCheckoutPage() {
       }
     });
 
-    //totShipping = currencyFormatter(totShipping);
-    console.log("tot", totalBeforeTax);
-    console.log("totship", totShipping);
     const estimatedTax = totalBeforeTax * 0.1;
-    console.log("est", currencyFormatter(estimatedTax));
     const orderTotal = totalBeforeTax + estimatedTax + totShipping;
-    console.log("order", currencyFormatter(orderTotal));
 
     // document.querySelector(
     //   ".js-total-items"
@@ -298,7 +293,7 @@ function renderCheckoutPage() {
             )}</div>
         </div>
     
-        <button class="place-order-button button-primary">
+        <button class="place-order-button button-primary js-place-order-btn">
             Place your order
         </button>
     `;
@@ -308,8 +303,16 @@ function renderCheckoutPage() {
 
     document.querySelector(".js-payment-summary").innerHTML = payment();
 
-    const { id, image, name, priceCents } = matchingProduct;
+    //PLACE ORDER
 
+    document
+      .querySelector(".js-place-order-btn")
+      .addEventListener("click", () => {
+        console.log(window.location.href);
+        window.location.href = "orders.html";
+      });
+
+    const { id, image, name, priceCents } = matchingProduct;
     if (matchingProduct) {
       checkoutpage += `<div class="cart-item-container 
     js-cart-item-container-${id}
