@@ -5,8 +5,12 @@
 //   updateDeliveryOption,
 //   updateShoppingCart,
 // } from "../../data/cart.js";
+import {
+  getProduct,
+  loadProductsFromBackend,
+  products,
+} from "../../data/products.js";
 import { cart } from "../../data/Cart-class.js";
-import { getProduct, products } from "../../data/products.js";
 import { currencyFormatter } from "../sharedScripts/currencyFormatter.js";
 import {
   deliveryOptions,
@@ -14,6 +18,9 @@ import {
 } from "../../data/deliveryOptions.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
+
+// import { getProduct, products } from "../../data/products.js";
+//import * as p from "../../data/products.js";
 //import "../../data/backend-practice.js";
 
 /*
@@ -67,34 +74,35 @@ export const renderOrderSummary = () => {
     return html;
   };
 
-  let cartItemSection = document.querySelector(".cart-item-section");
+  let checkoutGrid = document.querySelector(".js-order-summary");
 
   let cartItems = ``;
 
-  // collect some data/
-  // generate an HTML with the collected data
-  // make the HTML page interactivel
+  // 1)collect some data/
+  //2) generate an HTML with the collected data
+  //3)  make the HTML page interactivel
 
   cart.cartItems.forEach((cartItem) => {
     // let matchingProduct;
     let cartProductId;
     let quantity;
     cartProductId = cartItem.productId;
-
     quantity = cartItem.quantity;
 
-    // let match;
+    let match;
     // products.forEach((element) => {
-    //   if (cartProductId == element.id) {
+    //   console.log("ele".element);
+    //   if (cartProductId == element.productId) {
     //     match = element;
     //   }
+    //   console.log("m", match);
     // });
 
-    let matchingProduct = getProduct(cartItem.productId);
-
+    let matchingProduct = getProduct(cartProductId);
     const image = matchingProduct.image;
     const name = matchingProduct.name;
     const price = matchingProduct.priceCents;
+    //const { image, name, price } = matchingProduct;
 
     let deliveryOptionId = cartItem.deliveryOptionId;
 
@@ -163,7 +171,7 @@ export const renderOrderSummary = () => {
    </div>
    `;
 
-    cartItemSection.innerHTML = cartItems;
+    checkoutGrid.innerHTML = cartItems;
   });
 
   //when clicked on ,
@@ -218,23 +226,12 @@ export const renderOrderSummary = () => {
   //     totalItems += element.quantity;
   //   });
 
-  let totalItems = cart.updateShoppingCart();
+  const numbItems =
+    cart.updateShoppingCart() > 1
+      ? `${cart.updateShoppingCart()} items`
+      : `${cart.updateShoppingCart()} item`;
+  document.querySelector(".checkout-total-items-label").innerHTML = numbItems;
 
-  document.querySelector(".checkout-total-items").innerHTML =
-    cart.updateShoppingCart();
-
-  let checkoutLabel = document.querySelector(".checkout-total-items-label");
-
-  totalItems < 2
-    ? (checkoutLabel.innerHTML = "Item")
-    : (checkoutLabel.innerHTML = "Items");
-
-  //  return totalItems;
-  // };
-
-  // updateShoppingCart();
-  // let total = updateShoppingCart();
-  // console.log("update ship", total);
   document.querySelectorAll(`.js-update-quantity-link`).forEach((element) => {
     element.addEventListener("click", () => {
       let productId = element.dataset.productId;
@@ -289,5 +286,3 @@ export const renderOrderSummary = () => {
     });
   });
 };
-
-renderOrderSummary();

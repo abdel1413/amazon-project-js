@@ -1,8 +1,8 @@
 //import { cart, updateShoppingCart } from "../../data/cart.js";
-import { cart } from "../../data/Cart-class.js";
 // import "../../data/cart.js";
+import { cart } from "../../data/Cart-class.js";
 import { getDeliveryOption } from "../../data/deliveryOptions.js";
-import { addOrder, loadOrderPage, orders } from "../../data/orders.js";
+import { addOrder, orders } from "../../data/orders.js";
 import { getProduct } from "../../data/products.js";
 import { currencyFormatter } from "../sharedScripts/currencyFormatter.js";
 
@@ -62,7 +62,6 @@ export function renderPaymentSummary() {
       </button>
   `;
 
-  console.log(document.querySelector(".js-payment-summary"));
   document.querySelector(".js-payment-summary").innerHTML = paymentSummaryHtml;
 
   document

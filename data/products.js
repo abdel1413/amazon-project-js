@@ -1,6 +1,6 @@
 import { currencyFormatter } from "../script/sharedScripts/currencyFormatter.js";
 
-//export let products = [];
+export let products = [];
 
 export class Product {
   id;
@@ -75,19 +75,6 @@ export class Appliance extends Product {
   }
 }
 
-//use productId to get the full product details and return it
-export function getProduct(productId) {
-  let matchingProduct;
-
-  products.forEach((item) => {
-    if (item.id === productId) {
-      matchingProduct = item;
-    }
-  });
-
-  return matchingProduct;
-}
-
 // since asyn func does'nt have .then()
 // to hold/print the value, we can save the promise in a variable
 
@@ -120,31 +107,48 @@ export function getProduct(productId) {
 //   console.log("next step upon returning fetch fcn");
 // });
 
-// export function loadProductsFromBackend(htlmpage) {
-//   const xhr = new XMLHttpRequest();
-//   xhr.addEventListener("load", () => {
-//     products = JSON.parse(xhr.response).map((productDetails) => {
-//       if (productDetails.type === "clothing") {
-//         return new Clothing(productDetails);
-//       } else if (productDetails.type === "appliance") {
-//         return new Appliance(productDetails);
-//       }
-//       return new Product(productDetails);
-//     });
+//END
 
-//     console.log("load products xml");
+// get the full specific product out of products using productId
 
-//     //after getting the data,call the htmlpage function
-//     //to generate an html
-//     htlmpage();
-//   });
+//II:  generate products page using backend data
+export function loadProductsFromBackend(htmlPage) {
+  const xhr = new XMLHttpRequest();
+  xhr.addEventListener("load", () => {
+    // products = JSON.parse(xhr.response);
+    // products = products.map((details) => {
+    //   if (details.type === "clothing") {
+    //     return new Clothing(details);
+    //   } else if (details.type === "appliance") {
+    //     return new Appliance(details);
+    //   }
+    //   return new Product(details);
+    // });
 
-//   xhr.open("GET", "https://supersimplebackend.dev/products");
-//   xhr.send();
-// }
+    products = JSON.parse(xhr.response).map((productDetails) => {
+      if (productDetails.type === "clothing") {
+        return new Clothing(productDetails);
+      } else if (productDetails.type === "appliance") {
+        return new Appliance(productDetails);
+      }
+      return new Product(productDetails);
+    });
 
-//wll come back on
-export const products = [
+    console.log("load products from bckend using xml fcn");
+
+    //after getting the data,call the htmlpage function
+    //to generate an html
+    htmlPage();
+  });
+
+  xhr.open("GET", "https://supersimplebackend.dev/products");
+  xhr.send();
+}
+
+//END
+// 1: using  internal products (from my computer)
+// to generate a page containing product items;
+/*export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
     image: "images/products/athletic-cotton-socks-6-pairs.jpg",
@@ -643,3 +647,18 @@ export const products = [
   }
   return new Product(productDetails);
 });
+*/
+
+//END
+
+//get the whole object from products using id
+export function getProduct(productId) {
+  let matchingProduct;
+  products.forEach((item) => {
+    if (item.id === productId) {
+      matchingProduct = item;
+    }
+  });
+
+  return matchingProduct;
+}

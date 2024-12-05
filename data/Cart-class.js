@@ -60,6 +60,7 @@ export default class Cart {
     this.cartItems = newCart;
     this.saveToLocalStorage();
   }
+
   calculateItemQuantity() {
     let totalItems = 0;
     this.cartItems.forEach((item) => {

@@ -1,13 +1,15 @@
-import { cart } from "./cart.js";
+// import { cart } from "./cart.js";
 
-import { getProduct, products } from "./products.js";
-//import { getProduct, loadProductFecth, products } from "./products.js";
+// import { getProduct, products } from "./products.js";
+import { loadProductsFromBackend } from "./products.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 import { currencyFormatter } from "../script/sharedScripts/currencyFormatter.js";
+import { cart } from "./Cart-class.js";
+
 export let orders = [];
 
 export function addOrder(order) {
-  cart.unshift(order);
+  orders.unshift(order);
   saveToLocalStorage();
 }
 
@@ -17,12 +19,14 @@ function saveToLocalStorage() {
   localStorage.setItem("orders", JSON.stringify(orders));
 }
 
-export async function loadOrderPage() {
-  let c = await loadProductFecth();
-  console.log("c", c);
+console.log(JSON.parse(localStorage.getItem("orders")));
 
+//let c = await loadProductFecth();
+// loadProductsFromBackend(loadOrderPage);
+
+async function loadOrderPage() {
   let orderHtml = ``;
-
+  console.log(orders);
   orders.forEach((order) => {
     const orderTime = dayjs(order.orderTime).format("MMMM D");
     let v = generateOrders(order);
@@ -51,6 +55,7 @@ export async function loadOrderPage() {
                 
             </div> `;
   });
+  return orderHtml;
 
   //document.querySelector(".js-orders-grid").innerHTML = orderHtml;
 
@@ -60,8 +65,6 @@ export async function loadOrderPage() {
     let orderHtml = ``;
     order.products.forEach((item) => {
       let product = getProduct(item.productId);
-
-      console.log("item", item);
 
       let { estimatedDeliveryTime, quantity } = item;
       //review later
@@ -96,6 +99,8 @@ export async function loadOrderPage() {
           </a>
         </div>`;
     });
+
+    return orderHtml;
   }
 }
 

@@ -1,8 +1,8 @@
-//import { renderOrderSummary as orderSummary } from "./checkouts/orderSummary.js";
-//import { renderPaymentSummary as paymentSummary } from "./checkouts/paymentSummary.js";
+import { loadProductsFromBackend, products } from "../data/products.js";
+import { renderOrderSummary } from "./checkouts/orderSummary.js";
+import { renderPaymentSummary } from "./checkouts/paymentSummary.js";
 import "../data/cart-oop.js";
 import "../data/cart-class.js";
-import { Product, products } from "../data/products.js";
 // import {
 //   // loadProductFecth,
 //   products,
@@ -181,16 +181,22 @@ new Promise(resolve => {
 
 // 1) using call backs
 // call ananymous function inside loadProdFromBackend()
-//inside which we call ordersummary and paymensummary
-// loadProductsFromBackend(() => {
-//   orderSummary();
-//   paymentSummary();
-// });
+//and then inside that anonymous fcn, we call ordersummary and paymensummary
 
-//individual call
+loadProductsFromBackend(() => {
+  // orderSummary();
+  // paymentSummary();
+  renderOrderSummary();
+  renderPaymentSummary();
+});
+
+// 1) individual call
 // orderSummary();
-// paymentSummary()
+// paymentSummary();
 
+//END
+
+//Practice
 function renderCheckoutPage() {
   let checkoutpage = ``;
   let matchingProduct;
@@ -527,4 +533,4 @@ function renderCheckoutPage() {
   }
 }
 
-renderCheckoutPage();
+//renderCheckoutPage();

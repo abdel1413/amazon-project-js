@@ -1,19 +1,12 @@
-import { cart, addToCart, updateShoppingCart } from "../data/cart.js";
-//import { cart } from "../data/cart-class.js";
-let v = updateShoppingCart();
-console.log(v, "v");
+//import { cart, addToCart, updateShoppingCart } from "../data/cart.js";
+import { cart } from "../data/cart-class.js";
 
-import {
-  products,
-  // loadProductsFromBackend
-} from "../data/products.js";
+import { loadProductsFromBackend, products } from "../data/products.js";
 //import { loadProductFecth, products } from "../data/products.js";
 //import { currencyFormatter } from "./sharedScripts/currencyFormatter.js";
 
 //loadProductFecth();
-//loadProductsFromBackend(renderProducts);
-
-//loadP(renderProducts);
+loadProductsFromBackend(renderProducts);
 
 //Hard code for test;
 /*let data = [
@@ -49,10 +42,11 @@ import {
 */
 
 function renderProducts() {
-  let html = ``;
+  let productHtml = ``;
   // const htmlGenerator = (product) => {
+
   products.forEach((element) => {
-    html += `<div class="products-container">
+    productHtml += `<div class="products-container">
                 <div class="products-img">
                         <img src= ${element.image} alt="" class="product-img">
                 </div>
@@ -96,28 +90,23 @@ function renderProducts() {
 
   // htmlGenerator(products);
 
-  document.querySelector(".products-grid").innerHTML = html;
+  document.querySelector(".products-grid").innerHTML = productHtml;
 
   //method to update the chopping cart
   const updateShoppingCart = () => {
     let totalItem = 0;
-    cart.forEach((item) => {
-      totalItem += Number(item.quantity);
-    });
-    //console.log(totalItem);
-    // cart.cartItems.forEach((item) => {
-    //   totalItem += item.quantity;
+    // cart.forEach((item) => {
+    //   totalItem += Number(item.quantity);
     // });
+    // //console.log(totalItem);
+    cart.cartItems.forEach((item) => {
+      totalItem += item.quantity;
+    });
     let cartQuantity = document.querySelector(".cart-quantity");
 
     cartQuantity.innerHTML = totalItem;
     //cartQuantity.innerHTML = calculateItemQuantity();
   };
-
-  //will come back
-  // let cartQuantity = document.querySelector(".cart-quantity");
-  // cartQuantity.innerHTML = v;
-  // console.log("ct", cartQuantity.innerHTML);
 
   //call update function so it display items number in the cart
   updateShoppingCart();
@@ -130,8 +119,8 @@ function renderProducts() {
       productId = btn.dataset.productId;
       //cart.push({ productDescription, quantity: 1 });
 
-      addToCart(productId);
-      //cart.addToCart(productId);
+      //addToCart(productId);
+      cart.addToCart(productId);
 
       //update the shopping cart with newly selected item numb
       updateShoppingCart();
