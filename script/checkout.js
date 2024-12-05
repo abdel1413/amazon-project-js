@@ -1,6 +1,7 @@
 import { loadProductsFromBackend, products } from "../data/products.js";
-import { renderOrderSummary } from "./checkouts/orderSummary.js";
-import { renderPaymentSummary } from "./checkouts/paymentSummary.js";
+import { renderOrderSummary as orderSummary } from "./checkouts/orderSummary.js";
+import { renderPaymentSummary as paymentSummary } from "./checkouts/paymentSummary.js";
+
 import "../data/cart-oop.js";
 import "../data/cart-class.js";
 // import {
@@ -12,6 +13,7 @@ import "../data/cart-class.js";
 import {
   cart,
   cartItemRemover,
+  loadCart,
   saveToLocalStorage,
   updateDeliveryOption,
   updateQuantity,
@@ -179,16 +181,74 @@ new Promise(resolve => {
 //   });
 // });
 
-// 1) using call backs
-// call ananymous function inside loadProdFromBackend()
-//and then inside that anonymous fcn, we call ordersummary and paymensummary
+// Using Promise which is better for async function than call backs
+//as it keeps code flat as opposed to callback where code seems
+//more and more nested
 
-loadProductsFromBackend(() => {
-  // orderSummary();
-  // paymentSummary();
-  renderOrderSummary();
-  renderPaymentSummary();
-});
+function checkoutWithMultiplePromise() {
+  new Promise((resolve) => {
+    loadProductsFromBackend(() => {
+      resolve();
+    });
+  })
+    .then(() => {
+      return new Promise((resolve) => {
+        loadCart(() => {
+          resolve();
+        });
+      });
+    })
+    .then(() => {
+      orderSummary();
+      paymentSummary();
+    });
+}
+//checkoutWithMultiplePromise();
+
+function checkOutWithPromise() {
+  console.log("outside promise");
+  new Promise((resolve) => {
+    console.log("start promise");
+    loadProductsFromBackend(() => {
+      resolve();
+    });
+  }).then(() => {
+    console.log("Next step");
+    orderSummary();
+    paymentSummary();
+  });
+}
+checkOutWithPromise();
+
+// 1) using call backs
+// the ananymous function inside loadProdFromBackend()
+//is run atfer product finished loading
+//and then inside that anonymous fcn,
+//we run ordersummary and paymensummary
+
+function checkoutWithNestedCallBacks() {
+  loadProductsFromBackend(() => {
+    loadCart(() => {
+      orderSummary();
+      paymentSummary();
+    });
+  });
+}
+
+//checkoutWithNestedCallBacks();
+
+function checkOutWithCallBacks() {
+  loadProductsFromBackend(() => {
+    orderSummary();
+    paymentSummary();
+  });
+}
+//checkOutWithCallBacks();
+
+// loadProductsFromBackend(() => {
+//   orderSummary();
+//   paymentSummary();
+// });
 
 // 1) individual call
 // orderSummary();

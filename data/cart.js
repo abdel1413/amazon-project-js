@@ -149,3 +149,12 @@ export const updateShoppingCart = () => {
 
   return totalItems;
 };
+
+export function loadCart() {
+  const xml = new XMLHttpRequest();
+  xml.addEventListener("load", () => {
+    console.log(xml.response);
+  });
+  xml.open("GET", "https://supersimplebackend.dev/cart");
+  xml.send();
+}
