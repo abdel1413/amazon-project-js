@@ -115,90 +115,54 @@ import { deliveryOptions } from "../data/deliveryOptions.js";
 //   paymentSummary();
 // });
 
-//4) using Promise.all() methd to
-// wait for all the promise to finish at
+//4) using Promise.all() methd takes an array of promises
+//and  wait for all to finish loading at
 //the same time bf going to next step
-
-// Promise.all([
-//   new Promise((resolve) => {
-//     loadProductsFromBackend(() => {
-//       resolve("val1");
-//     });
-//   }),
-
-//   new Promise((resolve) => {
-//     loadCart(() => {
-//       resolve("val2");
-//     });
-//   }),
-// ]).then((values) => {
-//   console.log(values); // [val1, val2]
-//   orderSummary();
-//   paymentSummary();
-// });
-
-// 3) using Promises
-// NOTE: promises make code look flatter as oppose to call backs
-// which are
-
-/*
-new Promise((resolve) => {
-  loadProductsFromBackend(() => {
-    resolve("val");
-  });
-})
-  .then((value) => {
-    console.log(value); //=> val
-    return new Promise((resolve) => {
-      loadCart(() => {
-        resolve(val2);
+function promiseAll() {
+  Promise.all([
+    new Promise((resolve) => {
+      loadProductsFromBackend(() => {
+        resolve("values in load products");
       });
-    });
-  })
-  .then((values) => {
-    console.log(values); //=> val2,
+    }),
+
+    new Promise((resolve) => {
+      loadCart(() => {
+        resolve();
+      });
+    }),
+  ]).then((values) => {
+    console.log(values);
     orderSummary();
     paymentSummary();
   });
-*/
+}
 
-/* 2) 
-new Promise(resolve => {
-  loadPduct(() => {
-    resolve()
-  })
-}).then(() => {
-  orderSummary()
-  paymentSummary()
-})
-*/
+promiseAll();
 
-//call back with nested functions
-// loadProductsFromBackend(() => {
-//   loadCart(() => {
-//     orderSummary();
-//     paymentSummary();
-//   });
-// });
-
-// Using Promise which is better for async function than call backs
-//as it keeps code flat as opposed to callback where code seems
-//more and more nested
-
+// 3) using Promises
+// NOTE: promises make code look flatter and wait for async funct
+// to finish before going to next step as oppose to call backs
+// which are nested when having multiple calls
 function checkoutWithMultiplePromise() {
+  console.log("outside promise");
   new Promise((resolve) => {
+    console.log("start promise");
     loadProductsFromBackend(() => {
-      resolve();
+      resolve("values in load product");
     });
   })
-    .then(() => {
-      return new Promise((resolve) => {
+    .then((v) => {
+      console.log(v);
+      console.log("Next step");
+      new Promise((resolve) => {
         loadCart(() => {
-          resolve();
+          resolve("values in load cart");
         });
       });
     })
-    .then(() => {
+    .then((value) => {
+      console.log(value);
       orderSummary();
       paymentSummary();
     });
@@ -210,17 +174,17 @@ function checkOutWithPromise() {
   new Promise((resolve) => {
     console.log("start promise");
     loadProductsFromBackend(() => {
-      resolve();
+      resolve("value");
     });
-  }).then(() => {
+  }).then((value) => {
     console.log("Next step");
     orderSummary();
     paymentSummary();
   });
 }
-checkOutWithPromise();
+//checkOutWithPromise();
 
-// 1) using call backs
+// 1) using  nested call backs
 // the ananymous function inside loadProdFromBackend()
 //is run atfer product finished loading
 //and then inside that anonymous fcn,
@@ -237,6 +201,7 @@ function checkoutWithNestedCallBacks() {
 
 //checkoutWithNestedCallBacks();
 
+//Using callback
 function checkOutWithCallBacks() {
   loadProductsFromBackend(() => {
     orderSummary();
