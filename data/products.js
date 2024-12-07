@@ -112,6 +112,33 @@ export class Appliance extends Product {
 // get the full specific product out of products using productId
 
 //II:  generate products page using backend data
+
+function loadProductFetch() {
+  fetch("https://supersimplebackend.dev/products")
+    .then((response) => {
+      let data = response.json();
+      return data;
+    })
+    .then((data) => {
+      console.log(data);
+
+      products = data.map((productDetails) => {
+        if (productDetails.type === "clothing") {
+          return new Clothing(productDetails);
+        } else if (productDetails.type === "appliance") {
+          return new Appliance(productDetails);
+        }
+
+        return new Product(productDetails);
+      });
+
+      console.log("product", products);
+    });
+}
+
+loadProductFetch();
+
+//  XMLHttpRequest uses call backs while fetch uses promise
 export function loadProductsFromBackend(htmlPage) {
   const xhr = new XMLHttpRequest();
   xhr.addEventListener("load", () => {
