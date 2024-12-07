@@ -86,22 +86,6 @@ import { deliveryOptions } from "../data/deliveryOptions.js";
 //   return "value 2";
 // }
 
-// loadPage2().then((val) => {
-//   console.log("next step");
-//   console.log(val);
-// });
-
-// 5) func that return promise
-// function laodPage1() {
-//   return new Promise((resolve) => {
-//     console.log("page 1 loaded");
-//     resolve("value1");
-//   });
-// }
-// laodPage1().then((v) => {
-//   console.log("v", v);
-// });
-
 // Promise.all([
 //   //loadProductFecth(),
 //   new Promise((resolve) => {
@@ -127,9 +111,9 @@ function promiseAll() {
     }),
 
     new Promise((resolve) => {
-      loadCart(() => {
-        resolve();
-      });
+      //loadCart(() => {
+      resolve("values in laod cart");
+      // });
     }),
   ]).then((values) => {
     console.log(values);
@@ -144,7 +128,7 @@ promiseAll();
 // NOTE: promises make code look flatter and wait for async funct
 // to finish before going to next step as oppose to call backs
 // which are nested when having multiple calls
-function checkoutWithMultiplePromise() {
+function multiplePromise() {
   console.log("outside promise");
   new Promise((resolve) => {
     console.log("start promise");
@@ -167,7 +151,7 @@ function checkoutWithMultiplePromise() {
       paymentSummary();
     });
 }
-//checkoutWithMultiplePromise();
+//multiplePromise();
 
 function checkOutWithPromise() {
   console.log("outside promise");
@@ -190,7 +174,7 @@ function checkOutWithPromise() {
 //and then inside that anonymous fcn,
 //we run ordersummary and paymensummary
 
-function checkoutWithNestedCallBacks() {
+function nestedCallBacks() {
   loadProductsFromBackend(() => {
     loadCart(() => {
       orderSummary();
@@ -199,16 +183,16 @@ function checkoutWithNestedCallBacks() {
   });
 }
 
-//checkoutWithNestedCallBacks();
+//nestedCallBacks();
 
 //Using callback
-function checkOutWithCallBacks() {
+function callBacks() {
   loadProductsFromBackend(() => {
     orderSummary();
     paymentSummary();
   });
 }
-//checkOutWithCallBacks();
+//callBacks();
 
 // loadProductsFromBackend(() => {
 //   orderSummary();
