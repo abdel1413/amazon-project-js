@@ -150,6 +150,17 @@ export const updateShoppingCart = () => {
   return totalItems;
 };
 
+export function loadCartFetch() {
+  const promise = fetch("https://supersimplebackend.dev/cart").then(
+    (response) => {
+      console.log("sss", response);
+    }
+  );
+
+  return promise;
+}
+
+loadCartFetch();
 export function loadCart() {
   const xml = new XMLHttpRequest();
   xml.addEventListener("load", () => {

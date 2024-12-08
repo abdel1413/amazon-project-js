@@ -82,46 +82,17 @@ export class Appliance extends Product {
 
 // export let products = [];
 
-// export function loadProductFecth() {
-//   console.log("load product fetch");
-//   const fectchProduct = fetch("https://supersimplebackend.dev/products")
-//     .then((resp) => {
-//       return resp.json();
-//     })
-//     .then((data) => {
-//       products = data.map((productDetails) => {
-//         if (productDetails.type === "clothing") {
-//           return new Clothing(productDetails);
-//         } else if (productDetails.type === "appliance") {
-//           return new Appliance(productDetails);
-//         }
-
-//         return new Product(productDetails);
-//       });
-//     });
-
-//   return fectchProduct;
-// }
-
-// loadProductFecth().then(() => {
-//   console.log("next step upon returning fetch fcn");
-// });
-
-//END
-
 // get the full specific product out of products using productId
 
 //II:  generate products page using backend data
 
-function loadProductFetch() {
-  fetch("https://supersimplebackend.dev/products")
+export function loadProductFetch() {
+  const promise = fetch("https://supersimplebackend.dev/products")
     .then((response) => {
       let data = response.json();
       return data;
     })
     .then((data) => {
-      console.log(data);
-
       products = data.map((productDetails) => {
         if (productDetails.type === "clothing") {
           return new Clothing(productDetails);
@@ -131,12 +102,15 @@ function loadProductFetch() {
 
         return new Product(productDetails);
       });
-
-      console.log("product", products);
     });
+
+  console.log("load products from backend fetch");
+  return promise;
 }
 
-loadProductFetch();
+// loadProductFetch().then((d) => {
+//   console.log(d);
+// });
 
 //  XMLHttpRequest uses call backs while fetch uses promise
 export function loadProductsFromBackend(htmlPage) {

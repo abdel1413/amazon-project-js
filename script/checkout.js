@@ -1,4 +1,8 @@
-import { loadProductsFromBackend, products } from "../data/products.js";
+import {
+  loadProductFetch,
+  loadProductsFromBackend,
+  products,
+} from "../data/products.js";
 import { renderOrderSummary as orderSummary } from "./checkouts/orderSummary.js";
 import { renderPaymentSummary as paymentSummary } from "./checkouts/paymentSummary.js";
 
@@ -14,6 +18,7 @@ import {
   cart,
   cartItemRemover,
   loadCart,
+  loadCartFetch,
   saveToLocalStorage,
   updateDeliveryOption,
   updateQuantity,
@@ -86,18 +91,45 @@ import { deliveryOptions } from "../data/deliveryOptions.js";
 //   return "value 2";
 // }
 
-// Promise.all([
-//   //loadProductFecth(),
-//   new Promise((resolve) => {
-//     loadCart(() => {
-//       resolve("val2");
-//     });
-//   }),
-// ]).then((values) => {
-//   console.log(values); // [val1, val2]
-//   orderSummary();
-//   paymentSummary();
-// });
+async function loadPageAsyn() {
+  await loadProductFetch();
+
+  //await loadCartFetch();
+
+  await new Promise((resolve) => {
+    //loadCart(() => {
+    resolve("load cart");
+    // });
+  }).then((v) => {
+    console.log("v", v);
+    orderSummary();
+    paymentSummary();
+  });
+
+  return "async load Page";
+}
+
+//asyn fcn returns a promise so we can attach .then()
+//method to go to next step
+loadPageAsyn().then((d) => {
+  console.log(d);
+});
+
+function checkoutFetch() {
+  Promise.all([
+    loadProductFetch(),
+    new Promise((resolve) => {
+      //loadCart(() => {
+      resolve();
+      //});
+    }),
+  ]).then(() => {
+    orderSummary();
+    paymentSummary();
+  });
+}
+
+//checkoutFetch();
 
 //4) using Promise.all() methd takes an array of promises
 //and  wait for all to finish loading at
@@ -122,7 +154,7 @@ function promiseAll() {
   });
 }
 
-promiseAll();
+//promiseAll();
 
 // 3) using Promises
 // NOTE: promises make code look flatter and wait for async funct

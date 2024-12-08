@@ -1,11 +1,16 @@
 //import { cart, addToCart, updateShoppingCart } from "../data/cart.js";
 import { cart } from "../data/cart-class.js";
 
-import { loadProductsFromBackend, products } from "../data/products.js";
+import {
+  loadProductFetch,
+  loadProductsFromBackend,
+  products,
+} from "../data/products.js";
 //import { loadProductFecth, products } from "../data/products.js";
 //import { currencyFormatter } from "./sharedScripts/currencyFormatter.js";
 
-//loadProductFecth();
+//loadProductFetch();
+
 loadProductsFromBackend(renderProducts);
 
 //Hard code for test;
