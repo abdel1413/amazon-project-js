@@ -64,55 +64,34 @@ import { deliveryOptions } from "../data/deliveryOptions.js";
 // } catch (e) {
 //   console.log("unexpected error occured. Please try again later");
 // }
-
-// async function loadPage() {
-//   await loadProductFecth();
-//   await new Promise((resolve) => {
-//     loadCartFetch(() => {
-//       resolve();
-//     });
-//   });
-
-//   // orderSummary();
-//   //paymentSummary();
-//   return "Next step after finish loading";
-// }
-
-// loadPage();
-
-// 6) async func returns promise as it is a short cut of func
-//returning promise
-// async function loadPage2() {
-//   console.log("async load page ");
-//   await loadProductFecth();
-
-//   orderSummary();
-//   paymentSummary();
-//   return "value 2";
-// }
+// 6) async func returns promise as it is a short cut of promises func
 
 async function loadPageAsyn() {
-  await loadProductFetch();
-
-  //await loadCartFetch();
-
-  await new Promise((resolve) => {
-    //loadCart(() => {
-    resolve("load cart");
-    // });
-  }).then((v) => {
-    console.log("v", v);
-    orderSummary();
-    paymentSummary();
-  });
-
-  return "async load Page";
+  //throw "Error1";
+  try {
+    await loadProductFetch();
+    //  loadCartFetch();
+    const value = await new Promise((resolve, reject) => {
+      loadCartFetch();
+      //loadCart(() => {
+      resolve(" await load cart");
+      //reject("this is Promise Error Handler");
+      // });
+    }).then((p) => {
+      //console.log("v", p);
+      orderSummary();
+      paymentSummary();
+    });
+  } catch (e) {
+    console.log("An unexpecte error occured", e);
+  }
+  //return "async load Page";
 }
 
 //asyn fcn returns a promise so we can attach .then()
 //method to go to next step
-loadPageAsyn().then((d) => {
-  console.log(d);
+loadPageAsyn().then((v) => {
+  console.log(v);
 });
 
 function checkoutFetch() {
@@ -173,7 +152,7 @@ function multiplePromise() {
       console.log("Next step");
       new Promise((resolve) => {
         loadCart(() => {
-          resolve("values in load cart");
+          resolve("values from load cart");
         });
       });
     })

@@ -102,6 +102,9 @@ export function loadProductFetch() {
 
         return new Product(productDetails);
       });
+    })
+    .catch((e) => {
+      console.log("Unexpected error occured", e);
     });
 
   console.log("load products from backend fetch");
@@ -140,6 +143,10 @@ export function loadProductsFromBackend(htmlPage) {
     //after getting the data,call the htmlpage function
     //to generate an html
     htmlPage();
+  });
+
+  xhr.addEventListener("error", (e) => {
+    console.log("Unexpected error occured", e);
   });
 
   xhr.open("GET", "https://supersimplebackend.dev/products");

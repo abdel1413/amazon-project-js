@@ -151,21 +151,22 @@ export const updateShoppingCart = () => {
 };
 
 export function loadCartFetch() {
-  const promise = fetch("https://supersimplebackend.dev/cart").then(
+  const value = fetch("https://supersimplebackend.dev/cart").then(
     (response) => {
-      console.log("sss", response);
+      return response;
     }
   );
-
-  return promise;
 }
 
 loadCartFetch();
+
 export function loadCart() {
   const xml = new XMLHttpRequest();
   xml.addEventListener("load", () => {
-    console.log(xml.response);
+    console.log("cart:", xml.response);
   });
   xml.open("GET", "https://supersimplebackend.dev/cart");
   xml.send();
 }
+
+loadCart();
