@@ -150,20 +150,27 @@ export const updateShoppingCart = () => {
   return totalItems;
 };
 
+async function loadCartAsyn() {
+  const response = await fetch("https://supersimplebackend.dev/cart");
+  return response.text();
+}
+loadCartAsyn().then((d) => console.log("load cart async fetch value: ", d));
+
 export function loadCartFetch() {
   const value = fetch("https://supersimplebackend.dev/cart").then(
     (response) => {
-      return response;
+      return response.text();
     }
   );
+  return value;
 }
 
-loadCartFetch();
+loadCartFetch().then((d) => console.log("load card fetch value: ", d));
 
 export function loadCart() {
   const xml = new XMLHttpRequest();
   xml.addEventListener("load", () => {
-    console.log("cart:", xml.response);
+    console.log(" load cart xml:", xml.response);
   });
   xml.open("GET", "https://supersimplebackend.dev/cart");
   xml.send();

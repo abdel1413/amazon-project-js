@@ -8,12 +8,7 @@ import { renderPaymentSummary as paymentSummary } from "./checkouts/paymentSumma
 
 import "../data/cart-oop.js";
 import "../data/cart-class.js";
-// import {
-//   // loadProductFecth,
-//   products,
-//   loadProductsFromBackend,
-// } from "../data/products.js";
-//import { laodCartFromStorage, loadCart } from "../data/cart.js";
+
 import {
   cart,
   cartItemRemover,
@@ -39,23 +34,7 @@ import { deliveryOptions } from "../data/deliveryOptions.js";
 
 // 7) using async/await functioins
 
-// async function loadProductAsync() {
-//   try {
-//     await loadProductFecth();
-//     await new Promise((resolve) => {
-//       loadCartFetch(() => {
-//         resolve();
-//       });
-//     });
-//   } catch (e) {
-//     console.log("error has occured, ", e);
-//   }
-
-//   orderSummary();
-//   paymentSummary();
-// }
-
-//loadProductAsync();
+// loadProductAsync();
 // try {
 //   await loadProductAsync();
 //   await loadCartFetch();
@@ -64,21 +43,34 @@ import { deliveryOptions } from "../data/deliveryOptions.js";
 // } catch (e) {
 //   console.log("unexpected error occured. Please try again later");
 // }
-// 6) async func returns promise as it is a short cut of promises func
 
+async function loadPageAsyncPromiseAll() {
+  try {
+    await Promise.all([loadProductFetch(), loadCartFetch()]).then(() => {
+      console.log("async all promises");
+      orderSummary();
+      paymentSummary();
+    });
+  } catch (e) {
+    console.log("error occured ", e);
+  }
+}
+
+loadPageAsyncPromiseAll();
+
+// 6) async func  is a short cut of promises func so it returns promise
 async function loadPageAsyn() {
   //throw "Error1";
   try {
     await loadProductFetch();
     //  loadCartFetch();
-    const value = await new Promise((resolve, reject) => {
-      loadCartFetch();
+    await new Promise((resolve, reject) => {
+      //loadCartFetch();
       //loadCart(() => {
       resolve(" await load cart");
       //reject("this is Promise Error Handler");
       // });
     }).then((p) => {
-      //console.log("v", p);
       orderSummary();
       paymentSummary();
     });
@@ -90,9 +82,7 @@ async function loadPageAsyn() {
 
 //asyn fcn returns a promise so we can attach .then()
 //method to go to next step
-loadPageAsyn().then((v) => {
-  console.log(v);
-});
+//loadPageAsyn();
 
 function checkoutFetch() {
   Promise.all([

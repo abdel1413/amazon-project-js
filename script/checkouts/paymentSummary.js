@@ -2,7 +2,7 @@
 // import "../../data/cart.js";
 import { cart } from "../../data/Cart-class.js";
 import { getDeliveryOption } from "../../data/deliveryOptions.js";
-import { addOrder, orders } from "../../data/orders.js";
+import { addOrder, loadOrderPage, orders } from "../../data/orders.js";
 import { getProduct } from "../../data/products.js";
 import { currencyFormatter } from "../sharedScripts/currencyFormatter.js";
 
@@ -81,10 +81,9 @@ export function renderPaymentSummary() {
         const order = await response.json();
 
         addOrder(order);
-        loadOrderPage();
+        //await loadOrderPage();
 
-        // window.location.href = "orders.html";
-        //console.log("v", v);
+        //window.location.href = "orders.html";
       } catch (error) {
         console.log("An error occured.", error);
       }
