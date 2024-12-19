@@ -1,4 +1,5 @@
 import {
+  asyncLoadProductFetch,
   loadProductFetch,
   loadProductsFromBackend,
   products,
@@ -10,6 +11,7 @@ import "../data/cart-oop.js";
 import "../data/cart-class.js";
 
 import {
+  asyncLoadCartFetch,
   cart,
   cartItemRemover,
   loadCart,
@@ -33,18 +35,42 @@ import { deliveryOptions } from "../data/deliveryOptions.js";
 //code clear and easy to read.
 
 // 7) using async/await functioins
+//NOTE: async func  is a short cut of promises
+//func so it returns promise
+
+async function loadPageAsyncPromiseAll() {
+  try {
+    // await asyncLoadProductFetch()
+    // await asyncLoadCartFetch()
+
+    await Promise.all([
+      await asyncLoadProductFetch(),
+      await asyncLoadCartFetch(),
+    ]).then(() => {
+      orderSummary();
+      paymentSummary();
+    });
+  } catch (error) {
+    console.log("Something went wrong, try again later", error);
+  }
+}
+
+loadPageAsyncPromiseAll();
 
 // loadProductAsync();
 // try {
 //   await loadProductAsync();
-//   await loadCartFetch();
+//   await loadCartAsyn();
 
-//   await Promise.all([loadCartFetch(), loadProductAsync()]);
+//   await Promise.all([loadProductAsync(),loadCartAsyn()]).then(()=>{
+//orderSummary();
+//paymentSummary()
+//})
 // } catch (e) {
 //   console.log("unexpected error occured. Please try again later");
 // }
 
-async function loadPageAsyncPromiseAll() {
+async function loadPagePromiseAll() {
   try {
     await Promise.all([loadProductFetch(), loadCartFetch()]).then(() => {
       console.log("async all promises");
@@ -56,9 +82,8 @@ async function loadPageAsyncPromiseAll() {
   }
 }
 
-loadPageAsyncPromiseAll();
+//loadPagePromiseAll();
 
-// 6) async func  is a short cut of promises func so it returns promise
 async function loadPageAsyn() {
   //throw "Error1";
   try {

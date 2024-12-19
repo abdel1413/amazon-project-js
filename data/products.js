@@ -86,6 +86,23 @@ export class Appliance extends Product {
 
 //II:  generate products page using backend data
 
+export async function asyncLoadProductFetch() {
+  const response = await fetch("https://supersimplebackend.dev/products");
+  return response.json();
+}
+asyncLoadProductFetch().then((data) => {
+  products = data.map((element) => {
+    if (element.type === "clothing") {
+      return new Clothing(element);
+    } else if (element.type === "appliance") {
+      return new Appliance(element);
+    }
+
+    return new Product(element);
+  });
+  console.log(products);
+});
+
 export function loadProductFetch() {
   const promise = fetch("https://supersimplebackend.dev/products")
     .then((response) => {

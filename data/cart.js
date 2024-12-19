@@ -150,11 +150,13 @@ export const updateShoppingCart = () => {
   return totalItems;
 };
 
-async function loadCartAsyn() {
+export async function asyncLoadCartFetch() {
   const response = await fetch("https://supersimplebackend.dev/cart");
   return response.text();
 }
-loadCartAsyn().then((d) => console.log("load cart async fetch value: ", d));
+asyncLoadCartFetch().then((d) =>
+  console.log("load cart async fetch value: ", d)
+);
 
 export function loadCartFetch() {
   const value = fetch("https://supersimplebackend.dev/cart").then(
