@@ -100,7 +100,7 @@ asyncLoadProductFetch().then((data) => {
 
     return new Product(element);
   });
-  console.log(products);
+  console.log("asyn product ");
 });
 
 export function loadProductFetch() {

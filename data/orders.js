@@ -5,6 +5,7 @@ import { loadProductFetch, loadProductsFromBackend } from "./products.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 import { currencyFormatter } from "../script/sharedScripts/currencyFormatter.js";
 import { cart } from "./Cart-class.js";
+console.log(cart);
 
 export let orders = JSON.parse(localStorage.getItem("orders")) || [];
 
@@ -17,98 +18,97 @@ function saveOrderToLocalStorage() {
   localStorage.setItem("orders", JSON.stringify(orders));
 }
 
-await loadProductFetch();
 // loadProductsFromBackend(loadOrderPage);
 
-let orderProducts = [];
-
-export async function loadOrderPage() {
+async function loadOrderPage() {
+  await loadProductFetch();
   let orderHtml = ``;
+
+  console.log(orders.length);
 
   orders.forEach((order) => {
     const orderTime = dayjs(order.orderTime).format("MMMM D");
     const orderTotal = order.totalCostCents;
     const orderId = order.id;
+    // const { orderDate, orderTotal, orderId, } = order;
+    // console.log(orderDate)
+    // console.log(orderId)
+    // console.log(orderTotal)
 
-    orderProducts = order.products;
-
-    orderHtml += `<div class="order-header-left-section">
-                        <div class="order-date">
-                            <div class="order-header-label">Order Placed:</div>
-                            <div>${orderTime}</div>
-                        </div>
-                        <div class="order-total">
-                            <div class="order-header-label">Total:</div>
-                            <div>$${currencyFormatter(orderTotal)}</div>
-                        </div>
-                    </div>
-
-                    <div class="order-header-right-section">
-                        <div class="order-header-label">Order ID:</div>
-                        <div>${orderId}</div>
-                        </div>
-                        ${generateOrderGridHtml(orderProducts)}
-                    `;
-    // console.log(orderHtml);
-    return orderHtml;
+    orderHtml = ` <div class="order-container">
+        <div class="order-header">
+          <div class="order-header-left-section">
+            <div class="order-date">
+              <div class="order-header-label">Order Placed:</div>
+              <div>${orderTime}</div>
+            </div>
+            <div class="order-total">
+              <div class="order-header-label">Total:</div>
+              <div>$${currencyFormatter(orderTotal)}</div>
+            </div>
+          </div>
+          <div class="order-header-right-section">
+            <div class="order-header-label">Order ID:</div>
+            <div>${orderId}</div>
+          </div>
+        </div>
+        <div class="order-details-grid">
+         ${generateOrderGridHtml(order)}
+        </div>
+      </div>`;
   });
+
+  document.querySelector(".js-order-grid").innerHTML = orderHtml;
 }
 
-loadOrderPage().then((data) => {
-  console.log(data);
-});
-console.log(document.querySelector(".main"));
-//document.querySelector(".main").innerHTML
+loadOrderPage();
 
-function generateOrderGridHtml(productDetails) {
-  let orderDetailHthml = "";
-  productDetails.forEach((product) => {
-    let getProd = getProduct(product.productId);
+function generateOrderGridHtml(order) {
+  let orderGridHtml = "";
+  let product;
 
-    const quantity = product.quantity;
-    const estimatedDeliveryTime = dayjs(product.estimatedDeliveryTime).format(
-      "MMMM D"
-    );
+  order.products.forEach((productDetails) => {
+    product = getProduct(productDetails.productId);
 
-    const { id, image, name, priceCents } = getProd;
-    //image
-    //name
-    //estimed deli time
-    //quantity
-    orderDetailHthml += `
-                <div class="order-details-grid">
-                    <div class="product-image-container">
-                        <img src="${image}">
-                    </div>
+    // const quantity = productDetails.quantity;
+    // const estimatedDeliveryTime = dayjs(
+    //   productDetails.estimatedDeliveryTime
+    // ).format("MMMM D");
 
-                    <div class="product-details">
-                        <div class="product-name">
-                           ${name}
-                        </div>
-                        <div class="product-delivery-date">
-                            Arriving on: ${estimatedDeliveryTime}
-                        </div>
-                        <div class="product-quantity">
-                            Quantity: ${quantity}
-                        </div>
-                        <button class="buy-again-button button-primary">
-                            <img class="buy-again-icon" src="images/icons/buy-again.png">
-                            <span class="buy-again-message">Buy it again</span>
-                        </button>
-                    </div>
+    const { quantity, estimatedDeliveryTime } = productDetails;
+    const { id, image, name } = product;
 
-                    <div class="product-actions">
-                         <a href="tracking.html"> 
-                            <button class="track-package-button button-secondary js-track-package-btn">
-                                Track package
-                            </button>
-                        </a> 
-                    </div>
-
-                </div>`;
-    //console.log(orderDetailHthml);
-    return orderDetailHthml;
+    orderGridHtml += `
+          <div class="product-image-container">
+              <img src="${image}">
+          </div>
+          <div class="product-details">
+              <div class="product-name">
+                ${name}
+              </div>
+              <div class="product-delivery-date">
+                Arriving on: ${dayjs(estimatedDeliveryTime).format("MMM D")}
+              </div>
+                <div class="product-quantity">
+                  Quantity: ${quantity}
+                </div>
+              <button class="buy-again-button button-primary">
+                  <img class="buy-again-icon" src="images/icons/buy-again.png">
+                  <span class="buy-again-message">Buy it again</span>
+              </button>
+          </div>
+          <div class="product-actions">
+              <a href="tracking.html">
+                  <button class="track-package-button button-secondary js-track-package-btn">
+                      Track package
+                  </button>
+              </a>
+          </div>
+          `;
   });
+
+  //document.querySelector(".js-order-grid").innerHTML = orderGridHtml;
+  return orderGridHtml;
 }
 
 // document.querySelectorAll(".js-track-package-btn").forEach((btn) => {
