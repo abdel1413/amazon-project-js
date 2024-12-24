@@ -1,4 +1,5 @@
-import { getProduct, loadProductFecth } from "./products.js";
+import { getProduct, Product } from "./products.js";
+
 export async function generateTrack(id, item) {
   let product = getProduct(id);
 
@@ -44,7 +45,6 @@ export async function generateTrack(id, item) {
 
   main.innerHTML = html;
 
-  console.log(main);
   //   console.log("trachking", window.location.href);
   //   const body = document.getElementsByTagName("body")[0];
   //   body.innerHTML = html;

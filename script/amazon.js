@@ -130,6 +130,7 @@ function renderProducts() {
       //update the shopping cart with newly selected item numb
       updateShoppingCart();
       //calculateItemQuantity();
+      document.querySelector("cart.quantity").innerHTML = 0;
     });
   });
 }

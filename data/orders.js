@@ -5,7 +5,6 @@ import { loadProductFetch, loadProductsFromBackend } from "./products.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 import { currencyFormatter } from "../script/sharedScripts/currencyFormatter.js";
 import { cart } from "./Cart-class.js";
-console.log(cart);
 
 export let orders = JSON.parse(localStorage.getItem("orders")) || [];
 
@@ -24,8 +23,6 @@ async function loadOrderPage() {
   await loadProductFetch();
   let orderHtml = ``;
 
-  console.log(orders.length);
-
   orders.forEach((order) => {
     const orderTime = dayjs(order.orderTime).format("MMMM D");
     const orderTotal = order.totalCostCents;
@@ -35,7 +32,7 @@ async function loadOrderPage() {
     // console.log(orderId)
     // console.log(orderTotal)
 
-    orderHtml = ` <div class="order-container">
+    orderHtml = ` <div class="order-container ">
         <div class="order-header">
           <div class="order-header-left-section">
             <div class="order-date">
@@ -59,15 +56,21 @@ async function loadOrderPage() {
   });
 
   document.querySelector(".js-order-grid").innerHTML = orderHtml;
+  generateTracking(".js-track-package-btn");
+  console.log(document.querySelectorAll(".js-track-package-btn"));
 }
 
 loadOrderPage();
 
 function generateOrderGridHtml(order) {
+  let total = 0;
   let orderGridHtml = "";
   let product;
 
   order.products.forEach((productDetails) => {
+    total += productDetails.quantity;
+
+    document.querySelector(".cart-quantity").innerHTML = total;
     product = getProduct(productDetails.productId);
 
     // const quantity = productDetails.quantity;
@@ -79,7 +82,7 @@ function generateOrderGridHtml(order) {
     const { id, image, name } = product;
 
     orderGridHtml += `
-          <div class="product-image-container">
+          <div class="product-image-container " data-product=${id}>
               <img src="${image}">
           </div>
           <div class="product-details">
@@ -97,30 +100,37 @@ function generateOrderGridHtml(order) {
                   <span class="buy-again-message">Buy it again</span>
               </button>
           </div>
-          <div class="product-actions">
-              <a href="tracking.html">
-                  <button class="track-package-button button-secondary js-track-package-btn">
+          <div class="product-actions track-package-${id}">
+             
+                  <button class="track-package-button
+                  button-secondary js-track-package-btn"
+                   data-product-id=${id} >
                       Track package
                   </button>
-              </a>
+              
           </div>
           `;
   });
 
-  //document.querySelector(".js-order-grid").innerHTML = orderGridHtml;
   return orderGridHtml;
 }
 
-// document.querySelectorAll(".js-track-package-btn").forEach((btn) => {
-//   btn.addEventListener("click", () => {
-//     let url = new URL(window.location.href);
-//     console.log("url", url.href);
-//     console.log(window.location.href);
-//     console.log(product);
+function generateTracking(name) {
+  console.log("name", typeof name);
+  document.querySelectorAll(name).forEach((btn) => {
+    btn.addEventListener("click", () => {
+      let url = new URL(window.location.href);
+      console.log("url", url.href);
 
-//     // window.location.href = "tracking.html";
-//   });
-// });
+      let productId = btn.dataset.productId;
+      console.log(productId);
+      let product = getProduct(productId);
+      console.log("product", product);
+
+      // window.location.href = "tracking.html";
+    });
+  });
+}
 
 //PRACTICE
 const greeting = () => {
