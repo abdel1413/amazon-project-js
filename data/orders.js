@@ -50,14 +50,14 @@ async function loadOrderPage() {
           </div>
         </div>
         <div class="order-details-grid">
+
          ${generateOrderGridHtml(order)}
         </div>
       </div>`;
   });
 
   document.querySelector(".js-order-grid").innerHTML = orderHtml;
-  generateTracking(".js-track-package-btn");
-  console.log(document.querySelectorAll(".js-track-package-btn"));
+  //generateTracking(".js-track-package-btn");
 }
 
 loadOrderPage();
@@ -79,15 +79,16 @@ function generateOrderGridHtml(order) {
     // ).format("MMMM D");
 
     const { quantity, estimatedDeliveryTime } = productDetails;
-    const { id, image, name } = product;
+    // const { id, image, name } = product;
 
     orderGridHtml += `
-          <div class="product-image-container " data-product=${id}>
-              <img src="${image}">
+         
+          <div class="product-image-container " data-product=${product.id}>
+              <img src="${product.image}">
           </div>
           <div class="product-details">
               <div class="product-name">
-                ${name}
+                ${product.name}
               </div>
               <div class="product-delivery-date">
                 Arriving on: ${dayjs(estimatedDeliveryTime).format("MMM D")}
@@ -100,15 +101,18 @@ function generateOrderGridHtml(order) {
                   <span class="buy-again-message">Buy it again</span>
               </button>
           </div>
-          <div class="product-actions track-package-${id}">
-             
+          <div class="product-actions track-package-${product.id}">
+                  <a href="tracking.html?orderId=${order.id}&productId=${
+      product.id
+    }">
                   <button class="track-package-button
                   button-secondary js-track-package-btn"
-                   data-product-id=${id} >
+                   data-product-id=${product.id}>
                       Track package
                   </button>
-              
+               </a>
           </div>
+         
           `;
   });
 
@@ -116,7 +120,6 @@ function generateOrderGridHtml(order) {
 }
 
 function generateTracking(name) {
-  console.log("name", typeof name);
   document.querySelectorAll(name).forEach((btn) => {
     btn.addEventListener("click", () => {
       let url = new URL(window.location.href);
@@ -125,12 +128,25 @@ function generateTracking(name) {
       let productId = btn.dataset.productId;
       console.log(productId);
       let product = getProduct(productId);
-      console.log("product", product);
+      console.log("product", product.name);
+      console.log("product", product.image);
 
       // window.location.href = "tracking.html";
     });
   });
 }
+
+//get a specific order from all the orders
+export const getOrder = (orderId) => {
+  let matchingOrder;
+  orders.forEach((order) => {
+    if (order.id == orderId) {
+      matchingOrder = order;
+    }
+  });
+
+  return matchingOrder;
+};
 
 //PRACTICE
 const greeting = () => {

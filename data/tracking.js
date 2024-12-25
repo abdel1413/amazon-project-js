@@ -1,12 +1,28 @@
-import { getProduct, Product } from "./products.js";
+import { getOrder } from "./orders.js";
+import { getProduct, loadProductFetch } from "./products.js";
+import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 
-export async function generateTrack(id, item) {
-  let product = getProduct(id);
-
-  const { productId, name, image } = product;
-  //console.log((window.location.href = "tracking.html"));
+export async function generateTracker() {
+  await loadProductFetch();
 
   const main = document.querySelector(".main");
+  let url = new URL(window.location.href);
+
+  let orderId = url.searchParams.get("orderId");
+
+  let productId = url.searchParams.get("productId");
+
+  let product = getProduct(productId);
+
+  let order = getOrder(orderId);
+
+  let foundProduct;
+  order.products.forEach((element) => {
+    if (element.productId === product.id) foundProduct = element;
+  });
+
+  const { quantity, estimatedDeliveryTime } = foundProduct;
+  const { image, name, id } = product;
 
   const html = `
         <div class="order-tracking">
@@ -15,15 +31,15 @@ export async function generateTrack(id, item) {
             </a>
                <div class="js-product-details" id="js-product-details">
                     <div class="delivery-date">
-                    Arriving on Monday, June 13
+                    Arriving on ${dayjs(estimatedDeliveryTime).format("MMMM D")}
                    </div>
                     <div class="product-info">
                         ${name}
                     </div>
                     <div class="product-info">
-                        Quantity: ${item.quantity}
+                        Quantity: ${quantity}
                     </div>
-                   <img class="product-image" src="${image}"> 
+                   <img class="product-image" src="${image}">
                </div>
             <div class="progress-labels-container">
                 <div class="progress-label">
@@ -36,7 +52,7 @@ export async function generateTrack(id, item) {
                     Delivered
                 </div>
             </div>
-    
+
             <div class="progress-bar-container">
                 <div class="progress-bar"></div>
             </div>
@@ -44,24 +60,9 @@ export async function generateTrack(id, item) {
     `;
 
   main.innerHTML = html;
-
-  //   console.log("trachking", window.location.href);
-  //   const body = document.getElementsByTagName("body")[0];
-  //   body.innerHTML = html;
-
-  //   let del = document.querySelector(".delivery-date");
-  //   del.style.color = "red";
-  //   let img = document.querySelector(".product-image");
-  //   img.style.height = "150px";
-
-  //   console.log("bod", body);
-
-  //   generateTrack(id, item);
-  //   main.innerHTML = html;
-  //document.querySelector(".main").innerHTML = html;
-
-  // window.location.href = "tracking.html";
 }
+
+generateTracker();
 
 async function greeting() {
   const resp = await fetch("https://supersimplebackend.dev/greeting");
