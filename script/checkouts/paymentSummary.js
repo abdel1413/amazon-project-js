@@ -73,12 +73,13 @@ export function renderPaymentSummary() {
           headers: {
             "Content-Type": "application/json",
           },
+
           body: JSON.stringify({
             cart: cart,
           }),
         });
-
         const order = await response.json();
+        console.log("or", order);
 
         addOrder(order);
 
@@ -87,4 +88,8 @@ export function renderPaymentSummary() {
         console.log("An error occured.", error);
       }
     });
+
+  //will rivew this part
+  // localStorage.removeItem("cart-class");
+  // localStorage.removeItem("orders");
 }
