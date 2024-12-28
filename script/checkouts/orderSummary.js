@@ -183,6 +183,7 @@ export const renderOrderSummary = () => {
       productId = link.dataset.productId;
 
       cart.cartItemRemover(productId);
+      //cart.filterCart(productId);
 
       //after item's been removed from cart, update the html
       // 1 get element to remvoe from dom

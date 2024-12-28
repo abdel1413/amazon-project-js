@@ -92,42 +92,39 @@ function generateOrderGridHtml(order) {
     // const { id, image, name } = product;
 
     orderGridHtml += `
-          <div class="product-image-container"
-          data-product=${product.id}>
-              <img src="${product.image}">
+        <div class="product-image-container"
+        data-product=${product.id}>
+            <img src="${product.image}">
+        </div>
+        <div class="product-details">
+          <div class="product-name">
+            ${product.name}
           </div>
-          <div class="product-details">
-              <div class="product-name">
-                ${product.name}
-              </div>
-              <div class="product-delivery-date">
-                Arriving on: ${dayjs(estimatedDeliveryTime).format("MMM D")}
-              </div>
-                <div class="product-quantity">
-                  Quantity: ${quantity}
-                </div>
-              <button class="buy-again-button button-primary js-buy-again-btn"
-               data-product-id="${product.id}">
-                  <img class="buy-again-icon" src="images/icons/buy-again.png">
-                  <span class="buy-again-message">Buy it again</span>
-              </button>
+          <div class="product-delivery-date">
+            Arriving on: ${dayjs(estimatedDeliveryTime).format("MMM D")}
           </div>
-          <div class="product-actions track-package-${product.id}">
-              <a href="tracking.html?orderId=${order.id}&productId=${
-      product.id
-    }">
-            <button class="track-package-button
-              button-secondary js-track-package-btn"
-              data-product-id=${product.id}>
-                Track package
-            </button>
-           </a>
-         </div>
-          `;
+            <div class="product-quantity">
+              Quantity: ${quantity}
+            </div>
+          <button class="buy-again-button button-primary js-buy-again-btn"
+            data-product-id="${product.id}">
+              <img class="buy-again-icon" src="images/icons/buy-again.png">
+              <span class="buy-again-message">Buy it again</span>
+          </button>
+        </div>
+        <div class="product-actions track-package-${product.id}">
+          <a href="tracking.html?orderId=${order.id}&productId=${product.id}">
+          <button class="track-package-button
+            button-secondary js-track-package-btn"
+            data-product-id=${product.id}>
+              Track package
+          </button>
+          </a>
+        </div>
+        `;
   });
 
   const updataShopingCartValue = cart.updateShoppingCart();
-  console.log("ship", updataShopingCartValue);
   document.querySelector(".cart-quantity").innerHTML = updataShopingCartValue;
 
   return orderGridHtml;

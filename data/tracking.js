@@ -6,15 +6,14 @@ export async function generateTracker() {
   await loadProductFetch();
 
   const main = document.querySelector(".main");
-  let url = new URL(window.location.href);
 
-  let orderId = url.searchParams.get("orderId");
+  const url = new URL(window.location.href);
 
-  let productId = url.searchParams.get("productId");
+  const orderId = url.searchParams.get("orderId");
+  const productId = url.searchParams.get("productId");
 
-  let product = getProduct(productId);
-
-  let order = getOrder(orderId);
+  const order = getOrder(orderId);
+  const product = getProduct(productId);
 
   let foundProduct;
   order.products.forEach((element) => {

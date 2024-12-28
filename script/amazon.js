@@ -9,9 +9,8 @@ import {
 //import { loadProductFecth, products } from "../data/products.js";
 //import { currencyFormatter } from "./sharedScripts/currencyFormatter.js";
 
-//loadProductFetch();
-
-loadProductsFromBackend(renderProducts);
+await loadProductFetch();
+//loadProductsFromBackend(renderProducts);
 
 //Hard code for test;
 /*let data = [
@@ -104,13 +103,12 @@ function renderProducts() {
     //   totalItem += Number(item.quantity);
     // });
     // //console.log(totalItem);
-    cart.cartItems.forEach((item) => {
-      totalItem += item.quantity;
-    });
-    let cartQuantity = document.querySelector(".cart-quantity");
-
-    cartQuantity.innerHTML = totalItem;
-    //cartQuantity.innerHTML = calculateItemQuantity();
+    if (cart.cartItems) {
+      cart.cartItems.forEach((item) => {
+        totalItem += item.quantity;
+      });
+    }
+    document.querySelector(".cart-quantity").innerHTML = totalItem || 0;
   };
 
   //call update function so it display items number in the cart
@@ -124,13 +122,12 @@ function renderProducts() {
       productId = btn.dataset.productId;
       //cart.push({ productDescription, quantity: 1 });
 
-      //addToCart(productId);
       cart.addToCart(productId);
-
+      //addToCart(productId);
       //update the shopping cart with newly selected item numb
       updateShoppingCart();
       //calculateItemQuantity();
-      document.querySelector("cart.quantity").innerHTML = 0;
+      //document.querySelector("cart.quantity").innerHTML = 0;
     });
   });
 }

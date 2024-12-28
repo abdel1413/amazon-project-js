@@ -8,21 +8,27 @@ export default class Cart {
   }
 
   #loadFromStorage() {
-    this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey));
+    this.cartItems =
+      JSON.parse(localStorage.getItem(this.#localStorageKey)) || [];
+
+    // I) reformate
+    // if (!this.cartItems) {
+    //   this.cartItems = [
+    //     {
+    //       productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
+    //       quantity: 2,
+    //       deliveryOptionId: "1",
+    //     },
+    //     {
+    //       productId: "15b6fc6f-327a-4ec4-896f-486349e85a3d",
+    //       quantity: 1,
+    //       deliveryOptionId: "2",
+    //     },
+    //   ];
+    // }
 
     if (!this.cartItems) {
-      this.cartItems = [
-        {
-          productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
-          quantity: 2,
-          deliveryOptionId: "1",
-        },
-        {
-          productId: "15b6fc6f-327a-4ec4-896f-486349e85a3d",
-          quantity: 1,
-          deliveryOptionId: "2",
-        },
-      ];
+      this.cartItems.push();
     }
   }
 
@@ -32,11 +38,13 @@ export default class Cart {
 
   addToCart(productId) {
     let matchingItem;
-    this.cartItems.forEach((item) => {
-      if (item.productId == productId) {
-        matchingItem = item;
-      }
-    });
+    if (this.cartItems) {
+      this.cartItems.forEach((item) => {
+        if (item.productId == productId) {
+          matchingItem = item;
+        }
+      });
+    }
 
     if (matchingItem) {
       matchingItem.quantity += 1;
@@ -47,6 +55,7 @@ export default class Cart {
         deliveryOptionId: "1",
       });
     }
+
     this.saveToLocalStorage();
   }
 
@@ -58,6 +67,15 @@ export default class Cart {
       }
     });
     this.cartItems = newCart;
+    this.saveToLocalStorage();
+  }
+
+  filterCart(id) {
+    this.cartItems.filter((item) => {
+      console.log("items", item.productId);
+      console.log("id", id);
+      return item.productId !== id;
+    });
     this.saveToLocalStorage();
   }
 
