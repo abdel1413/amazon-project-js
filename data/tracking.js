@@ -24,13 +24,9 @@ export async function generateTracker() {
   const currentTime = dayjs();
   const orderTime = dayjs(order.orderTime);
   const deliveryTime = dayjs(foundProduct.estimatedDeliveryTime);
-  console.log("current", currentTime);
-  console.log("oder time", orderTime);
-  console.log("deliv", deliveryTime);
+
   let progressPercentage =
     ((currentTime - orderTime) / (deliveryTime - orderTime)) * 100;
-
-  console.log("progress", progressPercentage);
 
   const { quantity, estimatedDeliveryTime } = foundProduct;
   const { image, name, id } = product;

@@ -49,7 +49,18 @@ function renderProducts() {
   let productHtml = ``;
   // const htmlGenerator = (product) => {
 
-  products.forEach((element) => {
+  let filteredProducts = products;
+  let url = new URL(window.location.href);
+  const searchParams = url.searchParams.get("search");
+
+  if (searchParams) {
+    filteredProducts = filteredProducts.filter((product) => {
+      return product.name.includes(searchParams);
+    });
+    console.log(filteredProducts);
+  }
+
+  filteredProducts.forEach((element) => {
     productHtml += `<div class="products-container">
                 <div class="products-img">
                         <img src= ${element.image} alt="" class="product-img">
@@ -87,12 +98,29 @@ function renderProducts() {
                   </button>
             </div>
         </div>
-      
     `;
   });
+
   // };
 
   // htmlGenerator(products);
+
+  // document.querySelector(".js-search-btn").addEventListener("click", () => {
+  //   const url = window.location.href;
+  //   const inputValue = document.querySelector(".js-input-el").value;
+  //   const path = `${url}?search=${inputValue}`;
+
+  //   let newUrl = new URL(path);
+  //   console.log(newUrl);
+  //   const param = newUrl.searchParams.get("search");
+
+  //   if (path.includes("search")) {
+  //     products.filter((product) => {
+  //       return product.name === param;
+  //     });
+
+  //   }
+  // });
 
   document.querySelector(".products-grid").innerHTML = productHtml;
 
@@ -129,6 +157,12 @@ function renderProducts() {
       //calculateItemQuantity();
       //document.querySelector("cart.quantity").innerHTML = 0;
     });
+  });
+
+  document.querySelector(".js-search-btn").addEventListener("click", () => {
+    const inputValue = document.querySelector(".js-input-el").value;
+    window.location.href = `amazon.html?search=${inputValue}`;
+    inputValue = "";
   });
 }
 
