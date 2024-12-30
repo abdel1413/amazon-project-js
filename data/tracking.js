@@ -1,4 +1,4 @@
-import { getOrder } from "./orders.js";
+import { getOrder, orders } from "./orders.js";
 import { getProduct, loadProductFetch } from "./products.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 
@@ -6,6 +6,7 @@ export async function generateTracker() {
   await loadProductFetch();
 
   const main = document.querySelector(".main");
+  const trackingElement = document.querySelector(".js-order-tracking");
 
   const url = new URL(window.location.href);
 
@@ -19,6 +20,17 @@ export async function generateTracker() {
   order.products.forEach((element) => {
     if (element.productId === product.id) foundProduct = element;
   });
+
+  const currentTime = dayjs();
+  const orderTime = dayjs(order.orderTime);
+  const deliveryTime = dayjs(foundProduct.estimatedDeliveryTime);
+  console.log("current", currentTime);
+  console.log("oder time", orderTime);
+  console.log("deliv", deliveryTime);
+  let progressPercentage =
+    ((currentTime - orderTime) / (deliveryTime - orderTime)) * 100;
+
+  console.log("progress", progressPercentage);
 
   const { quantity, estimatedDeliveryTime } = foundProduct;
   const { image, name, id } = product;
@@ -41,24 +53,33 @@ export async function generateTracker() {
                    <img class="product-image" src="${image}">
                </div>
             <div class="progress-labels-container">
-                <div class="progress-label">
+                <div class="progress-label ${
+                  progressPercentage < 50 ? "current-status" : ""
+                }" >
                     Preparing
                 </div>
-                <div class="progress-label current-status">
+                <div class="progress-label ${
+                  progressPercentage >= 50 && progressPercentage < 100
+                    ? "current-status"
+                    : ""
+                }">
                     Shipped
                 </div>
-                <div class="progress-label">
+                <div class="progress-label ${
+                  progressPercentage >= 100 ? "current-status" : ""
+                }">
                     Delivered
                 </div>
             </div>
 
             <div class="progress-bar-container">
-                <div class="progress-bar"></div>
+                <div class="progress-bar" style="width:${progressPercentage}%;"></div>
             </div>
         </div
     `;
 
-  main.innerHTML = html;
+  //main.innerHTML = html;
+  trackingElement.innerHTML = html;
 }
 
 generateTracker();

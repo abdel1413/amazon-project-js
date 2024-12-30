@@ -19,8 +19,6 @@ function saveOrderToLocalStorage() {
 
 // loadProductsFromBackend(loadOrderPage);
 
-//console.log(document.querySelector(".cart-quantity"));
-
 async function loadOrderPage() {
   await loadProductFetch();
   let orderHtml = ``;
@@ -30,6 +28,8 @@ async function loadOrderPage() {
     const orderTotal = order.totalCostCents;
     const orderId = order.id;
     // const { orderDate, orderTotal, orderId, } = order;
+    // const v = generateOrderGridHtml(order);
+    // console.log(v);
 
     orderHtml = `<div class="order-container">
         <div class="order-header">
@@ -49,7 +49,6 @@ async function loadOrderPage() {
           </div>
         </div>
         <div class="order-details-grid">
-
          ${generateOrderGridHtml(order)}
         </div>
       </div>`;
@@ -78,17 +77,17 @@ async function loadOrderPage() {
 loadOrderPage();
 
 function generateOrderGridHtml(order) {
-  let total = 0;
   let orderGridHtml = "";
-  let product;
 
+  //WILL COME BACK TO FIND OUT WHY ALL THE ORDERS DOMT DISPLAY
   order.products.forEach((productDetails) => {
+    let product;
     //total += productDetails.quantity;
     // console.log(document.querySelector(".cart-quantity"));
 
     product = getProduct(productDetails.productId);
 
-    const { quantity, estimatedDeliveryTime } = productDetails;
+    //const { quantity, estimatedDeliveryTime } = productDetails;
     // const { id, image, name } = product;
 
     orderGridHtml += `
@@ -101,10 +100,12 @@ function generateOrderGridHtml(order) {
             ${product.name}
           </div>
           <div class="product-delivery-date">
-            Arriving on: ${dayjs(estimatedDeliveryTime).format("MMM D")}
+            Arriving on: ${dayjs(productDetails.estimatedDeliveryTime).format(
+              "ddd MMMM D"
+            )}
           </div>
             <div class="product-quantity">
-              Quantity: ${quantity}
+              Quantity: ${productDetails.quantity}
             </div>
           <button class="buy-again-button button-primary js-buy-again-btn"
             data-product-id="${product.id}">

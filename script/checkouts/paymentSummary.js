@@ -65,15 +65,8 @@ export function renderPaymentSummary() {
 
   document.querySelector(".js-payment-summary").innerHTML = paymentSummaryHtml;
 
-  const ext = JSON.parse(localStorage.getItem("orders"));
-
-  localStorage.removeItem(ext);
-  const clasV = JSON.parse(localStorage.getItem("cart-class"));
-  localStorage.removeItem(clasV);
-  localStorage.removeItem("orders");
   document
     .querySelector(".js-place-order")
-
     .addEventListener("click", async () => {
       try {
         const response = await fetch("https://supersimplebackend.dev/orders", {
@@ -88,25 +81,15 @@ export function renderPaymentSummary() {
         });
 
         const order = await response.json();
-
-        let orderValues = JSON.parse(localStorage.getItem("orders"));
-
-        const cartClassValues = JSON.parse(localStorage.getItem("cart-class"));
-
-        if (orderValues || cartClassValues) {
-          localStorage.removeItem(orderValues);
-          localStorage.removeItem("cart-class");
-          //renderPaymentSummary();
-        }
         addOrder(order);
         window.location.href = "orders.html";
       } catch (error) {
         console.log("An error occured.", error);
       }
-
-      // localStorage.removeItem("cart-class");
-      // cart.updateShoppingCart() = 0
     });
-}
 
-localStorage.removeItem("orders");
+  const cartClassValues = JSON.parse(localStorage.getItem("cart-class"));
+  if (cartClassValues) {
+    localStorage.removeItem("cart-class");
+  }
+}
