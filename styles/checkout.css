@@ -297,6 +297,12 @@ input[type="radio"] {
     border-radius: 10px;
   }
 }
+@media (max-width: 1200px) {
+  .product-image {
+    height: 100px;
+    width: 150px;
+  }
+}
 @media (max-width: 1194px) {
   .product-image {
     height: 170px;

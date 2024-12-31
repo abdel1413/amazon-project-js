@@ -81,15 +81,16 @@ export function renderPaymentSummary() {
         });
 
         const order = await response.json();
+
         addOrder(order);
         window.location.href = "orders.html";
       } catch (error) {
         console.log("An error occured.", error);
       }
-    });
 
-  const cartClassValues = JSON.parse(localStorage.getItem("cart-class"));
-  if (cartClassValues) {
-    localStorage.removeItem("cart-class");
-  }
+      const cartClassValues = JSON.parse(localStorage.getItem("cart-class"));
+      if (cartClassValues) {
+        localStorage.removeItem("cart-class");
+      }
+    });
 }

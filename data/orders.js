@@ -31,7 +31,8 @@ async function loadOrderPage() {
     // const v = generateOrderGridHtml(order);
     // console.log(v);
 
-    orderHtml = `<div class="order-container">
+    orderHtml += `
+         <div class="order-container">
         <div class="order-header">
           <div class="order-header-left-section">
             <div class="order-date">
@@ -48,19 +49,19 @@ async function loadOrderPage() {
             <div>${orderId}</div>
           </div>
         </div>
-        <div class="order-details-grid">
+        <div class="order-details-grid js-order-details-grid">
          ${generateOrderGridHtml(order)}
         </div>
       </div>`;
   });
-
   document.querySelector(".js-order-grid").innerHTML = orderHtml;
-  //generateTracking(".js-track-package-btn");
+
+  const updataShopingCartValue = cart.updateShoppingCart();
+  document.querySelector(".cart-quantity").innerHTML = updataShopingCartValue;
 
   document.querySelectorAll(".js-buy-again-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
       let productId = btn.dataset.productId;
-
       cart.addToCart(productId);
       cart.saveToLocalStorage();
       btn.innerHTML = "Added";
@@ -82,30 +83,27 @@ function generateOrderGridHtml(order) {
   //WILL COME BACK TO FIND OUT WHY ALL THE ORDERS DOMT DISPLAY
   order.products.forEach((productDetails) => {
     let product;
-    //total += productDetails.quantity;
-    // console.log(document.querySelector(".cart-quantity"));
+
+    const { estimatedDeliveryTime, quantity } = productDetails;
 
     product = getProduct(productDetails.productId);
 
-    //const { quantity, estimatedDeliveryTime } = productDetails;
-    // const { id, image, name } = product;
+    const { id, image, name } = product;
 
     orderGridHtml += `
         <div class="product-image-container"
-        data-product=${product.id}>
-            <img src="${product.image}">
+        data-product=${id}>
+            <img src="${image}">
         </div>
         <div class="product-details">
           <div class="product-name">
-            ${product.name}
+            ${name}
           </div>
           <div class="product-delivery-date">
-            Arriving on: ${dayjs(productDetails.estimatedDeliveryTime).format(
-              "ddd MMMM D"
-            )}
+            Arriving on: ${dayjs(estimatedDeliveryTime).format("ddd MMMM D")}
           </div>
             <div class="product-quantity">
-              Quantity: ${productDetails.quantity}
+              Quantity: ${quantity}
             </div>
           <button class="buy-again-button button-primary js-buy-again-btn"
             data-product-id="${product.id}">
@@ -124,9 +122,6 @@ function generateOrderGridHtml(order) {
         </div>
         `;
   });
-
-  const updataShopingCartValue = cart.updateShoppingCart();
-  document.querySelector(".cart-quantity").innerHTML = updataShopingCartValue;
 
   return orderGridHtml;
 }
