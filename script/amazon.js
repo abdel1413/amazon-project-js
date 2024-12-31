@@ -50,6 +50,7 @@ function renderProducts() {
   // const htmlGenerator = (product) => {
 
   let filteredProducts = products;
+
   let url = new URL(window.location.href);
   let searchParams = url.searchParams.get("search");
 
@@ -60,6 +61,7 @@ function renderProducts() {
       product.keywords.forEach((key) => {
         if (key.toLocaleLowerCase().includes(searchParams)) {
           matchingKey = true;
+          return key.toLocaleLowerCase().includes(searchParams);
         }
       });
 
@@ -173,8 +175,16 @@ function renderProducts() {
   document.querySelector(".js-search-btn").addEventListener("click", () => {
     const inputValue = document.querySelector(".js-input-el").value;
     window.location.href = `amazon.html?search=${inputValue}`;
-    inputValue = "";
+    document.querySelector(".js-input-el").value = "";
   });
 }
+document.addEventListener("keydown", (event) => {
+  if (event.key == "Enter") {
+    console.log(event.key);
+    const input = document.querySelector(".js-input-el").value;
+    window.location.href = `amazon.html?search=${input}`;
+    document.querySelector(".js-input-el").value = "";
+  }
+});
 
 renderProducts();
