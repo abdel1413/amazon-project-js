@@ -51,11 +51,21 @@ function renderProducts() {
 
   let filteredProducts = products;
   let url = new URL(window.location.href);
-  const searchParams = url.searchParams.get("search");
+  let searchParams = url.searchParams.get("search");
 
   if (searchParams) {
+    searchParams = searchParams.toLocaleLowerCase();
+    let matchingKey = false;
     filteredProducts = filteredProducts.filter((product) => {
-      return product.name.includes(searchParams);
+      product.keywords.forEach((key) => {
+        if (key.toLocaleLowerCase().includes(searchParams)) {
+          matchingKey = true;
+        }
+      });
+
+      return (
+        matchingKey || product.name.toLocaleLowerCase().includes(searchParams)
+      );
     });
     console.log(filteredProducts);
   }
@@ -159,6 +169,7 @@ function renderProducts() {
     });
   });
 
+  //dipplay  some specific element based on the user search
   document.querySelector(".js-search-btn").addEventListener("click", () => {
     const inputValue = document.querySelector(".js-input-el").value;
     window.location.href = `amazon.html?search=${inputValue}`;

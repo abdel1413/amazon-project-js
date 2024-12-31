@@ -8,12 +8,14 @@ export class Product {
   name;
   rating;
   priceCents;
+  keywords;
   constructor(productDetails) {
     this.id = productDetails.id;
     this.image = productDetails.image;
     this.name = productDetails.name;
     this.rating = productDetails.rating;
     this.priceCents = productDetails.priceCents;
+    this.keywords = productDetails.keywords;
   }
 
   getStarUrl() {
@@ -102,6 +104,8 @@ asyncLoadProductFetch().then((data) => {
   });
   console.log("asyn product ");
 });
+
+console.log(products);
 
 export function loadProductFetch() {
   const promise = fetch("https://supersimplebackend.dev/products")
