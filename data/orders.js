@@ -4,7 +4,7 @@ import { getProduct, products } from "./products.js";
 import { loadProductFetch, loadProductsFromBackend } from "./products.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 import { currencyFormatter } from "../script/sharedScripts/currencyFormatter.js";
-import { cart } from "./Cart-class.js";
+import { cart } from "./Cart_class.js";
 
 export let orders = JSON.parse(localStorage.getItem("orders")) || [];
 
