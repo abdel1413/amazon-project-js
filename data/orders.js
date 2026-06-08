@@ -81,7 +81,8 @@ function generateOrderGridHtml(order) {
   let orderGridHtml = "";
 
   //WILL COME BACK TO FIND OUT WHY ALL THE ORDERS DOMT DISPLAY
-  order.products.forEach((productDetails) => {
+  console.log("order in generateOrderGridHtml", order);
+  order.products?.forEach((productDetails) => {
     let product;
 
     const { estimatedDeliveryTime, quantity } = productDetails;
