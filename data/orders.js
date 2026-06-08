@@ -19,6 +19,7 @@ function saveOrderToLocalStorage() {
 
 // loadProductsFromBackend(loadOrderPage);
 
+const orderGrid = document.querySelector(".js-order-grid");
 async function loadOrderPage() {
   await loadProductFetch();
   let orderHtml = ``;
@@ -54,9 +55,16 @@ async function loadOrderPage() {
         </div>
       </div>`;
   });
-  document.querySelector(".js-order-grid").innerHTML = orderHtml;
 
+
+ //const orderGrid = document.querySelector(".js-order-grid");
+
+  //document.querySelector(".js-order-grid").innerHTML = orderHtml;
+  if(orderGrid) { 
+    orderGrid.innerHTML = orderHtml; 
+  }
   const updataShopingCartValue = cart.updateShoppingCart();
+
   document.querySelector(".cart-quantity").innerHTML = updataShopingCartValue;
 
   document.querySelectorAll(".js-buy-again-btn").forEach((btn) => {
@@ -75,13 +83,14 @@ async function loadOrderPage() {
   });
 }
 
+if(orderGrid) {  
 loadOrderPage();
+}
 
 function generateOrderGridHtml(order) {
   let orderGridHtml = "";
 
-  //WILL COME BACK TO FIND OUT WHY ALL THE ORDERS DOMT DISPLAY
-  console.log("order in generateOrderGridHtml", order);
+  
   order.products?.forEach((productDetails) => {
     let product;
 
@@ -133,7 +142,7 @@ function generateTracking(name) {
       let url = new URL(window.location.href);
       let productId = btn.dataset.productId;
       let product = getProduct(productId);
-      // window.location.href = "tracking.html";
+       window.location.href = "tracking.html";
     });
   });
 }
@@ -150,76 +159,77 @@ export const getOrder = (orderId) => {
 };
 
 //PRACTICE
-async function postGreeting() {
-  try {
-    const response = await fetch("https://supersimplebackend.dev/greeting", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: "Tchakoura Aboulaye",
-      }),
-    });
+// async function postGreeting() {
+//   try {
+//     const response = await fetch("https://supersimplebackend.dev/greeting", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({
+//         name: "Tchakoura Aboulaye",
+//       }),
+//     });
 
-    const data = await response.text();
-    return data;
-  } catch (e) {
-    console.log("An error occured", e);
-  }
-}
+//     const data = await response.text();
+//     return data;
+//   } catch (e) {
+//     console.log("An error occured", e);
+//   }
+// }
 
-postGreeting().then((r) => console.log("posted data: ", r));
+// //postGreeting().then((r) => console.log("posted data: ", r));
 
-async function greetingAsync() {
-  const promise = await fetch("https://supersimplebackend.dev/greeting").then(
-    (response) => {
-      return response.text();
-    }
-  );
-  return promise;
-}
+// async function greetingAsync() {
+//   const promise = await fetch("https://supersimplebackend.dev/greeting").then(
+//     (response) => {
+//       return response.text();
+//     }
+//   );
+//   return promise;
+// }
 
-greetingAsync().then((data) => {
-  console.log("async fetched data: ", data);
-});
+// greetingAsync().then((data) => {
+//   console.log("async fetched data: ", data);
+// });
 
-function getErrorFetch() {
-  try {
-    fetch("https://amazon.com")
-      .then((response) => {
-        return response.json();
-      })
-      .then((r) => {
-        console.log(r);
-      });
-  } catch (er) {
-    console.log("CORS error, Your request was blocked by the backend");
-  }
-}
+// function getErrorFetch() {
+//   try {
+//     fetch("https://amazon.com")
+//       .then((response) => {
+//         return response.json();
+//       })
+//       .then((r) => {
+//         console.log(r);
+//       });
+//   } catch (er) {
+//     console.log("CORS error, Your request was blocked by the backend");
+//   }
+// }
 
-//getErrorFetch();
+// //getErrorFetch();
 
-const greetingFetch = () => {
-  let promise = fetch("https://supersimplebackend.dev/greeting").then(
-    (response) => {
-      return response.text();
-    }
-  );
-  return promise;
-};
-greetingFetch().then((d) => {
-  console.log("fetched data:", d);
-});
+// const greetingFetch = () => {
+//   let promise = fetch("https://supersimplebackend.dev/greeting").then(
+//     (response) => {
+//       return response.text();
+//     }
+//   );
+//   return promise;
+// };
 
-const greeting = () => {
-  let xml = new XMLHttpRequest();
+// greetingFetch().then((d) => {
+//   console.log("fetched data:", d);
+// });
 
-  xml.addEventListener("load", () => {
-    console.log(xml.response);
-  });
-  xml.open("GET", "https://supersimplebackend.dev/greeting");
-  xml.send();
-};
+// const greeting = () => {
+//   let xml = new XMLHttpRequest();
+
+//   xml.addEventListener("load", () => {
+//     console.log(xml.response);
+//   });
+//   xml.open("GET", "https://supersimplebackend.dev/greeting");
+//   xml.send();
+// };
 
 //greeting();
