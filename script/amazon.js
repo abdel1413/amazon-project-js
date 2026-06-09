@@ -12,38 +12,7 @@ import {
 await loadProductFetch();
 //loadProductsFromBackend(renderProducts);
 
-//Hard code for test;
-/*let data = [
-  {
-    image: "./images/products/black-2-slot-toaster.jpg",
-    name: "black and White",
-    rating: {
-      stars: 4.5,
-      count: 87,
-    },
-    priceInCents: 1090,
-  },
-  {
-    image: "/images/products/intermediate-composite-basketball.jpg",
-    name: "intermediate size basketball",
-    rating: {
-      stars: 4.5,
-      count: 127,
-    },
-    priceInCents: 2099,
-  },
-  {
-    image: "/images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg",
-    name: "Adults Plain Cotton Tshirt-2 Pack",
-    rating: {
-      stars: 4.5,
-      count: 56,
-    },
-    priceInCents: 799,
-  },
-];
 
-*/
 
 function renderProducts() {
   let productHtml = ``;
