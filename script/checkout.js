@@ -28,8 +28,6 @@ import { deliveryOptions } from "../data/deliveryOptions.js";
 // import { loadProductsFromBackend } from "../data/products.js";
 // import '../data/cart-class.js';
 
-// import { Cart } from "../data/cart-class.js";
-
 //NOTE: use async function over Promise and Callbacks
 //as it  returns promise and is shorter and makes
 //code clear and easy to read.
