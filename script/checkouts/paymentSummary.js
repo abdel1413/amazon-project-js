@@ -1,6 +1,6 @@
 //import { cart, updateShoppingCart } from "../../data/cart.js";
 // import "../../data/cart.js";
-import { cart } from "../../data/Cart-class.js";
+import { cart } from "../../data/cart_class.js";
 import { updateShoppingCart } from "../../data/cart.js";
 import { getDeliveryOption } from "../../data/deliveryOptions.js";
 import { addOrder } from "../../data/orders.js";

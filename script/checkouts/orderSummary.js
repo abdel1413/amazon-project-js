@@ -10,7 +10,7 @@ import {
   loadProductsFromBackend,
   products,
 } from "../../data/products.js";
-import { cart } from "../../data/Cart-class.js";
+import { cart } from "../../data/cart_class.js";
 import { currencyFormatter } from "../sharedScripts/currencyFormatter.js";
 import {
   deliveryOptions,
