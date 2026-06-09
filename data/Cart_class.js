@@ -123,7 +123,6 @@ export const cart = new Cart("cart-class");
 
 export const bcart = new Cart("besiness-cart");
 
-// cart.loadFromStorage();
 // //cart.addToCart("83d4ca15-0f35-48f5-b7a3-1ea210004f2e");
 // bcart.loadFromStorage();
 
